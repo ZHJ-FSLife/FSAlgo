@@ -1,1 +1,1 @@
-# Fuck Shit Algorithm
+# fucking shit algorithm
