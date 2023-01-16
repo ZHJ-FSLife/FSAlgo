@@ -120,17 +120,16 @@ public abstract class AbstractGraph<N> implements Graph<N>, Serializable {
      * @return 边
      */
     @Override
-    public Set<Edge<N>> getEdge(N source, N target) {
+    public Edge<N> getEdge(N source, N target) {
         if (!graphMap.containsKey(source)) {
             return null;
         }
-        Set<Edge<N>> edges = new HashSet<>();
         for (Edge<N> edge : graphMap.get(source)) {
             if (edge.getTarget() == target) {
-                edges.add(edge);
+                return edge;
             }
         }
-        return edges;
+        return null;
     }
 
     @Override

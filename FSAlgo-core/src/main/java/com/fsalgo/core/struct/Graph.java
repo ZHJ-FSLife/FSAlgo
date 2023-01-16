@@ -74,7 +74,7 @@ public interface Graph<N> {
      * @param target 目标节点
      * @return 边
      */
-    Set<Edge<N>> getEdge(N source, N target);
+    Edge<N> getEdge(N source, N target);
 
     /**
      * 获取图中所有的边
