@@ -1,7 +1,10 @@
 package com.fsalgo.core.interfaces;
 
 
-import com.fsalgo.core.struct.GraphPath;
+import com.fsalgo.core.struct.Edge;
+// import com.fsalgo.core.struct.GraphPath;
+
+import java.util.List;
 
 /**
  * @Author: root
@@ -34,6 +37,33 @@ public interface ShortestPathAlgorithm<N> {
      */
     interface SingleSourcePaths<N> {
 
+    }
+
+    interface GraphPath<N> {
+        List<N> getNodes();
+
+        List<Edge<N>> getEdges();
+    }
+
+    class GraphPathImpl<N> implements GraphPath<N> {
+
+        private List<N> nodes;
+        private List<Edge<N>> edges;
+
+        public GraphPathImpl(List<N> nodes, List<Edge<N>> edges) {
+            this.nodes = nodes;
+            this.edges = edges;
+        }
+
+        @Override
+        public List<N> getNodes() {
+            return nodes;
+        }
+
+        @Override
+        public List<Edge<N>> getEdges() {
+            return edges;
+        }
     }
 
 }

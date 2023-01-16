@@ -143,7 +143,9 @@ public class GraphTest {
 
         ShortestPathAlgorithm<String> dijkstra = new DijkstraShortestPath<String>(graph) {
         };
-        dijkstra.getPath(n0, n4);
+        ShortestPathAlgorithm.GraphPath paths = dijkstra.getPath(n0, n4);
+        System.out.println(paths.getNodes());
+        System.out.println(paths.getEdges());
     }
 
     @Test

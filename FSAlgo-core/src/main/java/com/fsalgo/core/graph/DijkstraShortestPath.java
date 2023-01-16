@@ -3,15 +3,11 @@ package com.fsalgo.core.graph;
 import com.fsalgo.core.interfaces.ShortestPathAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
-import com.fsalgo.core.struct.GraphPath;
 import com.fsalgo.core.tree.FibonacciHeap;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: root
@@ -26,6 +22,8 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
 
     private boolean[] visited;
 
+    private Graph<N> graph;
+
     private Map<N, Set<Edge<N>>> graphMap;
 
     private Map<N, Integer> nodeIndexMap;
@@ -33,11 +31,13 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
     private Class<N> clazz;
 
     public DijkstraShortestPath(Class<N> clazz, Graph<N> graph) {
+        this.graph = graph;
         this.clazz = clazz;
         init(graph);
     }
 
     public DijkstraShortestPath(Graph<N> graph) {
+        this.graph = graph;
         this.clazz = (Class<N>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         init(graph);
     }
@@ -102,18 +102,21 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
             }
         }
 
+        Deque<Edge<N>> edges = new LinkedList<>();
         N current = target;
-        List<N> path = new LinkedList<>();
+        Deque<N> path = new LinkedList<>();
         while (current != source) {
             int currIndex = nodeIndexMap.get(current);
-            path.add(current);
+            path.addFirst(current);
+            edges.addFirst(graph.getEdge(parents[currIndex], current));
             current = parents[currIndex];
         }
-        path.add(current);
+        path.addFirst(current);
 
-        System.out.println(path);
+        // System.out.println(path);
+        // System.out.println(edges);
 
-        return null;
+        return new GraphPathImpl<>((List) path, (List) edges);
     }
 
     @Override
