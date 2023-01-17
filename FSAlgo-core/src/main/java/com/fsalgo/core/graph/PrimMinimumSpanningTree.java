@@ -47,6 +47,7 @@ public class PrimMinimumSpanningTree<N extends Comparable<N>> implements Spannin
 
         // 使用斐波那契堆进行优化，相对于PriorityQueue，时间复杂度从 O(logN) 优化到 O(1)
         FibonacciHeap<N> heap = new FibonacciHeap<N>() {
+            @Override
             public boolean compareTo(N n1, N n2) {
                 return Double.compare(distance[nodeIndexMap.get(n1)], distance[nodeIndexMap.get(n2)]) < 0;
             }

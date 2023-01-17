@@ -67,6 +67,7 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
         }
 
         FibonacciHeap<N> heap = new FibonacciHeap<N>() {
+            @Override
             public boolean compareTo(N n1, N n2) {
                 return Double.compare(distance[nodeIndexMap.get(n1)], distance[nodeIndexMap.get(n2)]) < 0;
             }
