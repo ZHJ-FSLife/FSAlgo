@@ -3,7 +3,7 @@ package com.fsalgo.core.graph;
 import com.fsalgo.core.interfaces.ShortestPathAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
-import com.fsalgo.core.tree.FibonacciHeap;
+import com.fsalgo.core.tree.heap.impl.FibonacciHeap;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;

@@ -1,4 +1,6 @@
-package com.fsalgo.core.tree;
+package com.fsalgo.core.tree.heap.impl;
+
+import com.fsalgo.core.tree.heap.Heap;
 
 import java.util.NoSuchElementException;
 
@@ -16,7 +18,7 @@ import java.util.NoSuchElementException;
  * remove -> O(logN)
  * decreaseKey -> O(1)
  */
-public class FibonacciHeap<T extends Comparable<T>> {
+public class FibonacciHeap<T extends Comparable<T>> implements Heap<T> {
 
     private static final double GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 
@@ -31,6 +33,7 @@ public class FibonacciHeap<T extends Comparable<T>> {
      *
      * @param key 节点元素
      */
+    @Override
     public void add(T key) {
         if (key == null) {
             throw new IllegalArgumentException("the node cannot be empty!");
@@ -64,6 +67,7 @@ public class FibonacciHeap<T extends Comparable<T>> {
      *
      * @return 最小根节点
      */
+    @Override
     public T remove() {
         if (isEmpty()) {
             throw new NoSuchElementException();
@@ -155,6 +159,7 @@ public class FibonacciHeap<T extends Comparable<T>> {
      *
      * @return 最小根节点
      */
+    @Override
     public T peek() {
         if (isEmpty()) {
             throw new NoSuchElementException();
@@ -218,11 +223,17 @@ public class FibonacciHeap<T extends Comparable<T>> {
         x.left = y;
     }
 
+    @Override
+    public int size() {
+        return size;
+    }
+
     /**
      * 判断当前堆中节点是否为空
      *
      * @return true or false
      */
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
@@ -232,6 +243,7 @@ public class FibonacciHeap<T extends Comparable<T>> {
      *
      * @return true or false
      */
+    @Override
     public boolean compareTo(T x, T y) {
         return x.compareTo(y) < 0;
     }

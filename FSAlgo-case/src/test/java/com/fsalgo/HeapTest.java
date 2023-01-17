@@ -1,7 +1,8 @@
 package com.fsalgo;
 
-import com.fsalgo.core.tree.BinaryHeap;
-import com.fsalgo.core.tree.FibonacciHeap;
+import com.fsalgo.core.tree.heap.Heap;
+import com.fsalgo.core.tree.heap.impl.BinaryHeap;
+import com.fsalgo.core.tree.heap.impl.FibonacciHeap;
 import org.junit.Test;
 
 /**
@@ -14,7 +15,7 @@ public class HeapTest {
     @Test
     public void FibonacciHeapDemo() {
         int[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
-        FibonacciHeap<Integer> heap = new FibonacciHeap<Integer>() {
+        Heap<Integer> heap = new FibonacciHeap<Integer>() {
             // 重写该方法，小顶堆换成大顶堆
             @Override
             public boolean compareTo(Integer o1, Integer o2) {
@@ -40,7 +41,7 @@ public class HeapTest {
     public void BinaryHeapDemo() {
         int[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
 
-        BinaryHeap<Integer> heap = new BinaryHeap<>() {
+        Heap<Integer> heap = new BinaryHeap<>() {
             @Override
             public boolean compareTo(Integer o1, Integer o2) {
                 return o1.compareTo(o2) > 0;

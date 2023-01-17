@@ -1,4 +1,6 @@
-package com.fsalgo.core.tree;
+package com.fsalgo.core.tree.heap.impl;
+
+import com.fsalgo.core.tree.heap.Heap;
 
 import java.util.ArrayList;
 
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  * @Description: 二叉堆、优先队列
  * java自带类库有现成的，java.util.PriorityQueue
  */
-public class BinaryHeap<T extends Comparable<T>> {
+public class BinaryHeap<T extends Comparable<T>> implements Heap<T> {
 
     /**
      * 存放堆节点
@@ -22,6 +24,7 @@ public class BinaryHeap<T extends Comparable<T>> {
     /**
      * 当前堆大小
      */
+    @Override
     public int size() {
         return queue.size();
     }
@@ -29,6 +32,7 @@ public class BinaryHeap<T extends Comparable<T>> {
     /**
      * 当前堆是都为空
      */
+    @Override
     public boolean isEmpty() {
         return queue.size() == 0;
     }
@@ -41,6 +45,7 @@ public class BinaryHeap<T extends Comparable<T>> {
     /**
      * 获取堆顶元素
      */
+    @Override
     public T peek() {
         return queue.get(0);
     }
@@ -50,6 +55,7 @@ public class BinaryHeap<T extends Comparable<T>> {
      *
      * @param val 新节点元素
      */
+    @Override
     public void add(T val) {
         queue.add(val);
         if (size() <= 1) {
@@ -75,6 +81,7 @@ public class BinaryHeap<T extends Comparable<T>> {
      *
      * @return 堆顶最值
      */
+    @Override
     public T remove() {
         if (size() == 0) {
             return null;
@@ -111,6 +118,7 @@ public class BinaryHeap<T extends Comparable<T>> {
     /**
      * 比较堆中元素的大小
      */
+    @Override
     public boolean compareTo(T x, T y) {
         return x.compareTo(y) < 0;
     }
