@@ -7,6 +7,8 @@ package com.fsalgo.core.tree;
  */
 public class HuffmanTree<T extends Comparable<T>> {
 
+	private final static int LEFT = 0;
 
+	private final static int RIGHt = 1;
 
 }
