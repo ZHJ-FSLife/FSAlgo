@@ -1,8 +1,6 @@
 package com.fsalgo;
 
 import com.fsalgo.core.graph.*;
-import com.fsalgo.core.tree.*;
-import com.fsalgo.core.interfaces.*;
 import com.fsalgo.core.struct.*;
 import com.fsalgo.core.struct.specific.*;
 
