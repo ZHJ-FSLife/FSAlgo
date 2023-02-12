@@ -79,11 +79,13 @@ public class PrimMinimumSpanningTree<N extends Comparable<N>> implements Spannin
                 N next = edge.getTarget();
                 int nextIndex = nodeIndexMap.get(next);
 
-                if (incomingEdge[nextIndex] == null || edge.getWeight() < incomingEdge[nextIndex].getWeight()) {
-                    incomingEdge[nextIndex] = edge;
-                    if (!visited[nextIndex]) {
-                        heap.add(next);
-                    }
+                if (incomingEdge[nextIndex] != null && edge.getWeight() > incomingEdge[nextIndex].getWeight()) {
+                    continue;
+                }
+
+                incomingEdge[nextIndex] = edge;
+                if (!visited[nextIndex]) {
+                    heap.add(next);
                 }
             }
         }
