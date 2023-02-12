@@ -1,6 +1,7 @@
 package com.fsalgo.core.struct;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @Author: root
@@ -54,6 +55,25 @@ public class Edge<N> implements Serializable {
 
     public double getWeight() {
         return weight;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(source, target, weight);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Edge<N> edge = (Edge<N>) obj;
+        return Objects.equals(source, edge.getSource()) && Objects.equals(target, edge.getTarget()) && (weight == edge.getWeight());
     }
 
     @Override

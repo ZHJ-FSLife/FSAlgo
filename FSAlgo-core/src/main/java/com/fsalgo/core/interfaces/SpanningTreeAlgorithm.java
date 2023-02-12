@@ -21,8 +21,18 @@ public interface SpanningTreeAlgorithm<N> {
      */
     interface SpanningTree<N> {
 
+        /**
+         * 获取权重值
+         *
+         * @return 权重值
+         */
         double getWeight();
 
+        /**
+         * 获取边集合
+         *
+         * @return 边集合
+         */
         Set<Edge<N>> getEdges();
     }
 

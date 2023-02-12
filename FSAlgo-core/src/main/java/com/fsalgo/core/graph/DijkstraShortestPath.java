@@ -3,10 +3,9 @@ package com.fsalgo.core.graph;
 import com.fsalgo.core.interfaces.ShortestPathAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
+import com.fsalgo.core.tree.heap.Heap;
 import com.fsalgo.core.tree.heap.impl.FibonacciHeap;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.ParameterizedType;
 import java.util.*;
 
 /**
@@ -16,39 +15,22 @@ import java.util.*;
  */
 public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPathAlgorithm<N> {
 
-    private N[] parents;
+    private final Edge<N>[] incomingEdge;
 
-    private double[] distance;
+    private final double[] distance;
 
-    private boolean[] visited;
+    private final boolean[] visited;
 
-    private Graph<N> graph;
+    private final Map<N, Set<Edge<N>>> graphMap;
 
-    private Map<N, Set<Edge<N>>> graphMap;
-
-    private Map<N, Integer> nodeIndexMap;
-
-    private Class<N> clazz;
-
-    public DijkstraShortestPath(Class<N> clazz, Graph<N> graph) {
-        this.graph = graph;
-        this.clazz = clazz;
-        init(graph);
-    }
+    private final Map<N, Integer> nodeIndexMap;
 
     public DijkstraShortestPath(Graph<N> graph) {
-        this.graph = graph;
-        this.clazz = (Class<N>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        init(graph);
-    }
-
-    private void init( Graph<N> graph) {
         graphMap = graph.getGraphMap();
         this.nodeIndexMap = graph.getNodeIndexMap();
-        this.parents = (N[]) Array.newInstance(this.clazz, graphMap.size());
+        this.incomingEdge = new Edge[graphMap.size()];
         this.visited = new boolean[graphMap.size()];
         this.distance = new double[graphMap.size()];
-        // Arrays.fill(distance, Double.POSITIVE_INFINITY);
     }
 
     @Override
@@ -66,7 +48,7 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
             return null;
         }
 
-        FibonacciHeap<N> heap = new FibonacciHeap<N>() {
+        Heap<N> heap = new FibonacciHeap<>() {
             @Override
             public boolean compareTo(N n1, N n2) {
                 return Double.compare(distance[nodeIndexMap.get(n1)], distance[nodeIndexMap.get(n2)]) < 0;
@@ -75,7 +57,7 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
 
         int sourceIndex = nodeIndexMap.get(source);
         visited[sourceIndex] = true;
-        parents[sourceIndex] = source;
+        incomingEdge[sourceIndex] = null;
 
         heap.add(source);
         while (!heap.isEmpty()) {
@@ -97,7 +79,7 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
                 }
                 if (distance[nextIndex] == 0 || distance[nextIndex] > distance[currIndex] + edge.getWeight()) {
                     distance[nextIndex] = distance[currIndex] + edge.getWeight();
-                    parents[nextIndex] = current;
+                    incomingEdge[nextIndex] = edge;
                 }
                 heap.add(next);
             }
@@ -109,13 +91,10 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
         while (current != source) {
             int currIndex = nodeIndexMap.get(current);
             path.addFirst(current);
-            edges.addFirst(graph.getEdge(parents[currIndex], current));
-            current = parents[currIndex];
+            edges.addFirst(incomingEdge[currIndex]);
+            current = incomingEdge[currIndex].getSource();
         }
         path.addFirst(current);
-
-        // System.out.println(path);
-        // System.out.println(edges);
 
         return new GraphPathImpl<>((List) path, (List) edges);
     }

@@ -7,4 +7,17 @@ package com.fsalgo.core.tree;
  */
 public class AvlTree<T extends Comparable<T>> {
 
+    private static final int MAX_HEIGHT_DIFFERENCE = 1;
+
+    static class Node<T> {
+        T key;
+        int height;
+        Node<T> left;
+        Node<T> right;
+
+        public Node(T key, int height) {
+            this.key = key;
+            this.height = height;
+        }
+    }
 }

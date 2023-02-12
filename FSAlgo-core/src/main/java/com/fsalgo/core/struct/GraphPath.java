@@ -7,14 +7,14 @@ import java.util.List;
  * @Date: 2022/12/28 22:49
  * @Description:
  */
-// public interface GraphPath<N> {
-//
-//     N getSource();
-//
-//     N getTarget();
-//
-//     List<N> getNodeList();
-//
-//     List<Edge<N>> getEdgeList();
-//
-// }
+public interface GraphPath<N> {
+
+    N getSource();
+
+    N getTarget();
+
+    List<N> getNodeList();
+
+    List<Edge<N>> getEdgeList();
+
+}
