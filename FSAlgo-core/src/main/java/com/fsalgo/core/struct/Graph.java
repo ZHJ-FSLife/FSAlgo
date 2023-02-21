@@ -1,86 +1,82 @@
 package com.fsalgo.core.struct;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
  * @Author: root
- * @Date: 2022/12/16 19:55
+ * @Date: 2023/2/19 1:55
  * @Description:
  */
-public interface Graph<N> {
+public interface Graph<N>{
 
     /**
-     * 默认边的权重值
+     * 添加结点
      */
-    double DEFAULT_EDGE_WEIGHT = 1.0;
-
-    GraphType getType();
-
-    /**
-     * 获取节点索引map
-     *
-     * @return 结果索引
-     */
-    Map<N, Integer> getNodeIndexMap();
-
-    /**
-     * 获取图map
-     *
-     * @return 图map
-     */
-    Map<N, Set<Edge<N>>> getGraphMap();
-
-    /**
-     * 添加节点
-     *
-     * @param n 节点
-     */
-    void addNode(N n);
-
-    /**
-     * 添加多个节点
-     *
-     * @param nodes 节点集
-     */
-    void addNodes(List<N> nodes);
-
-    /**
-     * 获取所有节点
-     *
-     * @return 节点
-     */
-    Set<N> getAllNode();
+    void addNode(N node);
 
     /**
      * 添加边
-     *
-     * @param edge 边
      */
-    boolean addEdge(Edge<N> edge);
+    void addEdge(Edge<N> edge);
 
     /**
-     * 添加多条边
-     *
-     * @param edges 边
+     * 添加边
      */
-    void addEdges(List<Edge<N>> edges);
+    void addEdge(N source, N target);
 
     /**
-     * 获取指定起始节点和目标节点之间的所有边
-     *
-     * @param source 起始节点
-     * @param target 目标节点
-     * @return 边
+     * 节点索引位置（需要注意可变图和不可变图的处理）
      */
-    Edge<N> getEdge(N source, N target);
+    int index(N node);
 
     /**
-     * 获取图中所有的边
-     *
-     * @return all edge in graph
+     * 获取图中节点的数量
      */
-    Set<Edge<N>> getAllEdge();
+    int nodeSize();
+
+    /**
+     * 获取图中边的数量
+     */
+    int edgeSize();
+
+    /**
+     * 图中所有的节点
+     */
+    Set<N> nodes();
+
+    /**
+     * 图中所有的边
+     */
+    Set<Edge<N>> edges();
+
+    /**
+     * 该节点相邻的所有节点
+     */
+    Set<N> adjacentNodes(N node);
+
+    /**
+     * 由相邻的边所指向该节点进来的节点
+     */
+    Set<N> incomingNodes(N node);
+
+    /**
+     * 该节点由相邻的边所指向出去的节点
+     */
+    Set<N> outgoingNodes(N node);
+
+    /**
+     * 与该节点相连进来的边
+     */
+    Set<Edge<N>> incomingEdges(N node);
+
+    /**
+     * 与该节点相连出去的边
+     */
+    Set<Edge<N>> outgoingEdges(N node);
+
+    /**
+     * 源节点与目标节点之间是否有一条边相连
+     */
+    boolean hasEdgeConnecting(N source, N target);
 
 }

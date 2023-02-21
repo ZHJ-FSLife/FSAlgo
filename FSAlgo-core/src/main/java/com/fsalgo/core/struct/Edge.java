@@ -16,7 +16,7 @@ public class Edge<N> implements Serializable {
 
     private N target;
 
-    private double weight = Graph.DEFAULT_EDGE_WEIGHT;
+    private double weight = 1.0;
 
     public Edge() {
 
@@ -72,7 +72,7 @@ public class Edge<N> implements Serializable {
             return false;
         }
 
-        Edge<N> edge = (Edge<N>) obj;
+        Edge<?> edge = (Edge<?>) obj;
         return Objects.equals(source, edge.getSource()) && Objects.equals(target, edge.getTarget()) && (weight == edge.getWeight());
     }
 

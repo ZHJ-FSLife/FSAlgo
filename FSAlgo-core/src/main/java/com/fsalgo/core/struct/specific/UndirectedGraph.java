@@ -1,38 +1,37 @@
 package com.fsalgo.core.struct.specific;
 
-import com.fsalgo.core.struct.AbstractGraph;
 import com.fsalgo.core.struct.Edge;
+import com.fsalgo.core.struct.AbstractBaseGraph;
 
 /**
  * @Author: root
- * @Date: 2022/12/21 20:23
+ * @Date: 2023/2/19 23:28
  * @Description:
  */
-public class UndirectedGraph<N> extends AbstractGraph<N> {
+public class UndirectedGraph<N> extends AbstractBaseGraph<N> {
 
-    private static final long serialVersionUID = 6418124617932136812L;
+    public UndirectedGraph() {
 
-    /**
-     * 构建邻接多重表来表示无向图
-     *
-     * @param edge 边
-     */
+    }
+
     @Override
-    public boolean addEdge(Edge<N> edge) {
+    public void addEdge(Edge<N> edge) {
+        N source = edge.getSource();
+        N target = edge.getTarget();
 
-        addNode(edge.getSource());
-        addNode(edge.getTarget());
+        addNode(source);
+        addNode(target);
 
-        if (!edgeSet.contains(edge)) {
-            edgeSet.add(edge);
-            graphMap.get(edge.getSource()).add(edge);
-        }
-        
-        Edge<N> reverseEdge = new Edge<>(edge.getTarget(), edge.getSource(), edge.getWeight());
-        if (!edgeSet.contains(reverseEdge)) {
-            edgeSet.add(reverseEdge);
-            graphMap.get(reverseEdge.getSource()).add(reverseEdge);
-        }
-        return true;
+        addEdgeContainer(source);
+        addEdgeContainer(target);
+
+        Edge<N> reverseEdge = new Edge<>(target, source, edge.getWeight());
+        edgeMap.get(source).setOutgoing(edge);
+        edgeMap.get(source).setIncoming(reverseEdge);
+        nodeMap.get(source).setAdjacent(target);
+
+        edgeMap.get(target).setIncoming(edge);
+        edgeMap.get(target).setOutgoing(reverseEdge);
+        nodeMap.get(target).setAdjacent(source);
     }
 }

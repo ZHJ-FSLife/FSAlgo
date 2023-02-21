@@ -23,16 +23,16 @@ public class KruskalMinimumSpanningTree<N> implements SpanningTreeAlgorithm<N> {
     @Override
     public SpanningTree<N> getSpanningTree() {
 
-        if (graph.getGraphMap().size() <= 1) {
+        if (graph.nodeSize() <= 1) {
             throw new IllegalArgumentException("there must be at least two nodes in the graph!");
         }
 
         double spanningTreeWeight = 0d;
         Set<Edge<N>> minimumSpanningTreeEdgeSet = new HashSet<>();
 
-        List<Edge<N>> edges = new ArrayList<>(graph.getAllEdge());
+        List<Edge<N>> edges = new ArrayList<>(graph.edges());
         edges.sort(Comparator.comparingDouble(Edge::getWeight));
-        UnionFind<N> unionFind = new UnionFind<>(graph.getAllNode());
+        UnionFind<N> unionFind = new UnionFind<>(graph.nodes());
 
         for (Edge<N> edge : edges) {
             N source = edge.getSource();

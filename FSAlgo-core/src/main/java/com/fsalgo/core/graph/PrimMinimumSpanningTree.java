@@ -3,6 +3,7 @@ package com.fsalgo.core.graph;
 import com.fsalgo.core.interfaces.SpanningTreeAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
+import com.fsalgo.core.struct.Graphs;
 import com.fsalgo.core.tree.heap.Heap;
 import com.fsalgo.core.tree.heap.impl.FibonacciHeap;
 
@@ -17,31 +18,30 @@ import java.util.Set;
  */
 public class PrimMinimumSpanningTree<N extends Comparable<N>> implements SpanningTreeAlgorithm<N> {
 
-    private final Edge<N>[] incomingEdge;
+    private final Graph<N> graph;
 
-    protected final boolean[] visited;
+    protected boolean[] visited;
 
-    /**
-     * 图，构建邻接表来表示有向图，存储节点与边之间的关系
-     */
-    protected final Map<N, Set<Edge<N>>> graphMap;
+    private Edge<N>[] incomingEdge;
 
-    /**
-     * 节点索引位置
-     */
-    protected final Map<N, Integer> nodeIndexMap;
+    private Map<N, Integer> indexs;
+
 
     public PrimMinimumSpanningTree(Graph<N> graph) {
-        this.graphMap = graph.getGraphMap();
-        this.nodeIndexMap = graph.getNodeIndexMap();
-        this.incomingEdge = new Edge[graphMap.size()];
-        this.visited = new boolean[graphMap.size()];
+        this.graph = graph;
+        initContainer();
+    }
+
+    private void initContainer() {
+        this.incomingEdge = new Edge[graph.nodeSize()];
+        this.visited = new boolean[graph.nodeSize()];
+        this.indexs = Graphs.getNodeToIndexMapping(graph).getNodeMap();
     }
 
     @Override
     public SpanningTree<N> getSpanningTree() {
 
-        if (graphMap.size() <= 1) {
+        if (indexs.size() <= 1) {
             throw new IllegalArgumentException("there must be at least two nodes in the graph!");
         }
 
@@ -52,32 +52,32 @@ public class PrimMinimumSpanningTree<N extends Comparable<N>> implements Spannin
         Heap<N> heap = new FibonacciHeap<>() {
             @Override
             public boolean compareTo(N n1, N n2) {
-                int index1 = nodeIndexMap.get(n1);
-                int index2 = nodeIndexMap.get(n2);
+                int index1 = indexs.get(n1);
+                int index2 = indexs.get(n2);
                 return Double.compare(incomingEdge[index1].getWeight(), incomingEdge[index2].getWeight()) < 0;
             }
         };
 
-        heap.add(graphMap.entrySet().iterator().next().getKey());
+        heap.add(indexs.entrySet().iterator().next().getKey());
         while (!heap.isEmpty()) {
             N current = heap.remove();
 
-            int currIndex = nodeIndexMap.get(current);
+            int currIndex = indexs.get(current);
 
             if (!visited[currIndex] && incomingEdge[currIndex] != null) {
                 minimumSpanningTreeEdgeSet.add(incomingEdge[currIndex]);
                 spanningTreeWeight += incomingEdge[currIndex].getWeight();
             }
 
-            if (minimumSpanningTreeEdgeSet.size() >= graphMap.size() - 1) {
+            if (minimumSpanningTreeEdgeSet.size() >= indexs.size() - 1) {
                 return new SpanningTreeImpl<>(minimumSpanningTreeEdgeSet, spanningTreeWeight);
             }
 
             visited[currIndex] = true;
-            Set<Edge<N>> edges = graphMap.get(current);
+            Set<Edge<N>> edges = graph.outgoingEdges(current);
             for (Edge<N> edge : edges) {
                 N next = edge.getTarget();
-                int nextIndex = nodeIndexMap.get(next);
+                int nextIndex = indexs.get(next);
 
                 if (incomingEdge[nextIndex] != null && edge.getWeight() > incomingEdge[nextIndex].getWeight()) {
                     continue;

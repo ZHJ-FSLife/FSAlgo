@@ -3,6 +3,7 @@ package com.fsalgo.core.graph;
 import com.fsalgo.core.interfaces.ShortestPathAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
+import com.fsalgo.core.struct.Graphs;
 import com.fsalgo.core.tree.heap.Heap;
 import com.fsalgo.core.tree.heap.impl.FibonacciHeap;
 
@@ -10,37 +11,43 @@ import java.util.*;
 
 /**
  * @Author: root
- * @Date: 2022/12/21 20:03
- * @Description: 最短路径 - 迪杰斯特拉算法
+ * @Date: 2023/2/20 20:14
+ * @Description:
  */
 public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPathAlgorithm<N> {
 
-    private final Edge<N>[] incomingEdge;
+    private final Graph<N> graph;
 
-    private final double[] distance;
+    private Edge<N>[] incomingEdge;
 
-    private final boolean[] visited;
+    private double[] distance;
 
-    private final Map<N, Set<Edge<N>>> graphMap;
+    private boolean[] visited;
 
-    private final Map<N, Integer> nodeIndexMap;
+    private Map<N, Integer> indexs;
 
     public DijkstraShortestPath(Graph<N> graph) {
-        graphMap = graph.getGraphMap();
-        this.nodeIndexMap = graph.getNodeIndexMap();
-        this.incomingEdge = new Edge[graphMap.size()];
-        this.visited = new boolean[graphMap.size()];
-        this.distance = new double[graphMap.size()];
+        this.graph = graph;
+        initContainer();
+    }
+
+    private void initContainer() {
+        if (Objects.isNull(graph)) {
+            return;
+        }
+        this.distance = new double[graph.nodeSize()];
+        this.visited = new boolean[graph.nodeSize()];
+        this.incomingEdge = new Edge[graph.nodeSize()];
+        this.indexs = Graphs.getNodeToIndexMapping(graph).getNodeMap();
     }
 
     @Override
     public GraphPath<N> getPath(N source, N target) {
-
         if (source == null || target == null) {
             throw new IllegalArgumentException("the source node and target node cannot be empty!");
         }
 
-        if (!graphMap.containsKey(source) || !graphMap.containsKey(target)) {
+        if (indexs.size() <= 1 ||!indexs.containsKey(source) || !indexs.containsKey(target)) {
             throw new IllegalArgumentException("graph must contain the source node and target node!");
         }
 
@@ -51,11 +58,11 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
         Heap<N> heap = new FibonacciHeap<>() {
             @Override
             public boolean compareTo(N n1, N n2) {
-                return Double.compare(distance[nodeIndexMap.get(n1)], distance[nodeIndexMap.get(n2)]) < 0;
+                return Double.compare(distance[indexs.get(n1)], distance[indexs.get(n2)]) < 0;
             }
         };
 
-        int sourceIndex = nodeIndexMap.get(source);
+        int sourceIndex = indexs.get(source);
         visited[sourceIndex] = true;
         incomingEdge[sourceIndex] = null;
 
@@ -67,13 +74,13 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
                 break;
             }
 
-            int currIndex = nodeIndexMap.get(current);
-            Set<Edge<N>> edges = graphMap.get(current);
+            int currIndex = indexs.get(current);
+            Set<Edge<N>> edges = graph.outgoingEdges(current);
             visited[currIndex] = true;
 
             for (Edge<N> edge : edges) {
                 N next = edge.getTarget();
-                int nextIndex = nodeIndexMap.get(next);
+                int nextIndex = indexs.get(next);
                 if (visited[nextIndex]) {
                     continue;
                 }
@@ -83,13 +90,14 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
                 }
                 heap.add(next);
             }
+
         }
 
         Deque<Edge<N>> edges = new LinkedList<>();
         N current = target;
         Deque<N> path = new LinkedList<>();
         while (current != source) {
-            int currIndex = nodeIndexMap.get(current);
+            int currIndex = indexs.get(current);
             path.addFirst(current);
             edges.addFirst(incomingEdge[currIndex]);
             current = incomingEdge[currIndex].getSource();

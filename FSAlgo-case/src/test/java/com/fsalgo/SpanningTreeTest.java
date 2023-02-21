@@ -5,8 +5,8 @@ import com.fsalgo.core.graph.PrimMinimumSpanningTree;
 import com.fsalgo.core.interfaces.SpanningTreeAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
+import com.fsalgo.core.struct.builder.GraphBuilder;
 import com.fsalgo.core.struct.specific.DirectedGraph;
-import com.fsalgo.core.struct.specific.UndirectedGraph;
 import org.junit.Test;
 
 /**
@@ -47,7 +47,7 @@ public class SpanningTreeTest {
     @Test
     public void PrimDemo() {
         // 普里姆算法只适用于无向图
-        Graph<String> graph = new UndirectedGraph<>();
+        Graph<String> graph = GraphBuilder.<String>undirected().build();
 
         String A = "A";
         String B = "B";

@@ -1,8 +1,6 @@
 package com.fsalgo.core.interfaces;
 
-
 import com.fsalgo.core.struct.Edge;
-// import com.fsalgo.core.struct.GraphPath;
 
 import java.util.List;
 

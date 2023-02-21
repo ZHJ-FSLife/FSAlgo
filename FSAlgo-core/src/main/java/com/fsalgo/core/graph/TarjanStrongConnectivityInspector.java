@@ -2,6 +2,7 @@ package com.fsalgo.core.graph;
 
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
+import com.fsalgo.core.struct.Graphs;
 
 import java.util.*;
 
@@ -12,37 +13,37 @@ import java.util.*;
  */
 public class TarjanStrongConnectivityInspector<N> {
 
+    private final Graph<N> graph;
     /**
      * 节点被访问的最早时间
      */
-    private final int[] dfn;
+    private int[] dfn;
 
     /**
      * 节点通过有向图可连通/回溯的最早时间点
      */
-    private final int[] low;
+    private int[] low;
 
     /**
      * 节点访问标记
      */
-    private final boolean[] visited;
-
-    /**
-     * 图，构建邻接表来表示有向图，存储节点与边之间的关系
-     */
-    private final Map<N, Set<Edge<N>>> graphMap;
+    private boolean[] visited;
 
     /**
      * 节点索引位置
      */
-    private final Map<N, Integer> nodeIndexMap;
+    private Map<N, Integer> indexs;
 
     public TarjanStrongConnectivityInspector(Graph<N> graph) {
-        this.graphMap = graph.getGraphMap();
-        this.nodeIndexMap = graph.getNodeIndexMap();
-        this.dfn = new int[graphMap.size()];
-        this.low = new int[graphMap.size()];
-        this.visited = new boolean[graphMap.size()];
+        this.graph = graph;
+        initContainer();
+    }
+    
+    private void initContainer() {
+        this.dfn = new int[graph.nodeSize()];
+        this.low = new int[graph.nodeSize()];
+        this.visited = new boolean[graph.nodeSize()];
+        this.indexs = Graphs.getNodeToIndexMapping(graph).getNodeMap();
     }
 
     private int searchSort = 0;
@@ -81,8 +82,8 @@ public class TarjanStrongConnectivityInspector<N> {
      * 已被访问过 或 无下一节点 的节点均略过
      */
     public void searchGraph() {
-        for (N node : graphMap.keySet()) {
-            if (visited[nodeIndexMap.get(node)] || graphMap.get(node).size() == 0) {
+        for (N node : indexs.keySet()) {
+            if (visited[indexs.get(node)] || graph.outgoingEdges(node).size() == 0) {
                 continue;
             }
             searchSort = 1;
@@ -99,7 +100,7 @@ public class TarjanStrongConnectivityInspector<N> {
         if (root == null) {
             return;
         }
-        int index = nodeIndexMap.get(root);
+        int index = indexs.get(root);
         if (visited[index]) {
             return;
         }
@@ -108,17 +109,17 @@ public class TarjanStrongConnectivityInspector<N> {
         low[index] = searchSort++;
         stack.push(root);
 
-        if (graphMap.get(root).size() != 0) {
+        if (graph.outgoingEdges(root).size() != 0) {
 
-            isCutNodeByChildNum(index, graphMap.get(root).size(), root);
+            isCutNodeByChildNum(index, graph.outgoingEdges(root).size(), root);
 
             // 深度搜索当前节点与下一节点，记录可回溯访问的最早时间点
-            for (Edge<N> edge : graphMap.get(root)) {
+            for (Edge<N> edge : graph.outgoingEdges(root)) {
                 N child = edge.getTarget();
 
                 dfs(child);
 
-                int childIndex = nodeIndexMap.get(child);
+                int childIndex = indexs.get(child);
 
                 // 当前节点与下一子节点可回溯的最早时间点，取最小值
                 low[index] = Math.min(low[index], low[childIndex]);
@@ -179,7 +180,7 @@ public class TarjanStrongConnectivityInspector<N> {
     private void getConnSubGraph() {
         List<N> list = new LinkedList<>();
         while (!stack.isEmpty()) {
-            int nodeIndex = nodeIndexMap.get(stack.peek());
+            int nodeIndex = indexs.get(stack.peek());
             if (dfn[nodeIndex] == low[nodeIndex]) {
                 list.add(stack.pop());
                 break;

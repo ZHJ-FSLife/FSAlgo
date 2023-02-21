@@ -4,7 +4,7 @@ import com.fsalgo.core.graph.DijkstraShortestPath;
 import com.fsalgo.core.interfaces.ShortestPathAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
-import com.fsalgo.core.struct.specific.UndirectedGraph;
+import com.fsalgo.core.struct.builder.GraphBuilder;
 import org.junit.Test;
 
 /**
@@ -25,7 +25,7 @@ public class ShortestPathTest {
         String n6 = "n6";
         String n7 = "n7";
         String n8 = "n8";
-        Graph<String> graph = new UndirectedGraph<>();
+        Graph<String> graph = GraphBuilder.<String>undirected().build();
         graph.addEdge(new Edge<>(n0, n1, 4));
         graph.addEdge(new Edge<>(n0, n7, 8));
         graph.addEdge(new Edge<>(n1, n7, 11));

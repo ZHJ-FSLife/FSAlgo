@@ -2,6 +2,7 @@ package com.fsalgo;
 
 import com.fsalgo.core.graph.*;
 import com.fsalgo.core.struct.*;
+import com.fsalgo.core.struct.builder.GraphBuilder;
 import com.fsalgo.core.struct.specific.*;
 
 import org.junit.Test;
@@ -61,7 +62,6 @@ public class GraphTest {
 
     @Test
     public void graphTypeDemo() {
-        new DefaultGraphType.Builder().directed().weighted(true).build();
-        GraphTypeBuilder.<String>mixed().weighted(true).buildGraph();
+        GraphBuilder.<String>mixed().weighted(true).build();
     }
 }
