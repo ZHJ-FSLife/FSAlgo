@@ -5,6 +5,8 @@ import com.fsalgo.core.struct.*;
 import com.fsalgo.core.struct.builder.GraphBuilder;
 import com.fsalgo.core.struct.specific.*;
 
+import java.util.Set;
+
 import org.junit.Test;
 
 /**
@@ -39,11 +41,27 @@ public class GraphTest {
     }
 
     @Test
-    public void undirectedGraphDemo() {
-        Graph<String> graph = new UndirectedGraph<>();
+    public void DirectedGraphTest() {
+
+        Graph<String> graph = GraphBuilder.<String>directed().build();
         addNodeToGraph(graph);
 
         System.out.println(graph);
+        Set<Edge<String>> outgoingEdges = graph.outgoingEdges(n1);
+        System.out.println(outgoingEdges);
+
+    }
+
+    @Test
+    public void UndirectedGraphTest() {
+        Graph<String> graph = GraphBuilder.<String>undirected().build();
+        graph.addEdge(new Edge<>(n1, n5));
+        addNodeToGraph(graph);
+
+        System.out.println(graph);
+        Set<Edge<String>> outgoingEdges = graph.outgoingEdges(n5);
+        System.out.println(outgoingEdges);
+
     }
 
     private void addNodeToGraph(Graph<String> graph) {
