@@ -27,7 +27,7 @@ public class GraphTest {
     String n9 = "n9";
 
     @Test
-    public void tarjanDemo() {
+    public void TarjanDemo() {
 
         Graph<String> graph = new DirectedGraph<>();
         addNodeToGraph(graph);
@@ -41,7 +41,7 @@ public class GraphTest {
     }
 
     @Test
-    public void DirectedGraphTest() {
+    public void DirectedGraphDemo() {
 
         Graph<String> graph = GraphBuilder.<String>directed().build();
         addNodeToGraph(graph);
@@ -53,7 +53,7 @@ public class GraphTest {
     }
 
     @Test
-    public void UndirectedGraphTest() {
+    public void UndirectedGraphDemo() {
         Graph<String> graph = GraphBuilder.<String>undirected().build();
         graph.addEdge(new Edge<>(n1, n5));
         addNodeToGraph(graph);
