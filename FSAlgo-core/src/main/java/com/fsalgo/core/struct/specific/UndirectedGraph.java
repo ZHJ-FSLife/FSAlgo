@@ -14,6 +14,11 @@ public class UndirectedGraph<N> extends AbstractBaseGraph<N> {
 
     }
 
+    /**
+     * 添加边
+     *
+     * @param edge 边
+     */
     @Override
     public void addEdge(Edge<N> edge) {
         N source = edge.getSource();

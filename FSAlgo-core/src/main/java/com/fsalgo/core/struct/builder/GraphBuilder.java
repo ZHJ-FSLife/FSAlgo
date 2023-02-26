@@ -47,6 +47,9 @@ public final class GraphBuilder<N> {
     }
 
     public Graph<N> build() {
+        if (directed && undirected) {
+            return null;
+        }
         if (directed) {
             return new DirectedGraph<>();
         }
