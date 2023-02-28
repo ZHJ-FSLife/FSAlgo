@@ -40,10 +40,10 @@ public class TarjanStrongConnectivityInspector<N> {
     }
     
     private void initContainer() {
-        this.dfn = new int[graph.nodeSize()];
-        this.low = new int[graph.nodeSize()];
-        this.visited = new boolean[graph.nodeSize()];
         this.indexs = Graphs.getNodeToIndexMapping(graph).getNodeMap();
+        this.dfn = new int[indexs.size()];
+        this.low = new int[indexs.size()];
+        this.visited = new boolean[indexs.size()];
     }
 
     private int searchSort = 0;

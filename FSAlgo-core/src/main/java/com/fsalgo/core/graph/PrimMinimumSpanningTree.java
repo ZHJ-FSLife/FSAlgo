@@ -33,9 +33,9 @@ public class PrimMinimumSpanningTree<N extends Comparable<N>> implements Spannin
     }
 
     private void initContainer() {
-        this.incomingEdge = new Edge[graph.nodeSize()];
-        this.visited = new boolean[graph.nodeSize()];
         this.indexs = Graphs.getNodeToIndexMapping(graph).getNodeMap();
+        this.incomingEdge = new Edge[indexs.size()];
+        this.visited = new boolean[indexs.size()];
     }
 
     @Override

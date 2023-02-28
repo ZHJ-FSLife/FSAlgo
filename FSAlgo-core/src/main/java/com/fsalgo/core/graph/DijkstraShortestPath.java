@@ -35,10 +35,10 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
         if (Objects.isNull(graph)) {
             return;
         }
-        this.distance = new double[graph.nodeSize()];
-        this.visited = new boolean[graph.nodeSize()];
-        this.incomingEdge = new Edge[graph.nodeSize()];
         this.indexs = Graphs.getNodeToIndexMapping(graph).getNodeMap();
+        this.distance = new double[indexs.size()];
+        this.visited = new boolean[indexs.size()];
+        this.incomingEdge = new Edge[indexs.size()];
     }
 
     @Override

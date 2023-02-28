@@ -88,7 +88,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public int nodeSize() {
-        return nodes().size();
+        return nodeMap.size(); 
     }
 
     /**
