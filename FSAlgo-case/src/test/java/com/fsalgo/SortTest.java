@@ -38,7 +38,7 @@ public class SortTest {
         };
         // 非原地归并，开辟临时数组，空间复杂度O(n)
         Integer[] temp = new Integer[nums.length];
-        numSort.sort(nums, temp, 0, nums.length - 1);
+        numSort.sort(nums, temp);
         System.out.println(Arrays.toString(nums));
     }
 }

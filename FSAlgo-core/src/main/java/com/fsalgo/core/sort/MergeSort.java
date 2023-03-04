@@ -21,6 +21,13 @@ public class MergeSort<T extends Comparable<T>> {
 
     }
 
+    public void sort(T[] arr, T[] temp) {
+        if (arr == null || arr.length == 0) {
+            throw new IllegalArgumentException("array cannot be empty!");
+        }
+        sort(arr, temp, 0, arr.length - 1);
+    }
+
     /**
      * 非原地归并，空间复杂度O(n)
      */
