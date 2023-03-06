@@ -3,7 +3,7 @@ package com.fsalgo.core.sort;
 /**
  * @Author: root
  * @Date: 2023/3/4 17:49
- * @Description:
+ * @Description: 堆排序
  */
 public class HeapSort<T extends Comparable<T>> {
 

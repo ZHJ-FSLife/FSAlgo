@@ -3,7 +3,7 @@ package com.fsalgo.core.sort;
 /**
  * @Author: root
  * @Date: 2023/3/4 16:23
- * @Description:
+ * @Description: 归并排序
  */
 public class MergeSort<T extends Comparable<T>> {
 
