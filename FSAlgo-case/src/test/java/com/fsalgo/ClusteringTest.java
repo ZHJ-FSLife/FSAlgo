@@ -12,7 +12,7 @@ import java.util.List;
  * @Date: 2023/3/5 21:10
  * @Description:
  */
-public class clusteringTest {
+public class ClusteringTest {
 
     @Test
     public void KDTreeDemo() {

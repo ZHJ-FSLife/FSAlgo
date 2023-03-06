@@ -1,6 +1,7 @@
 package com.fsalgo;
 
 import com.fsalgo.core.tree.AvlTree;
+import com.fsalgo.core.tree.BinaryIndexedTree;
 import com.fsalgo.core.tree.HuffmanTree;
 import org.junit.Test;
 
@@ -67,5 +68,26 @@ public class TreeTest {
         for (int i = 0; i < content.length(); i++) {
             System.out.print(Integer.toBinaryString(content.getBytes()[i]));
         }
+    }
+
+    @Test
+    public void BinaryIndexedTree() {
+        double[] nums = {1, 2, 3, 4, 5, 6, 7, 8};
+        BinaryIndexedTree bit = new BinaryIndexedTree(nums);
+
+        System.out.println(Arrays.toString(nums));
+
+        bit.updateNodeVal(4, 6);
+        bit.updateNodeVal(0, 2);
+        bit.updateNodeVal(0, 9);
+        System.out.println(bit.sumRange(4, 4));
+        bit.updateNodeVal(3, 8);
+        System.out.println(bit.sumRange(0, 4));
+        bit.updateNodeVal(4, 1);
+        System.out.println(bit.sumRange(0, 3));
+        System.out.println(bit.sumRange(0, 4));
+
+        System.out.println(Arrays.toString(nums));
+
     }
 }
