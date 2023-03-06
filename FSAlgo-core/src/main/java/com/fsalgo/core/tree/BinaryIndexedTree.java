@@ -2,7 +2,7 @@ package com.fsalgo.core.tree;
 
 /**
  * @Author: root
- * @Date: 2022/3/29 16:46
+ * @Date: 2022/3/29 18:46
  * @Description: 树状数组 / 二叉索引数 / binary indexed tree
  * ========================================================
  * 将 [1, 2, 3, 4, 5, 6, 7, 8] 维护成下图所示的树形结构数组

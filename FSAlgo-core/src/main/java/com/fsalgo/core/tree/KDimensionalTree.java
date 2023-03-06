@@ -1,5 +1,8 @@
 package com.fsalgo.core.tree;
 
+import com.fsalgo.core.struct.metrics.Distance;
+import com.fsalgo.core.struct.metrics.DistanceMetric;
+
 import java.util.*;
 
 /**
@@ -9,9 +12,11 @@ import java.util.*;
  */
 public class KDimensionalTree {
 
-    private Node root;
+    private final Node root;
 
-    private int dimentional;
+    private final int dimentional;
+
+    private final static DistanceMetric DEF_DIST = Distance.EUCLIDEAN;
 
     public KDimensionalTree(List<double[]> coords) {
         if (coords.isEmpty()) {
@@ -26,8 +31,9 @@ public class KDimensionalTree {
 
     /**
      * 构建KD树
+     *
      * @param coords 坐标集
-     * @param depth 深度
+     * @param depth  深度
      * @return root
      */
     private Node buildTree(List<double[]> coords, int depth) {
@@ -58,6 +64,7 @@ public class KDimensionalTree {
 
     /**
      * 搜索指定坐标附近最近的点的坐标
+     *
      * @param coord 坐标
      * @return 距离最近的点的坐标
      */
@@ -103,6 +110,7 @@ public class KDimensionalTree {
 
     /**
      * 计算两个节点坐标之间的欧氏距离
+     *
      * @param source 源节点坐标
      * @param target 目标节点坐标
      * @return 欧式距离
