@@ -7,7 +7,4 @@ package com.fsalgo.core.struct.metrics;
  */
 public interface DistanceMetric extends GeometricalDistance{
 
-    double DEFAULT_P = 2.0;
-
-    double getP();
 }

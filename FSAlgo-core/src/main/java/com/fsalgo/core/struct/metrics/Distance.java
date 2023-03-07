@@ -28,6 +28,9 @@ public enum Distance implements DistanceMetric {
         public String getName() {
             return "Euclidean";
         }
+
+        @Override
+        public boolean isBinaryDistance() { return false; }
     },
     /**
      * 汉明距离
@@ -36,17 +39,47 @@ public enum Distance implements DistanceMetric {
         @Override
         public double getDistance(double[] source, double[] target) {
             VectorUtil.checkDims(source, target);
-            return 0;
+
+            double count = 0.00;
+            for (int i = 0; i < source.length; i++) {
+                if (source[i] != target[i]) {
+                    count++;
+                }
+            }
+            return count / source.length;
         }
 
         @Override
         public String getName() {
             return "Hamming";
         }
+
+        @Override
+        public boolean isBinaryDistance() { return true; }
     },
     /**
      * 曼哈顿距离
      */
+    MANHATTAN {
+        @Override
+        public double getDistance(double[] source, double[] target) {
+            VectorUtil.checkDims(source, target);
+
+            double distance = 0.00;
+            for (int i = 0; i < source.length; i++) {
+                distance += Math.abs(source[i] - target[i]);
+            }
+            return distance;
+        }
+
+        @Override
+        public String getName() {
+            return "Manhattan";
+        }
+
+        @Override
+        public boolean isBinaryDistance() { return false; }
+    },
     /**
      * 余弦距离
      */
@@ -58,12 +91,9 @@ public enum Distance implements DistanceMetric {
     }
 
     @Override
-    public double getP() {
-        return DEFAULT_P;
-    }
-
-    @Override
     public String toString() {
         return getName();
     }
+
+    abstract public boolean isBinaryDistance();
 }
