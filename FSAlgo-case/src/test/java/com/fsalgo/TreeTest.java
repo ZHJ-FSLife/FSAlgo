@@ -75,8 +75,6 @@ public class TreeTest {
         double[] nums = {new Double(1.0), new Integer(2), new Float(3.0), 4, 5, 6, 7, 8};
         BinaryIndexedTree bit = new BinaryIndexedTree(nums);
 
-        System.out.println(Arrays.toString(nums));
-
         bit.updateNodeVal(4, 6);
         bit.updateNodeVal(0, 2);
         bit.updateNodeVal(0, 9);
@@ -88,6 +86,8 @@ public class TreeTest {
         System.out.println(bit.sumRange(0, 4));
 
         System.out.println(Arrays.toString(nums));
+        System.out.println(Arrays.toString(bit.getTree()));
+
 
     }
 }

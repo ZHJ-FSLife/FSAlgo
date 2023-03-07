@@ -1,5 +1,7 @@
 package com.fsalgo.core.tree;
 
+import java.util.Arrays;
+
 /**
  * @Author: root
  * @Date: 2022/3/29 18:46
@@ -23,14 +25,16 @@ package com.fsalgo.core.tree;
  */
 public class BinaryIndexedTree {
 
-    private final double[] data;
-
     private final double[] tree;
 
     public BinaryIndexedTree(double[] data) {
-        this.data = data;
         this.tree = new double[data.length];
+        System.arraycopy(data, 0, tree, 0, data.length);
         buildTree();
+    }
+
+    public double[] getTree() {
+        return this.tree;
     }
 
     /**
@@ -39,8 +43,7 @@ public class BinaryIndexedTree {
      * 父节点的值 = 父节点 + 所有子节点
      */
     public void buildTree() {
-        System.arraycopy(data, 0, tree, 0, data.length);
-        for (int i = 0; i < data.length - 1; i++) {
+        for (int i = 0; i < tree.length - 1; i++) {
             int temp = i + lowBit(i + 1);
             if (temp < tree.length) {
                 tree[temp] += tree[i];
@@ -55,8 +58,7 @@ public class BinaryIndexedTree {
      * @param val   新值
      */
     public void updateNodeVal(int index, double val) {
-        double tempVal = data[index] - val;
-        data[index] = val;
+        double tempVal = sumRange(index, index) - val;
         while (index < tree.length) {
             tree[index] -= tempVal;
             index += lowBit(index + 1);

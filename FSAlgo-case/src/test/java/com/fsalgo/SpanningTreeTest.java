@@ -1,7 +1,7 @@
 package com.fsalgo;
 
-import com.fsalgo.core.graph.spanningTree.KruskalMinimumSpanningTree;
-import com.fsalgo.core.graph.spanningTree.PrimMinimumSpanningTree;
+import com.fsalgo.core.graph.spanningtree.KruskalMinimumSpanningTree;
+import com.fsalgo.core.graph.spanningtree.PrimMinimumSpanningTree;
 import com.fsalgo.core.interfaces.SpanningTreeAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;

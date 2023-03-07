@@ -1,4 +1,4 @@
-package com.fsalgo.core.graph.spanningTree;
+package com.fsalgo.core.graph.spanningtree;
 
 import com.fsalgo.core.interfaces.SpanningTreeAlgorithm;
 import com.fsalgo.core.struct.Edge;

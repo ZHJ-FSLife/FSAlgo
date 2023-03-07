@@ -1,4 +1,4 @@
-package com.fsalgo.core.graph.shortestPath;
+package com.fsalgo.core.graph.shortestpath;
 
 import com.fsalgo.core.interfaces.ShortestPathAlgorithm;
 import com.fsalgo.core.struct.Edge;
