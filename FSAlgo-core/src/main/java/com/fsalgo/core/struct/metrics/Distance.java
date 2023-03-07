@@ -14,7 +14,7 @@ public enum Distance implements DistanceMetric {
      */
     EUCLIDEAN {
         @Override
-        public double getDistance(double[] source, double[] target) {
+        public double getDistance(final double[] source, final double[] target) {
             VectorUtil.checkDims(source, target);
 
             double distance = 0.00;
@@ -30,14 +30,16 @@ public enum Distance implements DistanceMetric {
         }
 
         @Override
-        public boolean isBinaryDistance() { return false; }
+        public boolean isBinaryDistance() {
+            return false;
+        }
     },
     /**
      * 汉明距离
      */
     HAMMING {
         @Override
-        public double getDistance(double[] source, double[] target) {
+        public double getDistance(final double[] source, final double[] target) {
             VectorUtil.checkDims(source, target);
 
             double count = 0.00;
@@ -55,14 +57,16 @@ public enum Distance implements DistanceMetric {
         }
 
         @Override
-        public boolean isBinaryDistance() { return true; }
+        public boolean isBinaryDistance() {
+            return true;
+        }
     },
     /**
      * 曼哈顿距离
      */
     MANHATTAN {
         @Override
-        public double getDistance(double[] source, double[] target) {
+        public double getDistance(final double[] source, final double[] target) {
             VectorUtil.checkDims(source, target);
 
             double distance = 0.00;
@@ -78,17 +82,35 @@ public enum Distance implements DistanceMetric {
         }
 
         @Override
-        public boolean isBinaryDistance() { return false; }
+        public boolean isBinaryDistance() {
+            return false;
+        }
     },
     /**
-     * 余弦距离
+     * 切比雪夫距离
      */
-    ;
+    CHEBYSHEV {
+        @Override
+        public double getDistance(final double[] source, final double[] target) {
+            VectorUtil.checkDims(source, target);
 
-    @Override
-    public double getDistance(final double[] source, final double[] target) {
-        return 0.00;
-    }
+            double distance = 0.00;
+            for (int i = 0; i < source.length; i++) {
+                distance = Math.max(Math.abs(source[i] - target[i]), distance);
+            }
+            return distance;
+        }
+
+        @Override
+        public String getName() {
+            return "Chebyshev";
+        }
+
+        @Override
+        public boolean isBinaryDistance() {
+            return false;
+        }
+    };
 
     @Override
     public String toString() {

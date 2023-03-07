@@ -42,7 +42,7 @@ public class BinaryIndexedTree {
      * tree[i] 的父节点为 tree[i + lowBit(i + 1)]
      * 父节点的值 = 父节点 + 所有子节点
      */
-    public void buildTree() {
+    private void buildTree() {
         for (int i = 0; i < tree.length - 1; i++) {
             int temp = i + lowBit(i + 1);
             if (temp < tree.length) {
@@ -98,7 +98,7 @@ public class BinaryIndexedTree {
      * @param n n
      * @return 二进制最低位的1
      */
-    public int lowBit(int n) {
+    private int lowBit(int n) {
         return n & -n;
     }
 }

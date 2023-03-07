@@ -118,24 +118,5 @@ public class KDimensionalTree {
             this.coord = coord;
             this.depth = depth;
         }
-
-        /*@Override
-        public int hashCode() {
-            return Objects.hash(Arrays.hashCode(coord), depth);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-
-            if (obj == null || getClass() != obj.getClass()) {
-                return false;
-            }
-
-            Node node = (Node) obj;
-            return Arrays.equals(coord, node.coord) && depth == node.depth;
-        }*/
     }
 }
