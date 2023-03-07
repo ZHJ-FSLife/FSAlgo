@@ -1,6 +1,6 @@
 package com.fsalgo;
 
-import com.fsalgo.core.graph.DijkstraShortestPath;
+import com.fsalgo.core.graph.shortestPath.DijkstraShortestPath;
 import com.fsalgo.core.interfaces.ShortestPathAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;

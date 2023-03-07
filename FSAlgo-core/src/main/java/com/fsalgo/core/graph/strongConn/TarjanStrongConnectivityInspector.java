@@ -1,4 +1,4 @@
-package com.fsalgo.core.graph;
+package com.fsalgo.core.graph.strongConn;
 
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;

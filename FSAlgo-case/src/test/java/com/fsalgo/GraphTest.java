@@ -1,6 +1,7 @@
 package com.fsalgo;
 
-import com.fsalgo.core.graph.*;
+import com.fsalgo.core.graph.strongConn.TarjanCutPointAndBridge;
+import com.fsalgo.core.graph.strongConn.TarjanStrongConnectivityInspector;
 import com.fsalgo.core.struct.*;
 import com.fsalgo.core.struct.builder.GraphBuilder;
 import com.fsalgo.core.struct.specific.*;
@@ -38,6 +39,17 @@ public class GraphTest {
         System.out.println(tarjan.getCutNodeRst());
         System.out.println(tarjan.getConnEdgeRst());
         System.out.println(tarjan.getConnGraphRst());
+    }
+
+    @Test
+    public void TarjanCutPointAndBridgeDemo() {
+        Graph<String> graph = new UndirectedGraph<>();
+        addNodeToGraph(graph);
+
+        TarjanCutPointAndBridge<String> tarjan = new TarjanCutPointAndBridge<>(graph);
+        tarjan.search(n1);
+        System.out.println(tarjan.getCutPoints());
+        System.out.println(tarjan.getBridges());
     }
 
     @Test

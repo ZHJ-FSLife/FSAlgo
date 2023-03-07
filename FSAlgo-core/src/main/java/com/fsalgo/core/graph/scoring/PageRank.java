@@ -1,4 +1,4 @@
-package com.fsalgo.core.graph;
+package com.fsalgo.core.graph.scoring;
 
 import com.fsalgo.core.interfaces.NodeScoringAlgorithm;
 
