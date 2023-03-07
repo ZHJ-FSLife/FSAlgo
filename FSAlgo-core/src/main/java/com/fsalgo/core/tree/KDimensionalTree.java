@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * @Author: root
  * @Date: 2023/2/25 23:38
- * @Description: 用于处理多维空间中数据节点距离的问题，例如KNN、K-Means、DBSAN...等算法需要计算点与点之间的距离
+ * @Description: KD-Tree, 用于处理多维空间中数据节点距离的问题，例如KNN、K-Means、DBSAN...等算法需要计算点与点之间的距离
  */
 public class KDimensionalTree {
 
@@ -80,7 +80,7 @@ public class KDimensionalTree {
             return best;
         }
 
-        if (calcDistance(coord, node.coord) < calcDistance(coord, best)) {
+        if (DEF_DIST.getDistance(coord, node.coord) < DEF_DIST.getDistance(coord, best)) {
             best = node.coord;
         }
 
@@ -91,7 +91,7 @@ public class KDimensionalTree {
 
         best = nearest(first, coord, depth + 1, best);
 
-        if (Math.pow(diff, 2) < calcDistance(coord, best)) {
+        if (Math.pow(diff, 2) < DEF_DIST.getDistance(coord, best)) {
             best = nearest(second, coord, depth + 1, best);
         }
 
@@ -106,24 +106,6 @@ public class KDimensionalTree {
 
     private void range(double[] coord, double distance, List<double[]> result) {
 
-    }
-
-    /**
-     * 计算两个节点坐标之间的欧氏距离
-     *
-     * @param source 源节点坐标
-     * @param target 目标节点坐标
-     * @return 欧式距离
-     */
-    public double calcDistance(double[] source, double[] target) {
-        if (source.length != target.length) {
-            throw new IllegalArgumentException("inconsistent node dimension!");
-        }
-        double distance = 0.00;
-        for (int i = 0; i < source.length; i++) {
-            distance += Math.pow(source[i] - target[i], 2);
-        }
-        return Math.sqrt(distance);
     }
 
     public static class Node {
