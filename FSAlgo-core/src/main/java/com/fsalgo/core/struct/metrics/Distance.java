@@ -133,7 +133,7 @@ public enum Distance implements DistanceMetric {
         }
 
         @Override
-        public string getName() {
+        public String getName() {
             return "Cosine Similarity";
         }
 
