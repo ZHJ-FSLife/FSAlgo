@@ -1,4 +1,4 @@
-package com.fsalgo.core.sort;
+package com.fsalgo.core.util.sort;
 
 /**
  * @Author: root

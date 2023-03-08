@@ -1,7 +1,5 @@
 package com.fsalgo.core.struct;
 
-import com.fsalgo.core.util.NodeToIndexMapping;
-
 import java.util.Objects;
 
 /**

@@ -1,4 +1,4 @@
-package com.fsalgo.core.util;
+package com.fsalgo.core.struct;
 
 import java.util.*;
 

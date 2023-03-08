@@ -1,7 +1,7 @@
 package com.fsalgo.core.tree;
 
-import com.fsalgo.core.struct.metrics.Distance;
-import com.fsalgo.core.struct.metrics.DistanceMetric;
+import com.fsalgo.core.geometrical.Distance;
+import com.fsalgo.core.geometrical.DistanceMetric;
 
 import java.util.*;
 

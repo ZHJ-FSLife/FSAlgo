@@ -1,4 +1,4 @@
-package com.fsalgo.core.struct.metrics;
+package com.fsalgo.core.geometrical;
 
 import com.fsalgo.core.util.VectorUtil;
 
