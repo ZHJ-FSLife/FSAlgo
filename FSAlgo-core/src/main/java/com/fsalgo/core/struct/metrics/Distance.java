@@ -110,6 +110,37 @@ public enum Distance implements DistanceMetric {
         public boolean isBinaryDistance() {
             return false;
         }
+    },
+    /**
+     * 余弦距离
+     */
+    COSINE {
+        @Override
+        public double getDistance(final double[] source, final double[] target) {
+            VectorUtil.checkDims(source, target);
+
+            double numerator = 0;
+            double normSource = 0;
+            double normTarget = 0;
+
+            for (int i = 0; i < source.length; i++) {
+                numerator += source[i] * target[i];
+                normSource += Math.pow(source[i], 2);
+                normTarget += Math.pow(target[i], 2);
+            }
+
+            return numerator / (Math.sqrt(normSource) * Math.sqrt(normSource));
+        }
+
+        @Override
+        public string getName() {
+            return "Cosine Similarity";
+        }
+
+        @Override
+        public boolean isBinaryDistance() {
+            return false;
+        }
     };
 
     @Override
