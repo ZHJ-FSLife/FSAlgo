@@ -129,7 +129,7 @@ public enum Distance implements DistanceMetric {
                 normTarget += Math.pow(target[i], 2);
             }
 
-            return numerator / (Math.sqrt(normSource) * Math.sqrt(normSource));
+            return numerator / (Math.sqrt(normSource) * Math.sqrt(normTarget));
         }
 
         @Override
