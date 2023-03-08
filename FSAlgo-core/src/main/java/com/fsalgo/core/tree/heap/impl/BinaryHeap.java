@@ -3,6 +3,7 @@ package com.fsalgo.core.tree.heap.impl;
 import com.fsalgo.core.tree.heap.Heap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: root
@@ -15,7 +16,7 @@ public class BinaryHeap<T extends Comparable<T>> implements Heap<T> {
     /**
      * 存放堆节点
      */
-    private final ArrayList<T> queue;
+    private final List<T> queue;
 
     public BinaryHeap() {
         this.queue = new ArrayList<>();

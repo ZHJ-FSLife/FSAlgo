@@ -1,7 +1,5 @@
 package com.fsalgo;
 
-import com.fsalgo.core.sort.*;
-
 import com.fsalgo.core.util.sort.MergeSort;
 import com.fsalgo.core.util.sort.QuickSort;
 import org.junit.Test;
