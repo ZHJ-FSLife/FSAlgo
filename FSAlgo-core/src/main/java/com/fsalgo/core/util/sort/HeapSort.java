@@ -7,6 +7,6 @@ package com.fsalgo.core.util.sort;
  */
 public class HeapSort<T extends Comparable<T>> {
 
-    // 懒得写了，谁用谁就自己去调heap的实现类吧，反正都差不多一个意思
+    // 懒得写了，谁爱用谁就自己去调heap的实现类吧，反正都差不多一个意思
 
 }
