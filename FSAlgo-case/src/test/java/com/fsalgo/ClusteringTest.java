@@ -16,15 +16,24 @@ public class ClusteringTest {
 
     @Test
     public void KDTreeDemo() {
-        List<double[]> points = new ArrayList<>();
-        points.add(new double[] {2, 3});
-        points.add(new double[] {5, 4});
-        points.add(new double[] {9, 6});
-        points.add(new double[] {4, 7});
-        points.add(new double[] {8, 1});
+        List<double[]> points = new ArrayList<>() {{
+            add(new double[] {1, 3});
+            add(new double[] {1, 8});
+            add(new double[] {2, 2});
+            add(new double[] {2, 10});
+            add(new double[] {3, 6});
+            add(new double[] {4, 1});
+            add(new double[] {5, 4});
+            add(new double[] {6, 8});
+            add(new double[] {7, 4});
+            add(new double[] {7, 7});
+            add(new double[] {8, 2});
+            add(new double[] {8, 5});
+            add(new double[] {9, 9});
+        }};
         KDimensionalTree kdTree = new KDimensionalTree(points);
 
-        double[] queryPoint = new double[] {5, 5};
+        double[] queryPoint = new double[] {1, 5};
         double[] nearestPoint = kdTree.nearest(queryPoint);
 
         System.out.println("Query point: " + Arrays.toString(queryPoint));
