@@ -17,7 +17,7 @@ public enum Distance implements DistanceMetric {
         public double getDistance(final double[] source, final double[] target) {
             VectorUtil.checkDims(source, target);
 
-            double distance = 0.00;
+            double distance = 0.0D;
             for (int i = 0; i < source.length; i++) {
                 distance += Math.pow(source[i] - target[i], 2);
             }
@@ -42,7 +42,7 @@ public enum Distance implements DistanceMetric {
         public double getDistance(final double[] source, final double[] target) {
             VectorUtil.checkDims(source, target);
 
-            double count = 0.00;
+            double count = 0.0D;
             for (int i = 0; i < source.length; i++) {
                 if (source[i] != target[i]) {
                     count++;
@@ -69,7 +69,7 @@ public enum Distance implements DistanceMetric {
         public double getDistance(final double[] source, final double[] target) {
             VectorUtil.checkDims(source, target);
 
-            double distance = 0.00;
+            double distance = 0.0D;
             for (int i = 0; i < source.length; i++) {
                 distance += Math.abs(source[i] - target[i]);
             }
@@ -94,7 +94,7 @@ public enum Distance implements DistanceMetric {
         public double getDistance(final double[] source, final double[] target) {
             VectorUtil.checkDims(source, target);
 
-            double distance = 0.00;
+            double distance = 0.0D;
             for (int i = 0; i < source.length; i++) {
                 distance = Math.max(Math.abs(source[i] - target[i]), distance);
             }
@@ -119,9 +119,9 @@ public enum Distance implements DistanceMetric {
         public double getDistance(final double[] source, final double[] target) {
             VectorUtil.checkDims(source, target);
 
-            double numerator = 0;
-            double normSource = 0;
-            double normTarget = 0;
+            double numerator = 0.0D;
+            double normSource = 0.0D;
+            double normTarget = 0.0D;
 
             for (int i = 0; i < source.length; i++) {
                 numerator += source[i] * target[i];
