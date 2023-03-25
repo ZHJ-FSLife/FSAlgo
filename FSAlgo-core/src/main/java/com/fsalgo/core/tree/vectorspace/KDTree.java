@@ -10,7 +10,7 @@ import java.util.*;
  * @Date: 2023/2/25 23:38
  * @Description: KD-Tree, 用于处理多维空间中数据节点距离的问题，例如KNN、K-Means、DBSAN...等算法需要计算点与点之间的距离
  */
-public class KDimensionalTree {
+public class KDTree {
 
     private final Node root;
 
@@ -18,7 +18,7 @@ public class KDimensionalTree {
 
     private final static DistanceMetric DEF_DIST = Distance.EUCLIDEAN;
 
-    public KDimensionalTree(List<double[]> coords) {
+    public KDTree(List<double[]> coords) {
         if (coords.isEmpty()) {
             throw new IllegalArgumentException("node coord cannot be empty!");
         }

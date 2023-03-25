@@ -1,6 +1,6 @@
 package com.fsalgo;
 
-import com.fsalgo.core.tree.vectorspace.KDimensionalTree;
+import com.fsalgo.core.tree.vectorspace.KDTree;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class ClusteringTest {
 
     @Test
     public void KDTreeDemo() {
-        KDimensionalTree kdTree = new KDimensionalTree(points);
+        KDTree kdTree = new KDTree(points);
 
         double[] queryPoint = new double[] {1, 5};
         double[] nearestPoint = kdTree.nearest(queryPoint);
