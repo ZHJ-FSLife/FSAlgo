@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @Author: root
  * @Date: 2023/3/26 0:12
- * @Description:
+ * @Description: 聚类算法
  */
 public interface ClusteringAlgorithm {
 

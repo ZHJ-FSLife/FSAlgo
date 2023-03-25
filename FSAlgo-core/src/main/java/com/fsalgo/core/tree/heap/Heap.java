@@ -17,5 +17,5 @@ public interface Heap<T> {
 
     boolean isEmpty();
 
-    boolean compareTo(T t1, T t2);
+    boolean compareTo(T x, T y);
 }

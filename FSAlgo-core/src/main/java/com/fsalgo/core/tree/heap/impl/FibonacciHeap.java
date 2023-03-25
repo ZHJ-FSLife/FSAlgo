@@ -1,5 +1,6 @@
 package com.fsalgo.core.tree.heap.impl;
 
+import com.fsalgo.core.tree.heap.AbstractHeap;
 import com.fsalgo.core.tree.heap.Heap;
 
 import java.util.NoSuchElementException;
@@ -18,7 +19,7 @@ import java.util.NoSuchElementException;
  * remove -> O(logN)
  * decreaseKey -> O(1)
  */
-public class FibonacciHeap<T extends Comparable<T>> implements Heap<T> {
+public class FibonacciHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Heap<T> {
 
     private static final double GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 
@@ -236,16 +237,6 @@ public class FibonacciHeap<T extends Comparable<T>> implements Heap<T> {
     @Override
     public boolean isEmpty() {
         return size == 0;
-    }
-
-    /**
-     * 节点的key值比较 - 默认为小顶堆
-     *
-     * @return true or false
-     */
-    @Override
-    public boolean compareTo(T x, T y) {
-        return x.compareTo(y) < 0;
     }
 
     static class Node<T> {

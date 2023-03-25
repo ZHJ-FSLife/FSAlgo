@@ -35,7 +35,7 @@ public class BinomialHeap<T extends Comparable<T>> implements Heap<T> {
     }
 
     @Override
-    public boolean compareTo(T t1, T t2) {
+    public boolean compareTo(T x, T y) {
         return false;
     }
 }
