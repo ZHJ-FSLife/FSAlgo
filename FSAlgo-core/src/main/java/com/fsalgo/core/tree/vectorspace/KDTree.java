@@ -3,12 +3,14 @@ package com.fsalgo.core.tree.vectorspace;
 import com.fsalgo.core.geometrical.Distance;
 import com.fsalgo.core.geometrical.DistanceMetric;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @Author: root
- * @Date: 2023/2/25 23:38
- * @Description: KD-Tree, 用于处理多维空间中数据节点距离的问题，例如KNN、K-Means、DBSAN...等算法需要计算点与点之间的距离
+ * @Date: 2023/3/25 21:07
+ * @Description:
  */
 public class KDTree {
 
@@ -31,8 +33,7 @@ public class KDTree {
 
     /**
      * 构建KD树
-     *
-     * @param coords 坐标集
+     * @param coords 节点坐标集
      * @param depth  深度
      * @return root
      */
@@ -40,35 +41,34 @@ public class KDTree {
         if (coords.isEmpty()) {
             return null;
         }
-
         if (coords.size() == 1) {
             return new Node(coords.get(0), depth);
         }
-
+        // 根据当前节点所在深度，决定应该取哪一维度值对坐标集排序
         int axis = depth % coords.get(0).length;
-        Comparator<double[]> comparator = Comparator.comparing(p -> p[axis]);
-        coords.sort(comparator);
+        coords.sort(Comparator.comparing(n -> n[axis]));
 
-        int midIndex = coords.size() / 2;
-        double[] midCoord = coords.get(midIndex);
-
-        Node node = new Node(midCoord, depth);
+        // 获取中心节点，以该节点分隔左右子节点
+        int index = coords.size() / 2;
+        Node node = new Node(coords.get(index), depth);
         if (node.coord.length != dimentional) {
             throw new IllegalArgumentException("the new node dimension is inconsistent with the node dimension in the tree!");
         }
-        node.left = buildTree(coords.subList(0, midIndex), depth + 1);
-        node.right = buildTree(coords.subList(midIndex + 1, coords.size()), depth + 1);
+        node.left = buildTree(coords.subList(0, index), depth + 1);
+        node.right = buildTree(coords.subList(index + 1, coords.size()), depth + 1);
 
         return node;
     }
 
     /**
-     * 搜索指定坐标附近最近的点的坐标
-     *
-     * @param coord 坐标
-     * @return 距离最近的点的坐标
+     * 搜索指定坐标最近的点的坐标
+     * @param coord 节点坐标
+     * @return 距离最近的节点的坐标
      */
     public double[] nearest(double[] coord) {
+        if (root == null) {
+            throw new IllegalArgumentException("the kd-tree is not built!");
+        }
         if (coord.length != dimentional) {
             throw new IllegalArgumentException("the new node dimension is inconsistent with the node dimension in the tree!");
         }
@@ -98,14 +98,32 @@ public class KDTree {
         return best;
     }
 
-    public List<double[]> range(double[] coord, double distance) {
+    /**
+     * 指定节点半径内的左右节点的坐标
+     * @param coord 节点坐标
+     * @param radius 搜寻半径
+     * @return 半径内所有节点的坐标
+     */
+    public List<double[]> range(double[] coord, double radius) {
         List<double[]> result = new ArrayList<>();
-        range(coord, distance, result);
+        range(root, coord, radius, 0, result);
         return result;
     }
 
-    private void range(double[] coord, double distance, List<double[]> result) {
-
+    private void range(Node node, double[] coord, double radius, int depth, List<double[]> result) {
+        if (node == null) {
+            return;
+        }
+        if (DEF_DIST.getDistance(node.coord, coord) <= radius) {
+            result.add(node.coord);
+        }
+        int axis = depth % coord.length;
+        if (node.left != null && coord[axis] - radius <= node.coord[axis]) {
+            range(node.left, coord, radius, depth + 1, result);
+        }
+        if (node.right != null && coord[axis] + radius >= node.coord[axis]) {
+            range(node.right, coord, radius, depth + 1, result);
+        }
     }
 
     public static class Node {

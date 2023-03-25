@@ -34,10 +34,14 @@ public class ClusteringTest {
     public void KDTreeDemo() {
         KDTree kdTree = new KDTree(points);
 
-        double[] queryPoint = new double[] {1, 5};
+        double[] queryPoint = new double[] {8, 4};
         double[] nearestPoint = kdTree.nearest(queryPoint);
+        List<double[]> ranges = kdTree.range(queryPoint, 4);
 
         System.out.println("Query point: " + Arrays.toString(queryPoint));
         System.out.println("Nearest point: " + Arrays.toString(nearestPoint));
+        for (double[] coord : ranges) {
+            System.out.print(Arrays.toString(coord) + ", ");
+        }
     }
 }
