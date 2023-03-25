@@ -1,5 +1,7 @@
 package com.fsalgo;
 
+import com.fsalgo.core.clustering.DBSCAN;
+import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 import com.fsalgo.core.tree.vectorspace.KDTree;
 import org.junit.Test;
 
@@ -36,12 +38,24 @@ public class ClusteringTest {
 
         double[] queryPoint = new double[] {8, 4};
         double[] nearestPoint = kdTree.nearest(queryPoint);
-        List<double[]> ranges = kdTree.range(queryPoint, 4);
+        List<double[]> result = kdTree.range(queryPoint, 4);
 
         System.out.println("Query point: " + Arrays.toString(queryPoint));
         System.out.println("Nearest point: " + Arrays.toString(nearestPoint));
-        for (double[] coord : ranges) {
-            System.out.print(Arrays.toString(coord) + ", ");
+        for (double[] coord : result) {
+            System.out.print(Arrays.toString(coord) );
+        }
+    }
+
+    @Test
+    public void dbscanDemo() {
+        ClusteringAlgorithm clustering = new DBSCAN(3, 3);
+        List<List<double[]>> result = clustering.cluster(points);
+        for (List<double[]> list : result) {
+            for (double[] coord : list) {
+                System.out.print(Arrays.toString(coord) + ", ");
+            }
+            System.out.println();
         }
     }
 }
