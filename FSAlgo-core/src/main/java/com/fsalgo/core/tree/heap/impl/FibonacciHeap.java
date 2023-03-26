@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * @Date: 2022/12/23 19:23
  * @Description: 斐波那契堆 - Fibonacci Heap
  * 简化版，只实现了暂时需要的功能
- * 用于替代 PriorityQueue 所定义的普通堆，均摊复杂度，优化 AStar、dijkstra、prim... 等算法
+ * 用于替代 PriorityQueue 所定义的普通二叉堆，均摊复杂度，优化 AStar、dijkstra、prim... 等算法
  * <p>
  * org.jheaps 有现成的类库，就不用就是要自己造轮子就是玩（doge）
  * <p>

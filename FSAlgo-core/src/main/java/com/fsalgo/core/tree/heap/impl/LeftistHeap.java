@@ -50,6 +50,7 @@ public class LeftistHeap<T extends Comparable<T>> extends AbstractHeap<T> implem
 
     /**
      * 合并堆
+     *
      * @param node1 堆1根节点
      * @param node2 堆2根节点
      * @return 合并后的堆

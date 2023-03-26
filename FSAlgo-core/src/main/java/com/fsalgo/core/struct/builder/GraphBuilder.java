@@ -1,6 +1,7 @@
 package com.fsalgo.core.struct.builder;
 
 import com.fsalgo.core.struct.Graph;
+import com.fsalgo.core.struct.specific.DirectedAcyclicGraph;
 import com.fsalgo.core.struct.specific.UndirectedGraph;
 import com.fsalgo.core.struct.specific.DirectedGraph;
 
@@ -51,6 +52,9 @@ public final class GraphBuilder<N> {
             return null;
         }
         if (directed) {
+            if (allowingSelfLoops) {
+                return new DirectedAcyclicGraph<>();
+            }
             return new DirectedGraph<>();
         }
         return new UndirectedGraph<>();

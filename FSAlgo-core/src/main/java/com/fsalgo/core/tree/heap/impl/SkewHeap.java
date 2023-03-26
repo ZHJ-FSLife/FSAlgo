@@ -48,6 +48,13 @@ public class SkewHeap<T extends Comparable<T>> extends AbstractHeap<T> implement
         return root == null;
     }
 
+    /**
+     * 合并堆
+     *
+     * @param node1 堆1根节点
+     * @param node2 堆2根节点
+     * @return 合并后的堆
+     */
     private Node<T> union(Node<T> node1, Node<T> node2) {
         if (node1 == null) {
             return node2;
