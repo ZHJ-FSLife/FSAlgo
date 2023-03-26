@@ -1,5 +1,6 @@
 package com.fsalgo.core.tree.heap.impl;
 
+import com.fsalgo.core.tree.heap.AbstractHeap;
 import com.fsalgo.core.tree.heap.Heap;
 
 /**
@@ -7,7 +8,7 @@ import com.fsalgo.core.tree.heap.Heap;
  * @Date: 2023/1/17 13:38
  * @Description: 二项式堆
  */
-public class BinomialHeap<T extends Comparable<T>> implements Heap<T> {
+public class BinomialHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Heap<T> {
 
     @Override
     public void add(T t) {
@@ -31,11 +32,6 @@ public class BinomialHeap<T extends Comparable<T>> implements Heap<T> {
 
     @Override
     public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public boolean compareTo(T x, T y) {
         return false;
     }
 }

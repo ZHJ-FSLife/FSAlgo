@@ -3,6 +3,8 @@ package com.fsalgo;
 import com.fsalgo.core.tree.heap.Heap;
 import com.fsalgo.core.tree.heap.impl.BinaryHeap;
 import com.fsalgo.core.tree.heap.impl.FibonacciHeap;
+import com.fsalgo.core.tree.heap.impl.LeftistHeap;
+import com.fsalgo.core.tree.heap.impl.SkewHeap;
 import org.junit.Test;
 
 /**
@@ -42,6 +44,46 @@ public class HeapTest {
         int[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
 
         Heap<Integer> heap = new BinaryHeap<>() {
+            @Override
+            public boolean compareTo(Integer o1, Integer o2) {
+                return o1.compareTo(o2) > 0;
+            }
+        };
+
+        for (int num : nums) {
+            heap.add(num);
+        }
+
+        while (!heap.isEmpty()) {
+            System.out.print(heap.remove() + ", ");
+        }
+    }
+
+    @Test
+    public void LeftisHeapDemo() {
+        int[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
+
+        Heap<Integer> heap = new LeftistHeap<>() {
+            @Override
+            public boolean compareTo(Integer o1, Integer o2) {
+                return o1.compareTo(o2) > 0;
+            }
+        };
+
+        for (int num : nums) {
+            heap.add(num);
+        }
+
+        while (!heap.isEmpty()) {
+            System.out.print(heap.remove() + ", ");
+        }
+    }
+
+    @Test
+    public void  SkewHeapDemo() {
+        int[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
+
+        Heap<Integer> heap = new SkewHeap<>() {
             @Override
             public boolean compareTo(Integer o1, Integer o2) {
                 return o1.compareTo(o2) > 0;
