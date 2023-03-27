@@ -47,6 +47,11 @@ public final class GraphBuilder<N> {
         return this;
     }
 
+    public GraphBuilder<N> allowingSelfLoops(boolean allowingSelfLoops) {
+        this.allowingSelfLoops = allowingSelfLoops;
+        return this;
+    }
+
     public Graph<N> build() {
         if (directed && undirected) {
             return null;

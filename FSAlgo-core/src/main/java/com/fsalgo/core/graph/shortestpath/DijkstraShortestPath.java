@@ -75,10 +75,9 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
             }
 
             int currIndex = indexs.get(current);
-            Set<Edge<N>> edges = graph.outgoingEdges(current);
             visited[currIndex] = true;
 
-            for (Edge<N> edge : edges) {
+            for (Edge<N> edge : graph.outgoingEdges(current)) {
                 N next = edge.getTarget();
                 int nextIndex = indexs.get(next);
                 if (visited[nextIndex]) {

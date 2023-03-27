@@ -74,8 +74,7 @@ public class PrimMinimumSpanningTree<N extends Comparable<N>> implements Spannin
             }
 
             visited[currIndex] = true;
-            Set<Edge<N>> edges = graph.outgoingEdges(current);
-            for (Edge<N> edge : edges) {
+            for (Edge<N> edge : graph.outgoingEdges(current)) {
                 N next = edge.getTarget();
                 int nextIndex = indexs.get(next);
 

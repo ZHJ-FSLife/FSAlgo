@@ -76,6 +76,22 @@ public class GraphTest {
 
     }
 
+    @Test
+    public void DirectedAcyclicGraphDemo() {
+        Graph<String> graph = GraphBuilder.<String>directed().allowingSelfLoops(true).build();
+        graph.addEdge(new Edge<>(n1, n2));
+        graph.addEdge(new Edge<>(n1, n6));
+        graph.addEdge(new Edge<>(n2, n3));
+        graph.addEdge(new Edge<>(n3, n4));
+        graph.addEdge(new Edge<>(n4, n5));
+        graph.addEdge(new Edge<>(n5, n2));
+        // graph.addEdge(new Edge<>(n5, n1));
+        graph.addEdge(new Edge<>(n6, n7));
+        graph.addEdge(new Edge<>(n6, n8));
+        graph.addEdge(new Edge<>(n8, n9));
+        // graph.addEdge(new Edge<>(n9, n6));
+    }
+
     private void addNodeToGraph(Graph<String> graph) {
         graph.addEdge(new Edge<>(n1, n2));
         graph.addEdge(new Edge<>(n1, n6));
