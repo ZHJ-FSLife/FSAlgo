@@ -78,13 +78,13 @@ public class GraphTest {
 
     @Test
     public void DirectedAcyclicGraphDemo() {
-        Graph<String> graph = GraphBuilder.<String>directed().allowingSelfLoops(true).build();
+        Graph<String> graph = GraphBuilder.<String>directed().allowsCycles(true).build();
         graph.addEdge(new Edge<>(n1, n2));
         graph.addEdge(new Edge<>(n1, n6));
         graph.addEdge(new Edge<>(n2, n3));
         graph.addEdge(new Edge<>(n3, n4));
         graph.addEdge(new Edge<>(n4, n5));
-        graph.addEdge(new Edge<>(n5, n2));
+        // graph.addEdge(new Edge<>(n5, n2));
         // graph.addEdge(new Edge<>(n5, n1));
         graph.addEdge(new Edge<>(n6, n7));
         graph.addEdge(new Edge<>(n6, n8));

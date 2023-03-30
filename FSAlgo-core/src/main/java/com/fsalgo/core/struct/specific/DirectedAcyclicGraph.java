@@ -36,6 +36,7 @@ public class DirectedAcyclicGraph<N> extends DirectedGraph<N> {
 
     /**
      * 拓朴排序检查是否存在环路（但是每次插入边时，都要检查一遍，比较耗时）
+     *
      * @return true or false
      */
     private boolean hasCycle() {

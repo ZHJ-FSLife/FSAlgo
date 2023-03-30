@@ -12,13 +12,15 @@ import com.fsalgo.core.struct.specific.DirectedGraph;
  */
 public final class GraphBuilder<N> {
 
-    private boolean directed;
+    private final boolean directed;
 
-    private boolean undirected;
+    private final boolean undirected;
 
     private boolean weighted;
 
-    private boolean allowingSelfLoops;
+    private boolean allowsCycles;
+
+    private final boolean allowingSelfLoops;
 
     private boolean allowingMultipleEdges;
 
@@ -26,6 +28,7 @@ public final class GraphBuilder<N> {
         this.directed = directed;
         this.undirected = undirected;
         this.weighted = false;
+        this.allowsCycles = true;
         this.allowingSelfLoops = false;
         this.allowingMultipleEdges = false;
     }
@@ -39,7 +42,7 @@ public final class GraphBuilder<N> {
     }
 
     public static <N> GraphBuilder<N> mixed() {
-        return new GraphBuilder<N>(true, true);
+        return new GraphBuilder<>(true, true);
     }
 
     public GraphBuilder<N> weighted(boolean weighted) {
@@ -47,8 +50,8 @@ public final class GraphBuilder<N> {
         return this;
     }
 
-    public GraphBuilder<N> allowingSelfLoops(boolean allowingSelfLoops) {
-        this.allowingSelfLoops = allowingSelfLoops;
+    public GraphBuilder<N> allowsCycles(boolean allowsCycles) {
+        this.allowsCycles = allowsCycles;
         return this;
     }
 
@@ -64,5 +67,4 @@ public final class GraphBuilder<N> {
         }
         return new UndirectedGraph<>();
     }
-
 }

@@ -12,6 +12,11 @@ import java.util.Set;
  */
 public interface SpanningTreeAlgorithm<N> {
 
+    /**
+     * 获取生成树
+     *
+     * @return 生成树
+     */
     SpanningTree<N> getSpanningTree();
 
     /**
