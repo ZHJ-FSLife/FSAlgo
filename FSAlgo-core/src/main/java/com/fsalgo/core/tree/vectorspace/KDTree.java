@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @Author: root
  * @Date: 2023/3/25 21:07
- * @Description: K-Dimentional-Tree, 用于处理多维空间中数据节点距离的问题，例如KNN、K-Means、DBSAN...等算法需要计算点与点之间的距离
+ * @Description: K-Dimensional-Tree, 用于处理多维空间中数据节点距离的问题，例如KNN、K-Means、DBSAN...等算法需要计算点与点之间的距离
  */
 public class KDTree {
 
@@ -33,6 +33,7 @@ public class KDTree {
 
     /**
      * 构建KD树
+     *
      * @param coords 节点坐标集
      * @param depth  深度
      * @return root
@@ -62,6 +63,7 @@ public class KDTree {
 
     /**
      * 搜索指定坐标最近的点的坐标
+     *
      * @param coord 节点坐标
      * @return 距离最近的节点的坐标
      */
@@ -75,6 +77,15 @@ public class KDTree {
         return nearest(root, coord, 0, root.coord);
     }
 
+    /**
+     * 搜索指定坐标最近的点的坐标
+     *
+     * @param node  节点
+     * @param coord 节点坐标
+     * @param depth 深度
+     * @param best  最近坐标
+     * @return 最近坐标
+     */
     private double[] nearest(Node node, double[] coord, int depth, double[] best) {
         if (node == null) {
             return best;
@@ -100,7 +111,8 @@ public class KDTree {
 
     /**
      * 指定节点半径内的左右节点的坐标
-     * @param coord 节点坐标
+     *
+     * @param coord  节点坐标
      * @param radius 搜寻半径
      * @return 半径内所有节点的坐标
      */
@@ -110,6 +122,15 @@ public class KDTree {
         return result;
     }
 
+    /**
+     * 指定节点半径内的左右节点的坐标
+     *
+     * @param node   节点
+     * @param coord  节点坐标
+     * @param radius 搜寻半径
+     * @param depth  深度
+     * @param result 结果坐标
+     */
     private void range(Node node, double[] coord, double radius, int depth, List<double[]> result) {
         if (node == null) {
             return;

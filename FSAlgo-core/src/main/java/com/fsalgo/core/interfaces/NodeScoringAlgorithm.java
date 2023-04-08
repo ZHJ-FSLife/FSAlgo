@@ -9,8 +9,17 @@ import java.util.Map;
  */
 public interface NodeScoringAlgorithm<N, D> {
 
+    /**
+     * 获取所有节点的分值
+     * @return 返回所有节点的分值
+     */
     Map<N, D> getScores();
 
+    /**
+     * 获取指定节点的分值
+     * @param n 节点
+     * @return 分值
+     */
     D getNodeScore(N n);
 
 }
