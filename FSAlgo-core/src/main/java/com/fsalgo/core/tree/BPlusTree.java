@@ -5,6 +5,6 @@ package com.fsalgo.core.tree;
  * @Date: 2023/1/5 9:15
  * @Description: B+树
  */
-public class BPlusTree {
+public class BPlusTree<T extends Comparable<T>> {
 
 }

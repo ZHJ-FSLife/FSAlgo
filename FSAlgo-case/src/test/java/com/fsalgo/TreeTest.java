@@ -1,6 +1,7 @@
 package com.fsalgo;
 
 import com.fsalgo.core.tree.AvlTree;
+import com.fsalgo.core.tree.BTree;
 import com.fsalgo.core.tree.BinaryIndexedTree;
 import com.fsalgo.core.tree.HuffmanTree;
 import org.junit.Test;
@@ -13,6 +14,16 @@ import java.util.*;
  * @Description:
  */
 public class TreeTest {
+
+    @Test
+    public void BTreeDemo() {
+        int[] nums = {3, 1, 2, 4, 6, 0, 9, 7, 8, 5, 3, 1, 2, 4, 6, 0, 9, 7, 8, 5};
+        BTree<Integer> bTree = new BTree<>(3);
+        for (int num : nums) {
+            bTree.add(num);
+        }
+        System.out.println(bTree);
+    }
 
     @Test
     public void AvlTreeDemo() {
