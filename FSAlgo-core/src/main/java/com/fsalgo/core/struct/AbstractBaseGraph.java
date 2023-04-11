@@ -49,6 +49,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
 
     /**
      * 添加边
+     *
      * @param source 源节点
      * @param target 目标节点
      * @param weight 权重值
@@ -57,6 +58,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     public void addEdge(N source, N target, double weight) {
         addEdge(new Edge<>(source, target, weight));
     }
+
     /**
      * 图中所有的节点
      *
@@ -88,7 +90,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public int nodeSize() {
-        return nodeMap.size(); 
+        return nodeMap.size();
     }
 
     /**
@@ -182,6 +184,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
 
     /**
      * 给新增的节点创建新的边容器
+     *
      * @param node 节点
      */
     public void addEdgeContainer(N node) {

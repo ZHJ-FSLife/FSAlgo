@@ -1,7 +1,7 @@
 package com.fsalgo.core.tree.vectorspace;
 
-import com.fsalgo.core.geometrical.Distance;
-import com.fsalgo.core.geometrical.DistanceMetric;
+import com.fsalgo.core.math.geometrical.Distance;
+import com.fsalgo.core.math.geometrical.DistanceMetric;
 
 import java.util.ArrayList;
 import java.util.Comparator;

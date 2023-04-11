@@ -47,6 +47,8 @@ public class PageRank<N> implements NodeScoringAlgorithm<N, Double> {
 
     /**
      * 对每个节点进行评分
+     * 评分公式：
+     * PR(i) = (1 - 阻尼系数) / 节点总数 + 阻尼系数 * sigma(PR(j) / 入节点出度值)
      */
     private void calcScore() {
         for (int i = 0; i < MAX_ITERATIONS; i++) {

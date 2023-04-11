@@ -1,4 +1,4 @@
-package com.fsalgo.core.geometrical;
+package com.fsalgo.core.math.geometrical;
 
 /**
  * @Author: root
