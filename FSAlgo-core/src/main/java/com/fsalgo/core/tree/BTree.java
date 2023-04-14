@@ -26,6 +26,11 @@ public class BTree<T extends Comparable<T>> {
         this.root = new Node<>();
     }
 
+    /**
+     * 添加节点
+     *
+     * @param key 节点元素
+     */
     public void add(T key) {
         Node<T> temp = root;
         if (temp.keys.size() < 2 * degree - 1) {
@@ -40,6 +45,12 @@ public class BTree<T extends Comparable<T>> {
         add(node, key);
     }
 
+    /**
+     * 添加节点
+     *
+     * @param node 节点
+     * @param key  节点元素
+     */
     private void add(Node<T> node, T key) {
         int index = node.keys.size() - 1;
         if (node.leaf) {
@@ -68,6 +79,13 @@ public class BTree<T extends Comparable<T>> {
         add(node.child.get(index), key);
     }
 
+    /**
+     * 分隔节点
+     *
+     * @param node      节点
+     * @param childNode 子节点
+     * @param index     索引
+     */
     private void split(Node<T> node, Node<T> childNode, int index) {
         Node<T> temp = new Node<>();
         temp.leaf = childNode.leaf;

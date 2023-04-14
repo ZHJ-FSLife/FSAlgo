@@ -83,7 +83,7 @@ public class TreeTest {
 
     @Test
     public void BinaryIndexedTree() {
-        double[] nums = {new Double(1.0), new Integer(2), new Float(3.0), 4, 5, 6, 7, 8};
+        double[] nums = {1.0D, 2, 3.0F, 4, 5, 6, 7, 8};
         BinaryIndexedTree bit = new BinaryIndexedTree(nums);
 
         bit.updateNodeVal(4, 6);
