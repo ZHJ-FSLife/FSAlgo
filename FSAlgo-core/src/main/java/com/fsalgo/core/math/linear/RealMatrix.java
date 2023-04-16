@@ -71,4 +71,11 @@ public interface RealMatrix extends AnyMatrix {
      * @return 值
      */
     double getEntry(int row, int col);
+
+    /**
+     * 以二维数组的形式返回矩阵数据
+     *
+     * @return 二维数组数据
+     */
+    double[][] getData();
 }
