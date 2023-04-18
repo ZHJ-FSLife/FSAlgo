@@ -1,56 +1,69 @@
-'use strict';
 
-/**
- * 优先队列 - 大顶堆 - 堆排序
- * @constructor
- */
-const PriorityQueue = function () {
-    /**
-     * 存放堆节点
-     * @type {*[]}
-     */
-    let queue = [];
+interface Heap<T> {
 
-    /**
-     * 当前堆大小
-     * @returns {number}
-     */
-    this.size = function () {
-        return queue.length;
+    add(t : T) : void;
+
+    peek() : T | void;
+
+    remove() : T | void;
+
+    size() : number;
+
+    isEmpty() : boolean;
+
+    compareTo(x : T, y : T) : boolean;
+
+}
+
+abstract class AbstractHeap<T> implements Heap<T> {
+
+    public abstract add(t : T) : void;
+
+    public abstract peek() : T | void;
+
+    public abstract remove() : T | void;
+
+    public abstract size() : number;
+
+    public abstract isEmpty() : boolean;
+
+    public compareTo(x : T, y : T) : boolean {
+        return x > y;
+    }
+}
+
+
+// class FibonacciHeap<T> extends AbstractHeap<T> {}
+//
+// class BinomialHeap<T> extends AbstractHeap<T> {}
+//
+class BinaryHeap<T> extends AbstractHeap<T> {
+
+    private queue : T[] = [];
+
+    public size() : number {
+        return this.queue.length;
     }
 
-    /**
-     * 当前堆的判空处理
-     * @return   {Boolean}                [description]
-     */
-    this.isEmpty = function () {
-        return queue.length === 0;
+    public isEmpty() : boolean {
+        return this.queue.length == 0;
     }
 
-    /**
-     * 将所有节点加到堆中
-     * @param list
-     */
-    this.addAll = function (list) {
+    public peek() : T | void {
+        if (this.isEmpty()) {
+            return;
+        }
+        return this.queue[0];
+    }
+
+   public addAll(list : T[]): void {
         for (let i = 0; i < list.length; i++) {
             this.add(list[i]);
         }
     }
 
-    /**
-     * 获取堆顶元素
-     * @return   {[type]}                 [description]
-     */
-    this.peek = function () {
-        return this.isEmpty() ? null : queue[0];
-    }
-
-    /**
-     * 元素添加到堆中，并调整堆序
-     * @param val
-     */
-    this.add = function (val) {
-        queue.push(val);
+    public add(val : T) : void {
+        this.queue.push(val);
         if (this.size() <= 1) {
             return;
         }
@@ -59,7 +72,7 @@ const PriorityQueue = function () {
         let index = this.size() - 1;
         let pIndex = Math.floor((index - (index % 2 !== 0 ? 1 : 2)) / 2);
         // 堆末尾节点与父级节点比较，决定是否上移保持堆序
-        while (this.compareTo(val, queue[pIndex])) {
+        while (this.compareTo(val, this.queue[pIndex])) {
             this.swap(index, pIndex);
             index = pIndex;
             pIndex = Math.floor((index - (index % 2 !== 0 ? 1 : 2)) / 2);
@@ -69,17 +82,13 @@ const PriorityQueue = function () {
         }
     }
 
-    /**
-     * 移除堆中最值，并调整堆序
-     * @returns {null|*}
-     */
-    this.remove = function () {
-        if (this.size() === 0) {
-            return null;
+    public remove() : T | void {
+        if (this.isEmpty()) {
+            return;
         }
         // 堆顶和最后一个节点交换
         this.swap(0, this.size() - 1);
-        let result = queue.pop();
+        let result : T = this.queue.pop()!;
 
         // 堆顶节点向下和子节点比较，决定是否下移保持堆序
         let index = 0;
@@ -90,11 +99,11 @@ const PriorityQueue = function () {
 
             if (right < this.size()) {
                 // 如果存在右子节点，取左、右节点最值，与当前节点比较。
-                top = this.compareTo(queue[left], queue[right]) ? left : right;
-                top = this.compareTo(queue[top], queue[index]) ? top : index;
+                top = this.compareTo(this.queue[left], this.queue[right]) ? left : right;
+                top = this.compareTo(this.queue[top], this.queue[index]) ? top : index;
             } else {
                 // 如果只存在左子节点，与当前节点比较
-                top = this.compareTo(queue[left], queue[index]) ? left : index;
+                top = this.compareTo(this.queue[left], this.queue[index]) ? left : index;
             }
 
             // 如果最值为当前节点，则结束堆节点下移
@@ -107,34 +116,25 @@ const PriorityQueue = function () {
         return result;
     }
 
-    /**
-     * 比较节点
-     * @param x
-     * @param y
-     * @returns {boolean}
-     */
-    this.compareTo = function (x, y) {
-        return x > y;
-    }
-
-    /**
-     * 交换节点
-     * @param x
-     * @param y
-     */
-    this.swap = function (x, y) {
-        let temp = queue[x];
-        queue[x] = queue[y];
-        queue[y] = temp;
+    private swap(x : number, y : number) : void {
+        let temp = this.queue[x];
+        this.queue[x] = this.queue[y];
+        this.queue[y] = temp;
     }
 }
+
+// class LeftisHeap<T> extends AbstractHeap<T> {}
+//
+// class SkewHeap<T> extends AbstractHeap<T> {}
+//
+
 
 /**
  * 使用案例
  */
 function useCaseOfPriorityQueue() {
     let nums = [3, 1, 2, 4, 6, 0, 9, 7, 8, 5];
-    let pq = new PriorityQueue();
+    let pq = new BinaryHeap<number>();
 
     // 默认对节点值本身比较大小取最大值，可重写该方法后应用于任何类型数据
     pq.compareTo = function (x, y) {
@@ -146,6 +146,7 @@ function useCaseOfPriorityQueue() {
     while (!pq.isEmpty()) {
         process.stdout.write(pq.remove() + " ");
     }
+    pq.remove();
     console.log();
 }
 
