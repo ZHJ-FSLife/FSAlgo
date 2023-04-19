@@ -37,7 +37,53 @@ abstract class AbstractHeap<T> implements Heap<T> {
  * @Date: 2022/3/29 16:50
  * @Description: 斐波那契堆
  */
-// class FibonacciHeap<T> extends AbstractHeap<T> {}
+class FibonacciHeap<T> extends AbstractHeap<T> {
+
+    private GOLDEN_RATIO : number = (1 + Math.sqrt(5)) / 2;
+
+    // private min : Node<T> | null = null;
+
+    private nodeNum : number = 0;
+
+    private rootNum : number = 0;
+
+    public add(val : T) : void {
+
+    }
+
+    public peek() : T | void {
+
+    }
+
+    public remove() : T | void {
+
+    }
+
+    public size() : number {
+        return 0;
+    }
+
+    public isEmpty() : boolean {
+        return false;
+    }
+
+    public static Node = class Node<T> {
+
+        public key : T;
+        public degree : number = 0;
+        public mark : boolean = false;
+        public left : Node<T> = this;
+        public right : Node<T> = this;
+        public child : Node<T> | null = null;
+        public parent : Node<T> | null = null;
+
+        constructor(key : T) {
+            this.key = key;
+        }
+
+    }
+
+}
 
 /**
  * @Author: root
@@ -70,7 +116,7 @@ class BinaryHeap<T> extends AbstractHeap<T> {
         return this.queue[0];
     }
 
-   public addAll(list : T[]): void {
+    public addAll(list : T[]): void {
         for (let i = 0; i < list.length; i++) {
             this.add(list[i]);
         }
