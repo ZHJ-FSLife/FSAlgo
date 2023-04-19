@@ -1,7 +1,9 @@
 class UnionFind<T> {
 
+    // @ts-ignore
     private parents : Map<T, T> = new Map();
 
+    // @ts-ignore
     private heights : Map<T, number> = new Map();
 
     public add(node : T) : void {

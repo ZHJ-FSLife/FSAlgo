@@ -170,6 +170,7 @@ function useCaseOfPriorityQueue() {
     }
     // 逐个取出堆顶节点
     while (!pq.isEmpty()) {
+        // @ts-ignore
         process.stdout.write(pq.remove() + " ");
     }
     pq.remove();
