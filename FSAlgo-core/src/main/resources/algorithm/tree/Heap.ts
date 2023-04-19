@@ -32,11 +32,25 @@ abstract class AbstractHeap<T> implements Heap<T> {
     }
 }
 
-
+/**
+ * @Author: root
+ * @Date: 2022/3/29 16:50
+ * @Description: 斐波那契堆
+ */
 // class FibonacciHeap<T> extends AbstractHeap<T> {}
-//
+
+/**
+ * @Author: root
+ * @Date: 2022/3/29 16:50
+ * @Description: 二项式堆
+ */
 // class BinomialHeap<T> extends AbstractHeap<T> {}
-//
+
+/**
+ * @Author: root
+ * @Date: 2022/3/29 16:50
+ * @Description: 二叉堆
+ */
 class BinaryHeap<T> extends AbstractHeap<T> {
 
     private queue : T[] = [];
@@ -46,7 +60,7 @@ class BinaryHeap<T> extends AbstractHeap<T> {
     }
 
     public isEmpty() : boolean {
-        return this.queue.length == 0;
+        return this.size() === 0;
     }
 
     public peek() : T | void {
@@ -123,10 +137,19 @@ class BinaryHeap<T> extends AbstractHeap<T> {
     }
 }
 
+/**
+ * @Author: root
+ * @Date: 2022/3/29 16:50
+ * @Description: 左倾堆
+ */
 // class LeftisHeap<T> extends AbstractHeap<T> {}
-//
+
+/**
+ * @Author: root
+ * @Date: 2022/3/29 16:50
+ * @Description: 斜堆
+ */
 // class SkewHeap<T> extends AbstractHeap<T> {}
-//
 
 
 /**
@@ -134,14 +157,17 @@ class BinaryHeap<T> extends AbstractHeap<T> {
  */
 function useCaseOfPriorityQueue() {
     let nums = [3, 1, 2, 4, 6, 0, 9, 7, 8, 5];
-    let pq = new BinaryHeap<number>();
+    let pq : Heap<number> = new BinaryHeap<number>();
 
     // 默认对节点值本身比较大小取最大值，可重写该方法后应用于任何类型数据
     pq.compareTo = function (x, y) {
         return x < y;
     }
     // 节点加入堆中
-    pq.addAll(nums);
+    // pq.addAll(nums);
+    for (let index in nums) {
+        pq.add(nums[index]);
+    }
     // 逐个取出堆顶节点
     while (!pq.isEmpty()) {
         process.stdout.write(pq.remove() + " ");
