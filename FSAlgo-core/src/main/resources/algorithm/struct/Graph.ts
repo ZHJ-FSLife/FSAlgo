@@ -108,6 +108,11 @@ abstract class AbstractGraph<N> implements Graph<N> {
     public abstract addEdge(edge : Edge<N>) : void;
     public abstract addEdge(source : N, target : N) : void;
     public abstract addEdge(source : N, target : N, weight : number) : void;
+    // public addEdge(arg1? : Edge<N> | N, arg2? : N, arg3? : N) {
+    //     if (typeof arg1 === 'Edge<N>') {
+    //         return;
+    //     }
+    // }
     // @ts-ignore
     public abstract nodes() : Set<N> | null;
     // @ts-ignore

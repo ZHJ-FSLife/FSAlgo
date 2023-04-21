@@ -1,5 +1,7 @@
 package com.fsalgo.core.interfaces;
 
+import com.fsalgo.core.tree.vectorspace.SpacePoint;
+
 import java.util.List;
 
 /**
@@ -7,8 +9,8 @@ import java.util.List;
  * @Date: 2023/3/26 0:12
  * @Description: 聚类算法
  */
-public interface ClusteringAlgorithm {
+public interface ClusteringAlgorithm<T> {
 
-    List<List<double[]>> cluster(List<double[]> coords);
+    List<List<SpacePoint<T>>> cluster(List<SpacePoint<T>> coords);
 
 }

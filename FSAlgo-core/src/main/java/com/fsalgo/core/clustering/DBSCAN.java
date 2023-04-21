@@ -2,6 +2,7 @@ package com.fsalgo.core.clustering;
 
 import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 import com.fsalgo.core.tree.vectorspace.KDTree;
+import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
 import java.util.*;
 
@@ -10,7 +11,7 @@ import java.util.*;
  * @Date: 2023/3/6 9:14
  * @Description: Density-Based Spatial Clustering of Applications with Noise / 基于密度的空间聚类
  */
-public class DBSCAN implements ClusteringAlgorithm {
+public class DBSCAN<T extends Comparable<T>> implements ClusteringAlgorithm<T> {
 
     private final int density;
 
@@ -18,7 +19,7 @@ public class DBSCAN implements ClusteringAlgorithm {
 
     private KDTree kdTree;
 
-    private final Set<double[]> flag = new HashSet<>();
+    private final Set<SpacePoint<T>> flag = new HashSet<>();
 
     public DBSCAN(int density, double radius) {
         this.density = density;
@@ -27,28 +28,29 @@ public class DBSCAN implements ClusteringAlgorithm {
 
     /**
      * 借坐标集中的所有节点按密度与半径进行划分簇
-     * @param coords 节点坐标集
+     *
+     * @param data 节点坐标集
      * @return list<cluster>
      */
     @Override
-    public List<List<double[]>> cluster(List<double[]> coords) {
-        List<List<double[]>> result = new ArrayList<>();
-        kdTree = new KDTree(coords);
-        for (double[] coord : coords) {
-            if (flag.contains(coord)) {
+    public List<List<SpacePoint<T>>> cluster(List<SpacePoint<T>> data) {
+        List<List<SpacePoint<T>>> result = new ArrayList<>();
+        kdTree = new KDTree<>(data);
+        for (SpacePoint<T> node : data) {
+            if (flag.contains(node)) {
                 continue;
             }
-            List<double[]> list = search(coord);
+            List<SpacePoint<T>> list = search(node);
             if (!list.isEmpty()) {
                 result.add(list);
             }
         }
-        for (double[] coord : coords) {
-            if (flag.contains(coord)) {
+        for (SpacePoint<T> node : data) {
+            if (flag.contains(node)) {
                 continue;
             }
             result.add(new LinkedList<>() {{
-                add(coord);
+                add(node);
             }});
         }
         return result;
@@ -56,26 +58,27 @@ public class DBSCAN implements ClusteringAlgorithm {
 
     /**
      * 指定节点搜寻半径内的节点，其节点数满足密度要求，可划分未一个簇
+     *
      * @param source 指定节点坐标
      * @return 簇
      */
-    private List<double[]> search(double[] source) {
-        List<double[]> result = new ArrayList<>();
-        Deque<double[]> queue = new LinkedList<>();
+    private List<SpacePoint<T>> search(SpacePoint<T> source) {
+        List<SpacePoint<T>> result = new ArrayList<>();
+        Deque<SpacePoint<T>> queue = new LinkedList<>();
         queue.add(source);
         while (!queue.isEmpty()) {
-            double[] curr = queue.pop();
-            List<double[]> searchNode = kdTree.range(curr, radius);
+            SpacePoint<T> curr = queue.pop();
+            List<SpacePoint<T>> searchNode = kdTree.range(curr, radius);
             if (searchNode.size() < density) {
                 continue;
             }
-            for (double[] coord : searchNode) {
-                if (flag.contains(coord)) {
+            for (SpacePoint<T> node : searchNode) {
+                if (flag.contains(node)) {
                     continue;
                 }
-                flag.add(coord);
-                result.add(coord);
-                queue.add(coord);
+                flag.add(node);
+                result.add(node);
+                queue.add(node);
             }
         }
         return result;
