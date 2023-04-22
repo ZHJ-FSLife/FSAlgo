@@ -2,7 +2,6 @@ package com.fsalgo;
 
 import com.fsalgo.core.clustering.DBSCAN;
 import com.fsalgo.core.interfaces.ClusteringAlgorithm;
-import com.fsalgo.core.tree.vectorspace.KDTreeBack;
 import com.fsalgo.core.tree.vectorspace.KDTree;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 import org.junit.Test;
@@ -18,44 +17,25 @@ import java.util.List;
  */
 public class ClusteringTest {
 
-    List<double[]> points = new ArrayList<>() {{
-        add(new double[]{1, 3});
-        add(new double[]{1, 8});
-        add(new double[]{2, 2});
-        add(new double[]{2, 10});
-        add(new double[]{3, 6});
-        add(new double[]{4, 1});
-        add(new double[]{5, 4});
-        add(new double[]{6, 8});
-        add(new double[]{7, 4});
-        add(new double[]{7, 7});
-        add(new double[]{8, 2});
-        add(new double[]{8, 5});
-        add(new double[]{9, 9});
+    List<SpacePoint<String>> data = new ArrayList<>() {{
+        add(new SpacePoint.SpacePointImpl<>("P01", new double[]{1, 3}));
+        add(new SpacePoint.SpacePointImpl<>("P02", new double[]{1, 8}));
+        add(new SpacePoint.SpacePointImpl<>("P03", new double[]{2, 2}));
+        add(new SpacePoint.SpacePointImpl<>("P04", new double[]{2, 10}));
+        add(new SpacePoint.SpacePointImpl<>("P05", new double[]{3, 6}));
+        add(new SpacePoint.SpacePointImpl<>("P06", new double[]{4, 1}));
+        add(new SpacePoint.SpacePointImpl<>("P07", new double[]{5, 4}));
+        add(new SpacePoint.SpacePointImpl<>("P08", new double[]{6, 8}));
+        add(new SpacePoint.SpacePointImpl<>("P09", new double[]{7, 4}));
+        add(new SpacePoint.SpacePointImpl<>("P10", new double[]{7, 7}));
+        add(new SpacePoint.SpacePointImpl<>("P11", new double[]{8, 2}));
+        add(new SpacePoint.SpacePointImpl<>("P12", new double[]{8, 5}));
+        add(new SpacePoint.SpacePointImpl<>("P13", new double[]{9, 9}));
     }};
 
     @Test
     public void KDTreeDemo() {
-        KDTreeBack kdTree = new KDTreeBack(points);
-
-        double[] queryPoint = new double[]{8, 4};
-        double[] nearestPoint = kdTree.nearest(queryPoint);
-        List<double[]> result = kdTree.range(queryPoint, 4);
-
-        System.out.println("Query point: " + Arrays.toString(queryPoint));
-        System.out.println("Nearest point: " + Arrays.toString(nearestPoint));
-        for (double[] coord : result) {
-            System.out.print(Arrays.toString(coord));
-        }
-    }
-
-    @Test
-    public void KDTreeDemo2() {
-        List<SpacePoint<String>> data = new ArrayList<>();
         int i = 0;
-        for (double[] list : points) {
-            data.add(new SpacePoint.SpacePointImpl<>("P" + (i++), list));
-        }
         data.add(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4}));
         KDTree<String> kDimensionalTree = new KDTree<>(data);
 
@@ -70,12 +50,6 @@ public class ClusteringTest {
 
     @Test
     public void dbscanDemo() {
-        List<SpacePoint<String>> data = new ArrayList<>();
-        int i = 0;
-        for (double[] list : points) {
-            data.add(new SpacePoint.SpacePointImpl<>("P" + (i++), list));
-        }
-
         ClusteringAlgorithm<String> clustering = new DBSCAN<>(3, 3);
         List<List<SpacePoint<String>>> result = clustering.cluster(data);
         for (List<SpacePoint<String>> list : result) {
