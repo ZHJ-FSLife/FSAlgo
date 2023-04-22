@@ -25,7 +25,7 @@ public class KDTree<T extends Comparable<T>> {
     public KDTree(List<SpacePoint<T>> data, DistanceMetric dist) {
         this.distanceMetric = dist;
         if (data.isEmpty()) {
-            throw new IllegalArgumentException("node coord cannot be empty!");
+            throw new IllegalArgumentException("node data cannot be empty!");
         }
         root = buildTree(data, 0);
     }
@@ -81,12 +81,13 @@ public class KDTree<T extends Comparable<T>> {
         if (node == null) {
             return best;
         }
-        if (node.data.getPoint() != data.getPoint()) {
+        if (best.getPoint().compareTo(data.getPoint()) == 0) {
+            best = node.data;
+        } else {
             double distance1 = distanceMetric.getDistance(data.getCoord(), node.data.getCoord());
             double distance2 = distanceMetric.getDistance(data.getCoord(), best.getCoord());
             if (distance1 < distance2) {
                 best = node.data;
-                best.setDistance(distance1);
             }
         }
         int axis = depth % data.getCoord().length;

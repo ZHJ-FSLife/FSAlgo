@@ -4,7 +4,7 @@ class Edge<N> {
     private source : N | null;
     private target : N | null;
     private weight : number = 1.0;
-    
+
     constructor();
     constructor(source : N, target : N);
     constructor(source : N, target : N, weight : number);
@@ -63,8 +63,8 @@ class NodeContainer<N> {
     // @ts-ignore
     private outgoing : Set<N> | null;
     constructor(nodeSetFactory : NodeSetFactory<N>, node : N) {
-        this.incoming = nodeSetFactory.createNodeSet(node); 
-        this.outgoing = nodeSetFactory.createNodeSet(node); 
+        this.incoming = nodeSetFactory.createNodeSet(node);
+        this.outgoing = nodeSetFactory.createNodeSet(node);
     }
     public setIncoming(node : N) : void { (this.incoming)!.add(node); }
     public setOutgoing(node : N) : void { (this.outgoing)!.add(node); }
@@ -108,11 +108,6 @@ abstract class AbstractGraph<N> implements Graph<N> {
     public abstract addEdge(edge : Edge<N>) : void;
     public abstract addEdge(source : N, target : N) : void;
     public abstract addEdge(source : N, target : N, weight : number) : void;
-    // public addEdge(arg1? : Edge<N> | N, arg2? : N, arg3? : N) {
-    //     if (typeof arg1 === 'Edge<N>') {
-    //         return;
-    //     }
-    // }
     // @ts-ignore
     public abstract nodes() : Set<N> | null;
     // @ts-ignore

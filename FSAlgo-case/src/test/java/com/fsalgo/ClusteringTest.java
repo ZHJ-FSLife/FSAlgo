@@ -50,7 +50,7 @@ public class ClusteringTest {
     }
 
     @Test
-    public void KDimensionalTreeDemo() {
+    public void KDTreeDemo2() {
         List<SpacePoint<String>> data = new ArrayList<>();
         int i = 0;
         for (double[] list : points) {
@@ -64,7 +64,7 @@ public class ClusteringTest {
         List<SpacePoint<String>> rangPoint = kDimensionalTree.range(queryPoint, 4);
         System.out.println(nearestPoint);
         for (SpacePoint<String> temp : rangPoint) {
-            System.out.print(Arrays.toString(temp.getCoord()) + ", ");
+            System.out.print(Arrays.toString(temp.getCoord()) + ":" + temp.getDistance() + ", ");
         }
     }
 
