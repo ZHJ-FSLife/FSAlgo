@@ -41,7 +41,6 @@ class FibonacciHeap<T> extends AbstractHeap<T> {
 
     private GOLDEN_RATIO : number = (1 + Math.sqrt(5)) / 2;
 
-    // private min : Node<T> | null = null;
 
     private nodeNum : number = 0;
 
@@ -67,20 +66,27 @@ class FibonacciHeap<T> extends AbstractHeap<T> {
         return false;
     }
 
-    public static Node = class Node<T> {
+    static Node = class<U> {
 
-        public key : T;
-        public degree : number = 0;
-        public mark : boolean = false;
-        public left : Node<T> = this;
-        public right : Node<T> = this;
-        public child : Node<T> | null = null;
-        public parent : Node<T> | null = null;
+        public key : U;
+        // public degree : number = 0;
+        // public mark : boolean = false;
+        // public left : Node<T> = this;
+        // public right : Node<T> = this;
+        // public child : Node<T> | null = null;
+        // public parent : Node<T> | null = null;
 
-        constructor(key : T) {
+        constructor(key : U) {
             this.key = key;
         }
 
+    }
+
+    min : FibonacciHeap<T>.Node<T> | null = null;
+    
+    constructor(key : T) {
+        super();
+        this.min = new FibonacciHeap<T>.Node<T>(key);
     }
 
 }
