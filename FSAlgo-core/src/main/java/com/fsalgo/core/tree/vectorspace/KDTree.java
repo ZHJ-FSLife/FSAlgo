@@ -134,10 +134,10 @@ public class KDTree<T extends Comparable<T>> {
             result.add(node.data);
         }
         int axis = depth % data.getCoord().length;
-        if (node.left != null && data.getCoord()[axis] - radius <= node.data.getCoord()[axis]) {
+        if (data.getCoord()[axis] - radius <= node.data.getCoord()[axis]) {
             range(node.left, data, radius, depth + 1, result);
         }
-        if (node.right != null && data.getCoord()[axis] + radius >= node.data.getCoord()[axis]) {
+        if (data.getCoord()[axis] + radius >= node.data.getCoord()[axis]) {
             range(node.right, data, radius, depth + 1, result);
         }
     }
