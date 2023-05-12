@@ -5,5 +5,5 @@ package com.fsalgo.core.tree.vectorspace;
  * @Date: 2023/3/19 13:17
  * @Description: 八叉树
  */
-public class OcTree {
+public class OcTree<T extends Comparable<T>> {
 }
