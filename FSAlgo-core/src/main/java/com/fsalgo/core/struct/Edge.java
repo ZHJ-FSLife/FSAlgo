@@ -1,6 +1,5 @@
 package com.fsalgo.core.struct;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,9 +7,7 @@ import java.util.Objects;
  * @Date: 2022/12/16 21:55
  * @Description:
  */
-public class Edge<N> implements Serializable {
-
-    private static final long serialVersionUID = 6376080637258667838L;
+public class Edge<N> {
 
     private N source;
 

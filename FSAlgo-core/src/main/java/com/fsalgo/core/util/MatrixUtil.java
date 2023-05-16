@@ -10,6 +10,8 @@ import com.fsalgo.core.math.linear.RealMatrix;
  */
 public class MatrixUtil {
 
+    private MatrixUtil() {}
+
     public static void checkDims(RealMatrix matrix1, RealMatrix matrix2) {
         if (matrix1.getRowDimension() != matrix2.getRowDimension() || matrix1.getColDimension() != matrix2.getColDimension()) {
             throw new IllegalArgumentException("matrix dimension mismatch");

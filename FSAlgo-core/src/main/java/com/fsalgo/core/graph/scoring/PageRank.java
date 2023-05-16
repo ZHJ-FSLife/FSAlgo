@@ -17,12 +17,12 @@ public class PageRank<N> implements NodeScoringAlgorithm<N, Double> {
     /**
      * 最大迭代次数
      */
-    private final static int MAX_ITERATIONS = 100;
+    private static final int MAX_ITERATIONS = 100;
 
     /**
      * 阻尼系数
      */
-    private final static double DAMPING_FACTOR = 0.85d;
+    private static final double DAMPING_FACTOR = 0.85d;
 
     private final Graph<N> graph;
 

@@ -18,7 +18,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     protected Map<N, NodeContainer<N>> nodeMap;
     protected Map<N, EdgeContainer<N>> edgeMap;
 
-    public AbstractBaseGraph() {
+    protected AbstractBaseGraph() {
         nodeMap = new LinkedHashMap<>();
         edgeMap = new LinkedHashMap<>();
     }

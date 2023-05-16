@@ -9,6 +9,8 @@ import java.util.Objects;
  */
 public abstract class Graphs {
 
+    private Graphs() {}
+
     public static <N> NodeToIndexMapping<N> getNodeToIndexMapping(Graph<N> graph) {
         return new NodeToIndexMapping<>(Objects.requireNonNull(graph).nodes());
     }

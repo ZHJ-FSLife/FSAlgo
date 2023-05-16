@@ -47,7 +47,7 @@ public class HuffmanTree<T extends Comparable<T>> {
                 Comparator.comparingInt(o -> o.count)
         );
         for (T key : map.keySet()) {
-            priorityQueue.add(new Node<T>(key, map.get(key)));
+            priorityQueue.add(new Node<>(key, map.get(key)));
         }
 
         // 开始构建huffman编码，每两个为一组
