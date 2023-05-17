@@ -73,4 +73,9 @@ public class PageRank<N> implements NodeScoringAlgorithm<N, Double> {
     public Double getNodeScore(N n) {
         return score.get(n);
     }
+
+    @Override
+    public String getName() {
+        return "page-rank";
+    }
 }

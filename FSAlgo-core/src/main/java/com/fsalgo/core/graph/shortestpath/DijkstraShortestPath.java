@@ -110,4 +110,9 @@ public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPa
     public double getPathWeight(N source, N target) {
         return 0;
     }
+
+    @Override
+    public String getName() {
+        return "dijkstra";
+    }
 }

@@ -19,4 +19,9 @@ public class KMeans<T extends Comparable<T>> implements ClusteringAlgorithm<T> {
         return null;
     }
 
+    @Override
+    public String getName() {
+        return "k-means";
+    }
+
 }

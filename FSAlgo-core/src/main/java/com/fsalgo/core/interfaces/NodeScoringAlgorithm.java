@@ -7,7 +7,7 @@ import java.util.Map;
  * @Date: 2022/12/23 21:47
  * @Description: 节点评分算法
  */
-public interface NodeScoringAlgorithm<N, D> {
+public interface NodeScoringAlgorithm<N, D> extends NameEntity {
 
     /**
      * 获取所有节点的分值

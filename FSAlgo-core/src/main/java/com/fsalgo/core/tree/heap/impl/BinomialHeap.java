@@ -34,4 +34,9 @@ public class BinomialHeap<T extends Comparable<T>> extends AbstractHeap<T> imple
     public boolean isEmpty() {
         return false;
     }
+
+    @Override
+    public String getName() {
+        return "binomial-heap";
+    }
 }

@@ -126,4 +126,9 @@ public class BinaryHeap<T extends Comparable<T>> extends AbstractHeap<T> impleme
         queue.set(y, temp);
     }
 
+    @Override
+    public String getName() {
+        return "binary-heap";
+    }
+
 }

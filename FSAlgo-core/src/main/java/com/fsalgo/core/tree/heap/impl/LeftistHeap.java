@@ -88,4 +88,9 @@ public class LeftistHeap<T extends Comparable<T>> extends AbstractHeap<T> implem
             this.key = key;
         }
     }
+
+    @Override
+    public String getName() {
+        return "leftist-heap";
+    }
 }

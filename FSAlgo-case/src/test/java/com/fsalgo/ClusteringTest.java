@@ -2,6 +2,7 @@ package com.fsalgo;
 
 import com.fsalgo.core.clustering.DBSCAN;
 import com.fsalgo.core.interfaces.ClusteringAlgorithm;
+import com.fsalgo.core.tree.vectorspace.BallTree;
 import com.fsalgo.core.tree.vectorspace.KDTree;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 import org.junit.Test;
@@ -34,8 +35,13 @@ public class ClusteringTest {
     }};
 
     @Test
+    public void BallTreeDemo() {
+        BallTree<String> ballTree = new BallTree<>(data);
+        System.out.println(ballTree);
+    }
+
+    @Test
     public void KDTreeDemo() {
-        int i = 0;
         data.add(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4}));
         KDTree<String> kDimensionalTree = new KDTree<>(data);
 

@@ -274,4 +274,9 @@ public class FibonacciHeap<T extends Comparable<T>> extends AbstractHeap<T> impl
             return this.parent == null;
         }
     }
+
+    @Override
+    public String getName() {
+        return "fibonacci-heap";
+    }
 }

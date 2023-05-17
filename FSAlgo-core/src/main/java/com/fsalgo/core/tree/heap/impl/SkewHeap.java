@@ -83,4 +83,9 @@ public class SkewHeap<T extends Comparable<T>> extends AbstractHeap<T> implement
         }
     }
 
+    @Override
+    public String getName() {
+        return "skew-heap";
+    }
+
 }

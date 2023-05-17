@@ -9,7 +9,7 @@ import java.util.List;
  * @Date: 2022/12/23 21:23
  * @Description: 最短路径算法
  */
-public interface ShortestPathAlgorithm<N> {
+public interface ShortestPathAlgorithm<N> extends NameEntity {
 
     /**
      * 起始节点到目标节点的最短路径

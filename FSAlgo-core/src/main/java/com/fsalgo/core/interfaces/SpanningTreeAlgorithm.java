@@ -10,7 +10,7 @@ import java.util.Set;
  * @Date: 2022/12/23 21:18
  * @Description: 生成树算法
  */
-public interface SpanningTreeAlgorithm<N> {
+public interface SpanningTreeAlgorithm<N> extends NameEntity {
 
     /**
      * 获取生成树

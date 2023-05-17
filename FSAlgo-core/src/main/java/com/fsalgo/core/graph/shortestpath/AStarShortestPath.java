@@ -18,4 +18,9 @@ public class AStarShortestPath<N> implements ShortestPathAlgorithm<N> {
     public double getPathWeight(N source, N target) {
         return 0;
     }
+
+    @Override
+    public String getName() {
+        return "a-start";
+    }
 }

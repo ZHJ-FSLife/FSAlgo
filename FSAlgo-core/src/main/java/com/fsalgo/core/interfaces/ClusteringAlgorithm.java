@@ -9,7 +9,7 @@ import java.util.List;
  * @Date: 2023/3/26 0:12
  * @Description: 聚类算法
  */
-public interface ClusteringAlgorithm<T> {
+public interface ClusteringAlgorithm<T> extends NameEntity {
 
     List<List<SpacePoint<T>>> cluster(List<SpacePoint<T>> coords);
 

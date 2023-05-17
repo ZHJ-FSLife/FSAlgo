@@ -20,4 +20,10 @@ public class BoruvkaMinimumSpanningTree<N> implements SpanningTreeAlgorithm<N> {
 
         return new SpanningTreeImpl<>(minimumSpanningTreeEdgeSet, spanningTreeWeight);
     }
+
+    @Override
+    public String getName() {
+        return "boruvka";
+    }
+
 }

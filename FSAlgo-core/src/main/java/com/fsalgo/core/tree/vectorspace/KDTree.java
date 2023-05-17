@@ -25,7 +25,7 @@ public class KDTree<T extends Comparable<T>> {
     public KDTree(List<SpacePoint<T>> points, DistanceMetric dist) {
         this.distanceMetric = dist;
         if (points.isEmpty()) {
-            throw new IllegalArgumentException("node data cannot be empty!");
+            throw new IllegalArgumentException("points cannot be empty!");
         }
         root = buildTree(points, 0);
     }

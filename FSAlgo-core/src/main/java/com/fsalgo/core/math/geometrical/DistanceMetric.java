@@ -5,6 +5,6 @@ package com.fsalgo.core.math.geometrical;
  * @Date: 2023/3/6 20:53
  * @Description:
  */
-public interface DistanceMetric extends GeometricalDistance{
+public interface DistanceMetric extends GeometricalDistance {
 
 }

@@ -48,7 +48,7 @@ public enum Distance implements DistanceMetric {
                     count++;
                 }
             }
-            return count / source.length;
+            return 1 - (count / source.length);
         }
 
         @Override
@@ -148,5 +148,5 @@ public enum Distance implements DistanceMetric {
         return getName();
     }
 
-    abstract public boolean isBinaryDistance();
+    public abstract boolean isBinaryDistance();
 }

@@ -83,4 +83,9 @@ public class DBSCAN<T extends Comparable<T>> implements ClusteringAlgorithm<T> {
         }
         return result;
     }
+
+    @Override
+    public String getName() {
+        return "dbscan";
+    }
 }

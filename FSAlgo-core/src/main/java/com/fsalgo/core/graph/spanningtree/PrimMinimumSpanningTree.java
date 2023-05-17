@@ -91,4 +91,9 @@ public class PrimMinimumSpanningTree<N extends Comparable<N>> implements Spannin
 
         return new SpanningTreeImpl<>(minimumSpanningTreeEdgeSet, spanningTreeWeight);
     }
+
+    @Override
+    public String getName() {
+        return "prim";
+    }
 }

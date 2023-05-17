@@ -4,6 +4,7 @@ import com.fsalgo.core.math.geometrical.Distance;
 import com.fsalgo.core.math.geometrical.DistanceMetric;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public class BallTree<T extends Comparable<T>> {
 
-    private Node<T> root;
+    private final Node<T> root;
 
     private final DistanceMetric distanceMetric;
 
@@ -29,24 +30,39 @@ public class BallTree<T extends Comparable<T>> {
         root = buildTree(points);
     }
 
+    /**
+     * 构建ball-tree
+     *
+     * @param points 坐标集
+     * @return root
+     */
     private Node<T> buildTree(List<SpacePoint<T>> points) {
-        SpacePoint<T> center = calcCenter(points);
-        double radius = calcRadius(center, points);
+        SpacePoint<T> center = findCenter(points);
+        double radius = findRadius(points, center);
         Node<T> node = new Node<>(center, points, radius);
         if (points.size() == 1) {
             return node;
         }
-        List<SpacePoint<T>> left = new ArrayList<>();
-        List<SpacePoint<T>> right = new ArrayList<>();
-        partition(center, points, left, right);
+        List<SpacePoint<T>> left = new LinkedList<>();
+        List<SpacePoint<T>> right = new LinkedList<>();
+        partition(points, left, right, center);
         node.left = buildTree(left);
         node.right = buildTree(right);
         return node;
     }
 
-    private void partition(SpacePoint<T> center, List<SpacePoint<T>> points, List<SpacePoint<T>> left, List<SpacePoint<T>> right) {
+    /**
+     * 将坐标集从中心点开始划分出左右两个范围
+     *
+     * @param points 坐标集
+     * @param left   左坐标集
+     * @param right  右坐标集
+     * @param center 中心点
+     */
+    private void partition(List<SpacePoint<T>> points, List<SpacePoint<T>> left, List<SpacePoint<T>> right, SpacePoint<T> center) {
         for (SpacePoint<T> point : points) {
-            if (distanceMetric.getDistance(center.getCoord(), point.getCoord()) < root.radius) {
+            double distance = distanceMetric.getDistance(point.getCoord(), center.getCoord());
+            if (distance < root.radius) {
                 left.add(point);
             } else {
                 right.add(point);
@@ -54,7 +70,13 @@ public class BallTree<T extends Comparable<T>> {
         }
     }
 
-    private SpacePoint<T> calcCenter(List<SpacePoint<T>> points) {
+    /**
+     * 找到坐标集中的中心点
+     *
+     * @param points 坐标集
+     * @return 中心点
+     */
+    private SpacePoint<T> findCenter(List<SpacePoint<T>> points) {
         int dimension = points.get(0).getCoord().length;
         double[] center = new double[dimension];
         for (SpacePoint<T> point : points) {
@@ -68,13 +90,20 @@ public class BallTree<T extends Comparable<T>> {
         return new SpacePoint.SpacePointImpl<>(null, center);
     }
 
-    private double calcRadius(SpacePoint<T> center, List<SpacePoint<T>> points) {
-        double maxDistace = 0;
+    /**
+     * 找到中心点的最大半径
+     *
+     * @param points 坐标集
+     * @param center 中心点
+     * @return 半径
+     */
+    private double findRadius(List<SpacePoint<T>> points, SpacePoint<T> center) {
+        double radius = 0;
         for (SpacePoint<T> point : points) {
             double distance = distanceMetric.getDistance(center.getCoord(), point.getCoord());
-            maxDistace = Math.max(maxDistace, distance);
+            radius = Math.max(distance, radius);
         }
-        return maxDistace;
+        return radius;
     }
 
     public static class Node<T extends Comparable<T>> {
