@@ -14,7 +14,7 @@ public class DirectedAcyclicGraph<N> extends DirectedGraph<N> {
     private final Map<N, Integer> indegree = new HashMap<>();
 
     public DirectedAcyclicGraph() {
-
+        super();
     }
 
     @Override

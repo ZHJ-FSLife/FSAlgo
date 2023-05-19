@@ -11,7 +11,7 @@ import com.fsalgo.core.struct.AbstractBaseGraph;
 public class DirectedGraph<N> extends AbstractBaseGraph<N> {
 
     public DirectedGraph() {
-
+        super();
     }
 
     /**
