@@ -4,6 +4,7 @@ import com.fsalgo.core.clustering.DBSCAN;
 import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 import com.fsalgo.core.tree.vectorspace.BallTree;
 import com.fsalgo.core.tree.vectorspace.KDTree;
+import com.fsalgo.core.tree.vectorspace.QuadTree;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 import org.junit.Test;
 
@@ -33,6 +34,13 @@ public class ClusteringTest {
         add(new SpacePoint.SpacePointImpl<>("P12", new double[]{8, 5}));
         add(new SpacePoint.SpacePointImpl<>("P13", new double[]{9, 9}));
     }};
+
+    @Test
+    public void QuadTreeDemo() {
+        QuadTree<String> quadTree = new QuadTree<>(data);
+        SpacePoint<String> nearestPoint = quadTree.nearest(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 5.2}));
+        System.out.println(nearestPoint);
+    }
 
     @Test
     public void BallTreeDemo() {

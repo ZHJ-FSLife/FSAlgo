@@ -88,7 +88,6 @@ class FibonacciHeap<T> extends AbstractHeap<T> {
         super();
         this.min = new FibonacciHeap<T>.Node<T>(key);
     }
-
 }
 
 /**
