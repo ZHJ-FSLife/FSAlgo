@@ -1,7 +1,9 @@
-package com.fsalgo.core.tree.vectorspace;
+package com.fsalgo.core.tree.vectorspace.impl;
 
 import com.fsalgo.core.math.geometrical.Distance;
 import com.fsalgo.core.math.geometrical.DistanceMetric;
+import com.fsalgo.core.tree.vectorspace.NearestNeighborSearch;
+import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,7 +14,7 @@ import java.util.List;
  * @Date: 2023/3/25 21:07
  * @Description: K-Dimensional-Tree, 用于处理多维空间中数据节点距离的问题，例如KNN、K-Means、DBSAN...等算法需要计算点与点之间的距离
  */
-public class KDTree<T extends Comparable<T>> {
+public class KDTree<T extends Comparable<T>> implements NearestNeighborSearch<T> {
 
     private final Node<T> root;
 
@@ -61,6 +63,7 @@ public class KDTree<T extends Comparable<T>> {
      * @param point 节点坐标
      * @return 距离最近的节点的坐标
      */
+    @Override
     public SpacePoint<T> nearest(SpacePoint<T> point) {
         if (root == null) {
             throw new IllegalArgumentException("the kd-tree is not built!");
@@ -111,6 +114,7 @@ public class KDTree<T extends Comparable<T>> {
      * @param radius 搜寻半径
      * @return 半径内所有节点的坐标
      */
+    @Override
     public List<SpacePoint<T>> range(SpacePoint<T> point, double radius) {
         List<SpacePoint<T>> result = new ArrayList<>();
         range(root, point, radius, 0, result);

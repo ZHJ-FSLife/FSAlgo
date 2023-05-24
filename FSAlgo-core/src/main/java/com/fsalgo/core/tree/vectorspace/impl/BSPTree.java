@@ -1,4 +1,4 @@
-package com.fsalgo.core.tree.vectorspace;
+package com.fsalgo.core.tree.vectorspace.impl;
 
 /**
  * @Author: root

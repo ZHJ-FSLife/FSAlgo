@@ -1,7 +1,7 @@
 package com.fsalgo.core.clustering;
 
 import com.fsalgo.core.interfaces.ClusteringAlgorithm;
-import com.fsalgo.core.tree.vectorspace.KDTree;
+import com.fsalgo.core.tree.vectorspace.impl.KDTree;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
 import java.util.*;

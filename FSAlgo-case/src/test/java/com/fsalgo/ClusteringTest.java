@@ -2,9 +2,10 @@ package com.fsalgo;
 
 import com.fsalgo.core.clustering.DBSCAN;
 import com.fsalgo.core.interfaces.ClusteringAlgorithm;
-import com.fsalgo.core.tree.vectorspace.BallTree;
-import com.fsalgo.core.tree.vectorspace.KDTree;
-import com.fsalgo.core.tree.vectorspace.QuadTree;
+import com.fsalgo.core.tree.vectorspace.impl.BallTree;
+import com.fsalgo.core.tree.vectorspace.impl.KDTree;
+import com.fsalgo.core.tree.vectorspace.impl.OcTree;
+import com.fsalgo.core.tree.vectorspace.impl.QuadTree;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 import org.junit.Test;
 
@@ -36,9 +37,14 @@ public class ClusteringTest {
     }};
 
     @Test
+    public void OcTreeDemo() {
+        OcTree<String> ocTree = new OcTree<>();
+    }
+
+    @Test
     public void QuadTreeDemo() {
         QuadTree<String> quadTree = new QuadTree<>(data);
-        SpacePoint<String> nearestPoint = quadTree.nearest(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 5.2}));
+        SpacePoint<String> nearestPoint = quadTree.nearest(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4}));
         System.out.println(nearestPoint);
     }
 

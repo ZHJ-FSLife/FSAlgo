@@ -1,7 +1,9 @@
-package com.fsalgo.core.tree.vectorspace;
+package com.fsalgo.core.tree.vectorspace.impl;
 
 import com.fsalgo.core.math.geometrical.Distance;
 import com.fsalgo.core.math.geometrical.DistanceMetric;
+import com.fsalgo.core.tree.vectorspace.NearestNeighborSearch;
+import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -12,7 +14,7 @@ import java.util.List;
  * @Date: 2023/3/5 22:37
  * @Description:
  */
-public class BallTree<T extends Comparable<T>> {
+public class BallTree<T extends Comparable<T>> implements NearestNeighborSearch<T> {
 
     private final Node<T> root;
 
@@ -104,6 +106,16 @@ public class BallTree<T extends Comparable<T>> {
             radius = Math.max(distance, radius);
         }
         return radius;
+    }
+
+    @Override
+    public SpacePoint<T> nearest(SpacePoint<T> point) {
+        return null;
+    }
+
+    @Override
+    public List<SpacePoint<T>> range(SpacePoint<T> point, double radius) {
+        return null;
     }
 
     public static class Node<T extends Comparable<T>> {
