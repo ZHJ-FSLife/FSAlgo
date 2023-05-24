@@ -55,9 +55,9 @@ public class OcTree<T extends Comparable<T>> extends AbstractQuadOcTree<T> {
         double x = target[0] - center[0];
         double y = target[1] - center[1];
         double z = target[2] - center[2];
-        x = x == 0 ? x + 0.1 : x;
-        y = y == 0 ? y + 0.1 : y;
-        z = z == 0 ? z + 0.1 : z;
+        x += x == 0 ? 0.1 : 0;
+        y += y == 0 ? 0.1 : 0;
+        z += z == 0 ? 0.1 : 0;
         return (x >= 0 ? 1 : 0) | (y >= 0 ? 2 : 0) | (z >= 0 ? 4 : 0);
     }
 }

@@ -135,8 +135,8 @@ public class QuadTree<T extends Comparable<T>> extends AbstractQuadOcTree<T> {
         // +0.1是为了避免x或y为0时，将其归到最近的象限上
         double x = target[0] - center[0];
         double y = target[1] - center[1];
-        x = x == 0 ? x + 0.1 : x;
-        y = y == 0 ? y + 0.1 : y;
+        x += x == 0 ? 0.1 : 0;
+        y += y == 0 ? 0.1 : 0;
         int quadrant = (int) (((x / Math.abs(x)) * 0.5 + 0.5) * (-y / Math.abs(y)) - ((y / Math.abs(y)) * 0.5 + 0.5) + 3);
         return quadrant - 1;
     }
