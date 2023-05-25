@@ -19,22 +19,9 @@ public class OcTree<T extends Comparable<T>> extends AbstractQuadOcTree<T> {
     public OcTree(List<SpacePoint<T>> points) {
         this(points, Distance.EUCLIDEAN);
     }
+
     public OcTree(List<SpacePoint<T>> points, DistanceMetric distanceMetric) {
-        super(distanceMetric);
-        if (points.isEmpty()) {
-            throw new IllegalArgumentException("points cannot be empty!");
-        }
-        root = buildTree(points);
-    }
-
-    @Override
-    public SpacePoint<T> nearest(SpacePoint<T> point) {
-        return null;
-    }
-
-    @Override
-    public List<SpacePoint<T>> range(SpacePoint<T> point, double radius) {
-        return null;
+        super(points, distanceMetric);
     }
 
     /**
@@ -49,13 +36,13 @@ public class OcTree<T extends Comparable<T>> extends AbstractQuadOcTree<T> {
         VectorUtil.checkDims(center, dimension);
         VectorUtil.checkDims(center, target);
 
-        // +0.1是为了避免x或y或z为0时，将其归到最近的八分体上
+        // +0.01是为了避免x或y或z为0时，将其归到最近的八分体上
         double x = target[0] - center[0];
         double y = target[1] - center[1];
         double z = target[2] - center[2];
-        x += x == 0 ? 0.1 : 0;
-        y += y == 0 ? 0.1 : 0;
-        z += z == 0 ? 0.1 : 0;
+        x += x == 0 ? 0.01 : 0;
+        y += y == 0 ? 0.01 : 0;
+        z += z == 0 ? 0.01 : 0;
         return (x >= 0 ? 1 : 0) | (y >= 0 ? 2 : 0) | (z >= 0 ? 4 : 0);
     }
 

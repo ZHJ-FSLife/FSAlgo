@@ -2,6 +2,7 @@ package com.fsalgo;
 
 import com.fsalgo.core.clustering.DBSCAN;
 import com.fsalgo.core.interfaces.ClusteringAlgorithm;
+import com.fsalgo.core.math.geometrical.Distance;
 import com.fsalgo.core.tree.vectorspace.impl.BallTree;
 import com.fsalgo.core.tree.vectorspace.impl.KDTree;
 import com.fsalgo.core.tree.vectorspace.impl.OcTree;
@@ -55,14 +56,18 @@ public class ClusteringTest {
     @Test
     public void OcTreeDemo() {
         OcTree<String> ocTree = new OcTree<>(data2);
+        SpacePoint<String> nearestPoint = ocTree.nearest(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 6, 5}));
+        System.out.println(nearestPoint);
         System.out.println(ocTree);
     }
 
     @Test
     public void QuadTreeDemo() {
         QuadTree<String> quadTree = new QuadTree<>(data);
-        SpacePoint<String> nearestPoint = quadTree.nearest(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4}));
+        SpacePoint<String> nearestPoint = quadTree.nearest(new SpacePoint.SpacePointImpl<>("B", new double[]{6, 7.3}));
         System.out.println(nearestPoint);
+        System.out.println("{6, 7.3} -> {6, 8} = " + Distance.EUCLIDEAN.getDistance(new double[]{6, 7.3}, new double[]{6, 8}));
+        System.out.println("{6, 7.3} -> {7, 7} = " + Distance.EUCLIDEAN.getDistance(new double[]{6, 7.3}, new double[]{7, 7}));
     }
 
     @Test

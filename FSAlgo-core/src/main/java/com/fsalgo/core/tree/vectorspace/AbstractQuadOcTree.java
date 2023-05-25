@@ -1,7 +1,7 @@
 package com.fsalgo.core.tree.vectorspace;
 
-import com.fsalgo.core.math.geometrical.Distance;
 import com.fsalgo.core.math.geometrical.DistanceMetric;
+import com.fsalgo.core.util.VectorUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +18,14 @@ public abstract class AbstractQuadOcTree<T extends Comparable<T>> extends Abstra
     protected int dimension;
     protected int childNums;
 
-    protected AbstractQuadOcTree() {
-        this(Distance.EUCLIDEAN);
-    }
-
-    protected AbstractQuadOcTree(DistanceMetric distanceMetric) {
+    protected AbstractQuadOcTree(List<SpacePoint<T>> points, DistanceMetric distanceMetric) {
         super(distanceMetric);
+        if (points.isEmpty()) {
+            throw new IllegalArgumentException("points cannot be empty!");
+        }
         this.dimension = getDimension();
         this.childNums = (int) Math.pow(2, this.dimension);
+        root = buildTree(points);
     }
 
     /**
@@ -56,6 +56,79 @@ public abstract class AbstractQuadOcTree<T extends Comparable<T>> extends Abstra
             center.getChild()[i] = buildTree(child.get(i));
         }
         return center;
+    }
+
+    /**
+     * 搜索距离目标节点最近节点的坐标
+     *
+     * @param point 目标节点
+     * @return 最近节点
+     */
+    @Override
+    public SpacePoint<T> nearest(SpacePoint<T> point) {
+        VectorUtil.checkDims(point.getCoord(), dimension);
+
+        Node<T> node = nearest(point, root);
+        if (node == null) {
+            return null;
+        }
+        return node.getPoint();
+    }
+
+    protected Node<T> nearest(SpacePoint<T> point, Node<T> center) {
+        if (center == null) {
+            return null;
+        }
+        if (center.getLeaf()) {
+            return center;
+        }
+        int areaIndex = calcCoordinateIndex(center.getPoint().getCoord(), point.getCoord());
+        Node<T> child;
+        // 如果point所在象限内没有子节点，找下一个象限的其它子节点（只要划分了区域，就必然有一个节点存在）
+        while (true) {
+            child = center.getChild()[areaIndex];
+            if (child != null) {
+                break;
+            }
+            areaIndex = (areaIndex + 1) % childNums;
+        }
+        if (!child.getLeaf()) {
+            child = nearest(point, child);
+        }
+
+        double radius = distanceMetric.getDistance(point.getCoord(), child.getPoint().getCoord());
+        for (int i = 0; i < 2 * dimension; i++) {
+            double[] temp = new double[dimension];
+            for (int j = 0; j < dimension; j++) {
+                int index = i % dimension;
+                if (index != j) {
+                    temp[j] = point.getCoord()[j];
+                    continue;
+                }
+                if (i % 2 == 0) {
+                    temp[index] = point.getCoord()[index] - radius;
+                } else {
+                    temp[index] = point.getCoord()[index] + radius;
+                }
+            }
+            int involvedAreaIndex = calcCoordinateIndex(center.getPoint().getCoord(), temp);
+            Node<T> next = center.getChild()[involvedAreaIndex];
+            Node<T> involvedArea = nearest(point, next);
+            if (involvedArea == null) {
+                continue;
+            }
+            double nextRadius = distanceMetric.getDistance(point.getCoord(), involvedArea.getPoint().getCoord());
+            if (nextRadius < radius) {
+                child = involvedArea;
+            }
+        }
+
+        return child;
+    }
+
+    @Override
+    public List<SpacePoint<T>> range(SpacePoint<T> point, double radius) {
+        return null;
     }
 
     /**
@@ -111,11 +184,6 @@ public abstract class AbstractQuadOcTree<T extends Comparable<T>> extends Abstra
         }
 
         public Node(SpacePoint<T> point, boolean leaf) {
-            this(point, leaf, dimension);
-
-        }
-
-        public Node(SpacePoint<T> point, boolean leaf, int dimension) {
             this.point = point;
             this.leaf = leaf;
             if (!leaf) {
