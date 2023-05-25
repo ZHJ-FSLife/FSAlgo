@@ -2,7 +2,7 @@ package com.fsalgo.core.tree.vectorspace.impl;
 
 import com.fsalgo.core.math.geometrical.Distance;
 import com.fsalgo.core.math.geometrical.DistanceMetric;
-import com.fsalgo.core.tree.vectorspace.NearestNeighborSearch;
+import com.fsalgo.core.tree.vectorspace.AbstractNearestNeighborSearch;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
 import java.util.ArrayList;
@@ -14,18 +14,16 @@ import java.util.List;
  * @Date: 2023/3/25 21:07
  * @Description: K-Dimensional-Tree, 用于处理多维空间中数据节点距离的问题，例如KNN、K-Means、DBSAN...等算法需要计算点与点之间的距离
  */
-public class KDTree<T extends Comparable<T>> implements NearestNeighborSearch<T> {
+public class KDTree<T extends Comparable<T>> extends AbstractNearestNeighborSearch<T> {
 
     private final Node<T> root;
-
-    private final DistanceMetric distanceMetric;
 
     public KDTree(List<SpacePoint<T>> points) {
         this(points, Distance.EUCLIDEAN);
     }
 
-    public KDTree(List<SpacePoint<T>> points, DistanceMetric dist) {
-        this.distanceMetric = dist;
+    public KDTree(List<SpacePoint<T>> points, DistanceMetric distanceMetric) {
+        super(distanceMetric);
         if (points.isEmpty()) {
             throw new IllegalArgumentException("points cannot be empty!");
         }

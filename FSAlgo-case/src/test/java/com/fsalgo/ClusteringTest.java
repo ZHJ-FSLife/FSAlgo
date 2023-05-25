@@ -36,9 +36,26 @@ public class ClusteringTest {
         add(new SpacePoint.SpacePointImpl<>("P13", new double[]{9, 9}));
     }};
 
+    List<SpacePoint<String>> data2 = new ArrayList<>() {{
+        add(new SpacePoint.SpacePointImpl<>("P01", new double[]{1, 3, 5}));
+        add(new SpacePoint.SpacePointImpl<>("P02", new double[]{1, 8, 4}));
+        add(new SpacePoint.SpacePointImpl<>("P03", new double[]{2, 2, 9}));
+        add(new SpacePoint.SpacePointImpl<>("P04", new double[]{2, 10, 6}));
+        add(new SpacePoint.SpacePointImpl<>("P05", new double[]{3, 6, 0}));
+        add(new SpacePoint.SpacePointImpl<>("P06", new double[]{4, 1, 7}));
+        add(new SpacePoint.SpacePointImpl<>("P07", new double[]{5, 4, 1}));
+        add(new SpacePoint.SpacePointImpl<>("P08", new double[]{6, 8, 3}));
+        add(new SpacePoint.SpacePointImpl<>("P09", new double[]{7, 4, 6}));
+        add(new SpacePoint.SpacePointImpl<>("P10", new double[]{7, 7, 8}));
+        add(new SpacePoint.SpacePointImpl<>("P11", new double[]{8, 2, 10}));
+        add(new SpacePoint.SpacePointImpl<>("P12", new double[]{8, 5, 2}));
+        add(new SpacePoint.SpacePointImpl<>("P13", new double[]{9, 9, 6}));
+    }};
+
     @Test
     public void OcTreeDemo() {
-        OcTree<String> ocTree = new OcTree<>();
+        OcTree<String> ocTree = new OcTree<>(data2);
+        System.out.println(ocTree);
     }
 
     @Test

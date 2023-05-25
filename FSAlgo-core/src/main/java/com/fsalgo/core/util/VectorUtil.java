@@ -26,4 +26,16 @@ public class VectorUtil {
     public static void checkDims(final boolean[] a, final boolean[] b) {
         assessDim(a.length, b.length);
     }
+
+    public static void checkDims(final int[] a, final int b) {
+        assessDim(a.length, b);
+    }
+
+    public static void checkDims(final double[] a, final int b) {
+        assessDim(a.length, b);
+    }
+
+    public static void checkDims(final boolean[] a, final int b) {
+        assessDim(a.length, b);
+    }
 }

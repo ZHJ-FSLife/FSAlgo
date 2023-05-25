@@ -2,6 +2,7 @@ package com.fsalgo.core.tree.vectorspace.impl;
 
 import com.fsalgo.core.math.geometrical.Distance;
 import com.fsalgo.core.math.geometrical.DistanceMetric;
+import com.fsalgo.core.tree.vectorspace.AbstractNearestNeighborSearch;
 import com.fsalgo.core.tree.vectorspace.NearestNeighborSearch;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
@@ -14,18 +15,16 @@ import java.util.List;
  * @Date: 2023/3/5 22:37
  * @Description:
  */
-public class BallTree<T extends Comparable<T>> implements NearestNeighborSearch<T> {
+public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSearch<T> {
 
     private final Node<T> root;
-
-    private final DistanceMetric distanceMetric;
 
     public BallTree(List<SpacePoint<T>> points) {
         this(points, Distance.EUCLIDEAN);
     }
 
     public BallTree(List<SpacePoint<T>> points, DistanceMetric distanceMetric) {
-        this.distanceMetric = distanceMetric;
+        super(distanceMetric);
         if (points.isEmpty()) {
             throw new IllegalArgumentException("points cannot be empty!");
         }

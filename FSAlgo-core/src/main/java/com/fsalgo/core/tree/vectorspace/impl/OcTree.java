@@ -1,8 +1,11 @@
 package com.fsalgo.core.tree.vectorspace.impl;
 
 
+import com.fsalgo.core.math.geometrical.Distance;
+import com.fsalgo.core.math.geometrical.DistanceMetric;
 import com.fsalgo.core.tree.vectorspace.AbstractQuadOcTree;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
+import com.fsalgo.core.util.VectorUtil;
 
 import java.util.List;
 
@@ -13,22 +16,16 @@ import java.util.List;
  */
 public class OcTree<T extends Comparable<T>> extends AbstractQuadOcTree<T> {
 
-    public OcTree() {
-        super();
-        Node<T> node = new Node<T>(null);
-        System.out.println(node);
+    public OcTree(List<SpacePoint<T>> points) {
+        this(points, Distance.EUCLIDEAN);
     }
-
-    @Override
-    protected int getDimension() {
-        return 3;
+    public OcTree(List<SpacePoint<T>> points, DistanceMetric distanceMetric) {
+        super(distanceMetric);
+        if (points.isEmpty()) {
+            throw new IllegalArgumentException("points cannot be empty!");
+        }
+        root = buildTree(points);
     }
-
-    @Override
-    protected int getChildNums() {
-        return 8;
-    }
-
 
     @Override
     public SpacePoint<T> nearest(SpacePoint<T> point) {
@@ -49,9 +46,10 @@ public class OcTree<T extends Comparable<T>> extends AbstractQuadOcTree<T> {
      */
     @Override
     protected int calcCoordinateIndex(double[] center, double[] target) {
-        if (center.length != dimension || target.length != dimension) {
-            throw new IllegalArgumentException("the point not be three dimension!");
-        }
+        VectorUtil.checkDims(center, dimension);
+        VectorUtil.checkDims(center, target);
+
+        // +0.1是为了避免x或y或z为0时，将其归到最近的八分体上
         double x = target[0] - center[0];
         double y = target[1] - center[1];
         double z = target[2] - center[2];
@@ -59,5 +57,10 @@ public class OcTree<T extends Comparable<T>> extends AbstractQuadOcTree<T> {
         y += y == 0 ? 0.1 : 0;
         z += z == 0 ? 0.1 : 0;
         return (x >= 0 ? 1 : 0) | (y >= 0 ? 2 : 0) | (z >= 0 ? 4 : 0);
+    }
+
+    @Override
+    protected int getDimension() {
+        return 3;
     }
 }
