@@ -3,10 +3,10 @@ package com.fsalgo;
 import com.fsalgo.core.clustering.DBSCAN;
 import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 import com.fsalgo.core.math.geometrical.Distance;
-import com.fsalgo.core.tree.vectorspace.impl.BallTree;
-import com.fsalgo.core.tree.vectorspace.impl.KDTree;
-import com.fsalgo.core.tree.vectorspace.impl.OcTree;
-import com.fsalgo.core.tree.vectorspace.impl.QuadTree;
+import com.fsalgo.core.tree.vectorspace.specific.BallTree;
+import com.fsalgo.core.tree.vectorspace.specific.KDTree;
+import com.fsalgo.core.tree.vectorspace.specific.OcTree;
+import com.fsalgo.core.tree.vectorspace.specific.QuadTree;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 import org.junit.Test;
 

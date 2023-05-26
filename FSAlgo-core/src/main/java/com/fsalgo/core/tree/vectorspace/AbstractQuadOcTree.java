@@ -76,10 +76,7 @@ public abstract class AbstractQuadOcTree<T extends Comparable<T>> extends Abstra
     }
 
     protected Node<T> nearest(SpacePoint<T> point, Node<T> center) {
-        if (center == null) {
-            return null;
-        }
-        if (center.getLeaf()) {
+        if (center == null || center.getLeaf()) {
             return center;
         }
         int areaIndex = calcCoordinateIndex(center.getPoint().getCoord(), point.getCoord());

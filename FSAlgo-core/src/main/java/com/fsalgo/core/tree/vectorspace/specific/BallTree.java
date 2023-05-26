@@ -1,12 +1,10 @@
-package com.fsalgo.core.tree.vectorspace.impl;
+package com.fsalgo.core.tree.vectorspace.specific;
 
 import com.fsalgo.core.math.geometrical.Distance;
 import com.fsalgo.core.math.geometrical.DistanceMetric;
 import com.fsalgo.core.tree.vectorspace.AbstractNearestNeighborSearch;
-import com.fsalgo.core.tree.vectorspace.NearestNeighborSearch;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

@@ -1,10 +1,10 @@
 package com.fsalgo;
 
 import com.fsalgo.core.tree.heap.Heap;
-import com.fsalgo.core.tree.heap.impl.BinaryHeap;
-import com.fsalgo.core.tree.heap.impl.FibonacciHeap;
-import com.fsalgo.core.tree.heap.impl.LeftistHeap;
-import com.fsalgo.core.tree.heap.impl.SkewHeap;
+import com.fsalgo.core.tree.heap.specific.BinaryHeap;
+import com.fsalgo.core.tree.heap.specific.FibonacciHeap;
+import com.fsalgo.core.tree.heap.specific.LeftistHeap;
+import com.fsalgo.core.tree.heap.specific.SkewHeap;
 import org.junit.Test;
 
 /**

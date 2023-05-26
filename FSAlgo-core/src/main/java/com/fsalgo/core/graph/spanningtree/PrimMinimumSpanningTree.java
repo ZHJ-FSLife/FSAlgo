@@ -5,7 +5,7 @@ import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.Graphs;
 import com.fsalgo.core.tree.heap.Heap;
-import com.fsalgo.core.tree.heap.impl.FibonacciHeap;
+import com.fsalgo.core.tree.heap.specific.FibonacciHeap;
 
 import java.util.HashSet;
 import java.util.Map;
