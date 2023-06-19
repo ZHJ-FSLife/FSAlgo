@@ -141,7 +141,65 @@ public enum Distance implements DistanceMetric {
         public boolean isBinaryDistance() {
             return false;
         }
+    },
+    /**
+     * 布雷柯蒂斯相异度
+     */
+    BRAY_CURTIS {
+        @Override
+        public double getDistance(final double[] source, final double[] target) {
+            VectorUtil.checkDims(source, target);
+
+            double sum1 = 0.0D;
+            double sum2 = 0.0d;
+            for (int i = 0; i < source.length; i++) {
+                sum1 += Math.abs(source[i] - target[i]);
+                sum2 += Math.abs(source[i] + target[i]);
+            }
+            return sum1 == 0 ? 0 : nanInf(sum1 / sum2);
+        }
+
+        @Override
+        public String getName() {
+            return "BrayCurtis";
+        }
+
+        @Override
+        public boolean isBinaryDistance() {
+            return false;
+        }
+    },
+    /**
+     * 坎贝拉距离
+     */
+    CANBERRA {
+        @Override
+        public double getDistance(final double[] source, final double[] target) {
+            VectorUtil.checkDims(source, target);
+
+            double sum = 0.0D;
+            double numer;
+            for (int i = 0; i < source.length; i++) {
+                numer = Math.abs(source[i] - target[i]);
+                sum += numer == 0 ? 0 : nanInf(numer / (Math.abs(source[i]) + Math.abs(target[i])));
+            }
+            return sum;
+        }
+
+        @Override
+        public String getName() {
+            return "Canberra";
+        }
+
+        @Override
+        public boolean isBinaryDistance() {
+            return false;
+        }
     };
+
+    private static double nanInf(double nums) {
+        return Double.isNaN(nums) ? Double.POSITIVE_INFINITY : nums;
+    }
 
     @Override
     public String toString() {
