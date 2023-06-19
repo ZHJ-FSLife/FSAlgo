@@ -9,5 +9,11 @@ import java.util.Set;
  */
 public interface NodeSetFactory<N> {
 
+    /**
+     * 为节点创建邻接节点的集合
+     *
+     * @param node 节点
+     * @return 节点集合
+     */
     Set<N> createNodeSet(N node);
 }

@@ -9,5 +9,11 @@ import java.util.Set;
  */
 public interface EdgeSetFactory<N> {
 
+    /**
+     * 为节点创建邻近边的集合
+     *
+     * @param node 节点
+     * @return 边集合
+     */
     Set<Edge<N>> createEdgeSet(N node);
 }

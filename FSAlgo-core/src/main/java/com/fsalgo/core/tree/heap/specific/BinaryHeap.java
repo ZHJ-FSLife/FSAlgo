@@ -36,7 +36,7 @@ public class BinaryHeap<T extends Comparable<T>> extends AbstractHeap<T> impleme
      */
     @Override
     public boolean isEmpty() {
-        return queue.size() == 0;
+        return queue.isEmpty();
     }
 
     @Override

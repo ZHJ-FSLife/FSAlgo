@@ -52,9 +52,7 @@ public class PrimMinimumSpanningTree<N extends Comparable<N>> implements Spannin
         Heap<N> heap = new FibonacciHeap<>() {
             @Override
             public boolean compareTo(N n1, N n2) {
-                int index1 = indexs.get(n1);
-                int index2 = indexs.get(n2);
-                return Double.compare(incomingEdge[index1].getWeight(), incomingEdge[index2].getWeight()) < 0;
+                return Double.compare(incomingEdge[indexs.get(n1)].getWeight(), incomingEdge[indexs.get(n2)].getWeight()) < 0;
             }
         };
 
