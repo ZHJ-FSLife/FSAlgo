@@ -2,6 +2,7 @@ package com.fsalgo.core.struct;
 
 import com.fsalgo.core.struct.specific.EdgeContainer;
 import com.fsalgo.core.struct.specific.NodeContainer;
+import com.fsalgo.core.util.TypeUtil;
 
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -192,5 +193,17 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
             return;
         }
         edgeMap.put(node, new EdgeContainer<>(n -> new HashSet<>(), node));
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            AbstractBaseGraph<N> newGraph = TypeUtil.uncheckedCase(super.clone());
+            newGraph.nodeMap = this.nodeMap;
+            newGraph.edgeMap = this.edgeMap;
+            return newGraph;
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("???");
+        }
     }
 }

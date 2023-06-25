@@ -38,35 +38,8 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
     private Node<T> buildTree(List<SpacePoint<T>> points) {
         SpacePoint<T> center = findCenter(points);
         double radius = findRadius(points, center);
-        Node<T> node = new Node<>(center, points, radius);
-        if (points.size() == 1) {
-            return node;
-        }
-        List<SpacePoint<T>> left = new LinkedList<>();
-        List<SpacePoint<T>> right = new LinkedList<>();
-        partition(points, left, right, center);
-        node.left = buildTree(left);
-        node.right = buildTree(right);
-        return node;
-    }
-
-    /**
-     * 将坐标集从中心点开始划分出左右两个范围
-     *
-     * @param points 坐标集
-     * @param left   左坐标集
-     * @param right  右坐标集
-     * @param center 中心点
-     */
-    private void partition(List<SpacePoint<T>> points, List<SpacePoint<T>> left, List<SpacePoint<T>> right, SpacePoint<T> center) {
-        for (SpacePoint<T> point : points) {
-            double distance = distanceMetric.getDistance(point.getCoord(), center.getCoord());
-            if (distance < root.radius) {
-                left.add(point);
-            } else {
-                right.add(point);
-            }
-        }
+        Node<T> node = new Node<T>(center, points, radius);
+        return null;
     }
 
     /**

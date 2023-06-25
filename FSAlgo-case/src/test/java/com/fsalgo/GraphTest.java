@@ -28,6 +28,29 @@ public class GraphTest {
     String n9 = "n9";
 
     @Test
+    public void cloneGraph() {
+        Graph<String> directedGraphgraph = new DirectedGraph<>();
+        addNodeToGraph(directedGraphgraph);
+
+        // Graph<String> newGraph = (Graph<String>) graph.clone();
+        // System.out.println(newGraph);
+
+        Graph<String> newDirectedGraph = new DirectedGraph<>();
+        Graphs.addGraph(newDirectedGraph, directedGraphgraph);
+        System.out.println(newDirectedGraph);
+
+
+        /////////////////////////
+
+        Graph<String> undirectedGraph = new UndirectedGraph<>();
+        addNodeToGraph(undirectedGraph);
+
+        Graph<String> newUndirectedGraph = new UndirectedGraph<>();
+        Graphs.addGraph(newUndirectedGraph, undirectedGraph);
+        System.out.println(newUndirectedGraph);
+    }
+
+    @Test
     public void TarjanDemo() {
 
         Graph<String> graph = new DirectedGraph<>();
