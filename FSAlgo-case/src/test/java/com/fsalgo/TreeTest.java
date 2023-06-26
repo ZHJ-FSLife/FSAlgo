@@ -1,9 +1,6 @@
 package com.fsalgo;
 
-import com.fsalgo.core.tree.AvlTree;
-import com.fsalgo.core.tree.BTree;
-import com.fsalgo.core.tree.BinaryIndexedTree;
-import com.fsalgo.core.tree.HuffmanTree;
+import com.fsalgo.core.tree.*;
 import org.junit.Test;
 
 import java.util.*;
@@ -14,6 +11,38 @@ import java.util.*;
  * @Description:
  */
 public class TreeTest {
+
+    @Test
+    public void AhoCorasickDemo() {
+        AhoCorasick ac = new AhoCorasick();
+        ac.add("say");
+        ac.add("she");
+        ac.add("shr");
+        ac.add("he");
+        ac.add("her");
+        ac.add("bsher");
+
+        ac.buildFailureLinks();
+
+        List<String> result = ac.search("sbsherhsay");
+        System.out.println(result);
+    }
+
+    @Test
+    public void TrieTreeDemo() {
+        TrieTree trieTree = new TrieTree();
+
+        trieTree.add("hellojava");
+        trieTree.add("helloworld");
+
+        System.out.println(
+                trieTree.containsKey("helloj")
+                        + "\n" + trieTree.containsKey("hellow")
+                        + "\n" + trieTree.containsKey("hellod")
+                        + "\n" + trieTree.contains("helloworld")
+                        + "\n" + trieTree.contains("hello")
+        );
+    }
 
     @Test
     public void BTreeDemo() {

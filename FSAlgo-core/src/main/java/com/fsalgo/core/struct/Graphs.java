@@ -30,10 +30,6 @@ public abstract class Graphs {
 
     public static <N> void addAllEdge(Graph<N> destination, Collection<Edge<N>> edges) {
         for (Edge<N> edge : edges) {
-            N s = edge.getSource();
-            N t = edge.getTarget();
-            destination.addNode(s);
-            destination.addNode(t);
             destination.addEdge(edge);
         }
     }

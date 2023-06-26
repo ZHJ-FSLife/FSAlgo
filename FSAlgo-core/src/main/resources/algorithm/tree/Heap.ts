@@ -37,14 +37,38 @@ abstract class AbstractHeap<T> implements Heap<T> {
  * @Date: 2022/3/29 16:50
  * @Description: 斐波那契堆
  */
+class FibonacciHeapNode<T> {
+    private key : T;
+    private degree : number = 0;
+    private mark : boolean;
+
+    private left   : FibonacciHeapNode<T> | null;
+    private right  : FibonacciHeapNode<T> | null;
+    private child  : FibonacciHeapNode<T> | null = null;
+    private parent : FibonacciHeapNode<T> | null = null;
+
+    constructor(key : T) {
+        this.key = key;
+        this.mark = false;
+        this.left = this;
+        this.right = this;
+    }
+
+}
 class FibonacciHeap<T> extends AbstractHeap<T> {
 
     private GOLDEN_RATIO : number = (1 + Math.sqrt(5)) / 2;
 
+    private min : FibonacciHeapNode<T> | null;
 
     private nodeNum : number = 0;
 
     private rootNum : number = 0;
+
+    constructor(key : T) {
+        super();
+        this.min = new FibonacciHeapNode<T>(key);
+    }
 
     public add(val : T) : void {
 
@@ -59,35 +83,24 @@ class FibonacciHeap<T> extends AbstractHeap<T> {
     }
 
     public size() : number {
-        return 0;
+        return this.nodeNum;
     }
 
     public isEmpty() : boolean {
-        return false;
+        return this.nodeNum == 0;
     }
 
-    static Node = class<U> {
-
-        public key : U;
-        // public degree : number = 0;
-        // public mark : boolean = false;
-        // public left : Node<T> = this;
-        // public right : Node<T> = this;
-        // public child : Node<T> | null = null;
-        // public parent : Node<T> | null = null;
-
-        constructor(key : U) {
-            this.key = key;
-        }
-
+    private static Node = class {
+        public key : T;
     }
 
-    min : FibonacciHeap<T>.Node<T> | null = null;
-    
-    constructor(key : T) {
-        super();
-        this.min = new FibonacciHeap<T>.Node<T>(key);
-    }
+    // private unionNodeToLeft(x : FibonacciHeapNode<T>, y : FibonacciHeapNode<T>) : null {
+    //     x.left.right = y;
+    //     y.left = x.left;
+    //     y.right = x;
+    //     x.left = y;
+    // }
+
 }
 
 /**

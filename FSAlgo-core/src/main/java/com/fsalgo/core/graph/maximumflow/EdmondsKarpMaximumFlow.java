@@ -1,4 +1,4 @@
-package com.fsalgo.core.graph.maxflow;
+package com.fsalgo.core.graph.maximumflow;
 
 /**
  * @Author: root
