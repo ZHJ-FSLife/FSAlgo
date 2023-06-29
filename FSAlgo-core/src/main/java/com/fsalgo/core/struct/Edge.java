@@ -13,7 +13,7 @@ public class Edge<N> {
 
     private N target;
 
-    private double weight = 1.0;
+    private double weight = 0.0D;
 
     public Edge() {
 
