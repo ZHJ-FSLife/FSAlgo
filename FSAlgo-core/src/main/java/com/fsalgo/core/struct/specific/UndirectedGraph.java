@@ -38,5 +38,12 @@ public class UndirectedGraph<N> extends AbstractBaseGraph<N> {
         edgeMap.get(target).setIncoming(edge);
         edgeMap.get(target).setOutgoing(reverseEdge);
         nodeMap.get(target).setAdjacent(source);
+
+        edgeSize++;
+    }
+
+    @Override
+    public String getName() {
+        return "undirected-graph";
     }
 }

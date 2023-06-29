@@ -50,4 +50,9 @@ public class OcTree<T extends Comparable<T>> extends AbstractQuadOcTree<T> {
     protected int getDimension() {
         return 3;
     }
+
+    @Override
+    public String getName() {
+        return "octo-tree";
+    }
 }

@@ -50,4 +50,8 @@ public class QuadTree<T extends Comparable<T>> extends AbstractQuadOcTree<T> {
         return 2;
     }
 
+    @Override
+    public String getName() {
+        return "quad-tree";
+    }
 }

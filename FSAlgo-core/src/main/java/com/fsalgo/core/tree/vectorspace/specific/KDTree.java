@@ -144,6 +144,11 @@ public class KDTree<T extends Comparable<T>> extends AbstractNearestNeighborSear
         }
     }
 
+    @Override
+    public String getName() {
+        return "k-dimensional-tree";
+    }
+
 
     public static class Node<T extends Comparable<T>> {
         SpacePoint<T> point;

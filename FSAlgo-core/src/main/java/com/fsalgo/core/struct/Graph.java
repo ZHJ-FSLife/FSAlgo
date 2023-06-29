@@ -1,5 +1,7 @@
 package com.fsalgo.core.struct;
 
+import com.fsalgo.core.interfaces.NameEntity;
+
 import java.util.Set;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Set;
  * @Date: 2023/2/19 1:55
  * @Description:
  */
-public interface Graph<N> {
+public interface Graph<N> extends NameEntity {
 
     /**
      * 添加结点

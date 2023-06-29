@@ -16,7 +16,6 @@ public class ScoreTest {
 
     @Test
     public void PageRankDemo() {
-        // 有向图和无向图都适用于克鲁斯卡尔算法
         Graph<String> graph = new DirectedGraph<>();
 
         String A = "A";

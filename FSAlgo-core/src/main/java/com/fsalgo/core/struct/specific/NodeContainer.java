@@ -11,8 +11,19 @@ import java.util.Set;
  */
 public class NodeContainer<N> {
 
+    /**
+     * 邻近节点
+     */
     Set<N> adjacent;
+
+    /**
+     * 入节点
+     */
     Set<N> incoming;
+
+    /**
+     * 出节点
+     */
     Set<N> outgoing;
 
     public NodeContainer(NodeSetFactory<N> nodeSetFactory, N node) {

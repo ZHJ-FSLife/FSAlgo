@@ -60,4 +60,9 @@ public class DirectedAcyclicGraph<N> extends DirectedGraph<N> {
         return visited.size() != nodeSize();
     }
 
+    @Override
+    public String getName() {
+        return "directed-acyclic-graph";
+    }
+
 }

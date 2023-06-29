@@ -37,5 +37,12 @@ public class DirectedGraph<N> extends AbstractBaseGraph<N> {
         edgeMap.get(target).setIncoming(edge);
         nodeMap.get(target).setAdjacent(source);
         nodeMap.get(target).setIncoming(source);
+
+        edgeSize++;
+    }
+
+    @Override
+    public String getName() {
+        return "directed-graph";
     }
 }

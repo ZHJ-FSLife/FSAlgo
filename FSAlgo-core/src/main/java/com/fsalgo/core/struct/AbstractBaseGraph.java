@@ -16,6 +16,8 @@ import java.util.Set;
  */
 public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements Graph<N> {
 
+    protected int edgeSize = 0;
+
     protected Map<N, NodeContainer<N>> nodeMap;
     protected Map<N, EdgeContainer<N>> edgeMap;
 
@@ -101,7 +103,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public int edgeSize() {
-        return 0;
+        return edgeSize;
     }
 
     /**

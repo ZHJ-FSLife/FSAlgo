@@ -21,4 +21,9 @@ public class DinicsMaximumFlow<N> implements MaximumFlowAlgorithm<N> {
     public MaximumFlow<N> getMaximumFlow(N source, N target) {
         return null;
     }
+
+    @Override
+    public String getName() {
+        return "dinic's";
+    }
 }

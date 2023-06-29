@@ -88,6 +88,11 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         return null;
     }
 
+    @Override
+    public String getName() {
+        return "ball-tree";
+    }
+
     public static class Node<T extends Comparable<T>> {
         final SpacePoint<T> center;
         final List<SpacePoint<T>> points;

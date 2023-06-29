@@ -63,8 +63,8 @@ public class BinaryHeap<T extends Comparable<T>> extends AbstractHeap<T> impleme
         if (size() <= 1) {
             return;
         }
-        // 新节点插入队列末尾, 下标为 size() - 1;
-        // 左节点的父节点为 (index - 1) / 2, 右节点的父节点为 (index - 2) / 2
+
+        // 新节点插入队列末尾, 下标为 size() - 1; 左节点的父节点为 (index - 1) / 2, 右节点的父节点为 (index - 2) / 2
         int index = size() - 1;
         int pIndex = (index - (index % 2 != 0 ? 1 : 2)) / 2;
         // 堆末尾节点与父级节点比较，决定是否上移保持堆序

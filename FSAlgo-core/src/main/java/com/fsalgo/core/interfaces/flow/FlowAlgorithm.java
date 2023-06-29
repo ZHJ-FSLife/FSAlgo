@@ -1,5 +1,6 @@
 package com.fsalgo.core.interfaces.flow;
 
+import com.fsalgo.core.interfaces.NameEntity;
 import com.fsalgo.core.struct.Edge;
 
 import java.util.Collections;
@@ -10,7 +11,7 @@ import java.util.Map;
  * @Date: 2023/6/26 10:01
  * @Description:
  */
-public interface FlowAlgorithm<N> {
+public interface FlowAlgorithm<N> extends NameEntity {
 
     /**
      * 返回流的实现类

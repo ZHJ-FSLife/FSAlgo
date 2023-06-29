@@ -21,4 +21,9 @@ public class EdmondsKarpMaximumFlow<N> implements MaximumFlowAlgorithm<N> {
     public MaximumFlow<N> getMaximumFlow(N source, N target) {
         return null;
     }
+
+    @Override
+    public String getName() {
+        return "edomds-karp";
+    }
 }

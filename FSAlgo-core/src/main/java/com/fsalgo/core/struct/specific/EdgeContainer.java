@@ -12,7 +12,14 @@ import java.util.Set;
  */
 public class EdgeContainer<N> {
 
+    /**
+     * 入边
+     */
     Set<Edge<N>> incoming;
+
+    /**
+     * 出边
+     */
     Set<Edge<N>> outgoing;
 
     public EdgeContainer(EdgeSetFactory<N> edgeSetFactory, N node) {

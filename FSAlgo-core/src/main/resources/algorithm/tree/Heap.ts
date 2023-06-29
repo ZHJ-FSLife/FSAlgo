@@ -90,10 +90,6 @@ class FibonacciHeap<T> extends AbstractHeap<T> {
         return this.nodeNum == 0;
     }
 
-    private static Node = class {
-        public key : T;
-    }
-
     // private unionNodeToLeft(x : FibonacciHeapNode<T>, y : FibonacciHeapNode<T>) : null {
     //     x.left.right = y;
     //     y.left = x.left;

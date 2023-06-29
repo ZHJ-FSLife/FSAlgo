@@ -1,5 +1,7 @@
 package com.fsalgo.core.tree.vectorspace;
 
+import com.fsalgo.core.interfaces.NameEntity;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,7 @@ import java.util.List;
  * @Date: 2023/5/24 10:16
  * @Description:
  */
-public interface NearestNeighborSearch<T> {
+public interface NearestNeighborSearch<T> extends NameEntity {
 
     /**
      * 距离目标节点最近的邻近节点

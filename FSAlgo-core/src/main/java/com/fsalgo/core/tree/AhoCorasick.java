@@ -1,5 +1,7 @@
 package com.fsalgo.core.tree;
 
+import com.fsalgo.core.interfaces.NameEntity;
+
 import java.util.*;
 
 /**
@@ -8,7 +10,7 @@ import java.util.*;
  * @Description: Aho-Corasick 自动机，多模式匹配
  * 字典树的基础上，加上fail指针
  */
-public class AhoCorasick {
+public class AhoCorasick implements NameEntity {
 
     private final Node root;
 
@@ -117,6 +119,11 @@ public class AhoCorasick {
                 }
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return "aho-corasick";
     }
 
     static class Node {

@@ -9,9 +9,9 @@ import java.util.*;
  */
 public class HuffmanTree<T extends Comparable<T>> {
 
-    private final static int LEFT = 0;
+    private static final int LEFT = 0;
 
-    private final static int RIGHT = 1;
+    private static final int RIGHT = 1;
 
     public static class Node<T> {
         T key;
