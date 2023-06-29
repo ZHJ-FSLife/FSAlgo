@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * @Author: root
  * @Date: 2023/6/26 11:08
- * @Description:
+ * @Description: 字典树
  */
 public class TrieTree {
 
@@ -16,6 +16,11 @@ public class TrieTree {
         this.root = new Node();
     }
 
+    /**
+     * 添加字符串关键字
+     *
+     * @param word 字符串关键字
+     */
     public void add(String word) {
         Node node = root;
         for (char ch : word.toCharArray()) {

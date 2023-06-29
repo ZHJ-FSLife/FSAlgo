@@ -6,16 +6,36 @@ import java.util.*;
  * @Author: root
  * @Date: 2023/6/26 15:18
  * @Description: Aho-Corasick 自动机，多模式匹配
+ * 字典树的基础上，加上fail指针
  */
 public class AhoCorasick {
 
     private final Node root;
 
+    /**
+     * 初始化根节点
+     */
     public AhoCorasick() {
         this.root = new Node();
         this.root.key = '/';
     }
 
+    /**
+     * 添加多个关键字构建字典树
+     *
+     * @param words 关键字集
+     */
+    public void add(List<String> words) {
+        for (String word : words) {
+            add(word);
+        }
+    }
+
+    /**
+     * 添加关键字构建字典树
+     *
+     * @param word 关键字
+     */
     public void add(String word) {
         Node curr = root;
         for (char ch : word.toCharArray()) {
@@ -29,6 +49,12 @@ public class AhoCorasick {
         curr.end = true;
     }
 
+    /**
+     * 搜索包含关键字
+     *
+     * @param word 字符串
+     * @return 关键字集
+     */
     public List<String> search(String word) {
         Node curr = root;
         List<String> result = new ArrayList<>();
@@ -52,6 +78,12 @@ public class AhoCorasick {
         return result;
     }
 
+    /**
+     * 从叶子节点向上遍历获取完整字符串
+     *
+     * @param node 叶子节点
+     * @return 字符串
+     */
     private String getWord(Node node) {
         StringBuilder result = new StringBuilder();
         while (node != root) {
@@ -61,6 +93,9 @@ public class AhoCorasick {
         return result.toString();
     }
 
+    /**
+     * 在字典树的基础上构建fail指针
+     */
     public void buildFailureLinks() {
         root.failureLink = root;
         Deque<Node> queue = new LinkedList<>(root.child.values());

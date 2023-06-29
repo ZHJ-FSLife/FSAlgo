@@ -15,16 +15,19 @@ public class TreeTest {
     @Test
     public void AhoCorasickDemo() {
         AhoCorasick ac = new AhoCorasick();
-        ac.add("say");
-        ac.add("she");
-        ac.add("shr");
-        ac.add("he");
-        ac.add("her");
-        ac.add("bsher");
+        ac.add("彩票");
+        ac.add("赌博");
+        ac.add("嫖娼");
+        ac.add("毒品");
+        ac.add("大麻");
+        ac.add("冰毒");
+        ac.add("笑气");
+        ac.add("杀");
+        ac.add("杀人");
 
         ac.buildFailureLinks();
 
-        List<String> result = ac.search("sbsherhsay");
+        List<String> result = ac.search("小明常常因为买彩票、赌博，输掉了很多钱，有天在嫖娼吸完大麻类的毒品后，将其女性杀害！");
         System.out.println(result);
     }
 
