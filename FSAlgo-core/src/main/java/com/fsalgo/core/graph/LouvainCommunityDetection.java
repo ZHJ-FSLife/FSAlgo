@@ -1,10 +1,11 @@
 package com.fsalgo.core.graph;
 
 import com.fsalgo.core.struct.Graph;
+import com.fsalgo.core.struct.builder.GraphBuilder;
+import com.fsalgo.core.struct.specific.EdgeContainer;
+import com.fsalgo.core.struct.specific.NodeContainer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @Author: root
@@ -20,6 +21,7 @@ public class LouvainCommunityDetection<N> {
     public LouvainCommunityDetection(Graph<N> graph) {
         this.graph = graph;
         initContainer();
+        calc();
     }
 
     private void initContainer() {
@@ -31,5 +33,136 @@ public class LouvainCommunityDetection<N> {
         for (N node : graph.nodes()) {
             communityMap.put(node, node);
         }
+    }
+
+    private void calc() {
+        boolean changed = true;
+        while (changed) {
+            changed = false;
+
+            // 局部移动
+            for (N node : graph.nodes()) {
+                N originalCommunity = communityMap.get(node);
+                N bestCommunity = originalCommunity;
+                double maxDeltaQ = 0.0D;
+
+                // 尝试将节点移动到相邻社区，计算模块度增益
+                for (N adjacentNode : graph.adjacentNodes(node)) {
+                    N adjacentCommunity = communityMap.get(adjacentNode);
+                    double deltaQ = calcDeltaQ(graph, communityMap, node, originalCommunity, adjacentCommunity);
+
+                    if (deltaQ > maxDeltaQ) {
+                        maxDeltaQ = deltaQ;
+                        bestCommunity = adjacentCommunity;
+                    }
+                }
+
+                // 如果模块度增益度大于0，则将节点移动到最佳社区
+                if (maxDeltaQ > 0) {
+                    communityMap.put(node, bestCommunity);
+                    changed = true;
+                }
+            }
+
+            // 图整体重构
+            if (changed) {
+                //
+            }
+        }
+    }
+
+    /**
+     * @param graph             图
+     * @param communityMap      社区map
+     * @param node              节点
+     * @param originalCommunity 原始社区
+     * @param targetCommunity   目标社区
+     * @return delta-Q
+     */
+    private double calcDeltaQ(Graph<N> graph, Map<N, N> communityMap, N node, N originalCommunity, N targetCommunity) {
+        double deltaQ;
+
+        // 计算移动节点前的模块度
+        double modularityBefore = calcModularity(graph, communityMap);
+
+        // 移动节点到目标社区
+        communityMap.put(node, targetCommunity);
+
+        // 计算移动节点后的模块度
+        double modularityAfter = calcModularity(graph, communityMap);
+
+        // 计算模块度增益
+        deltaQ = modularityAfter - modularityBefore;
+
+        // 还原节点原来所属的社区
+        communityMap.put(node, originalCommunity);
+
+        return deltaQ;
+    }
+
+    /**
+     * 计算图中的模块度
+     *
+     * @param graph        图
+     * @param communityMap 社区map
+     * @return 图的模块度
+     */
+    private double calcModularity(Graph<N> graph, Map<N, N> communityMap) {
+        int edgeSize = graph.edgeSize();
+        double modularity = 0.0D;
+
+        for (N node : graph.nodes()) {
+            N community = communityMap.get(node);
+            Set<N> adjacentNodes = graph.adjacentNodes(node);
+            for (N adjacentNode : adjacentNodes) {
+                N adjacentCommunity = communityMap.get(adjacentNode);
+                double mod = community == adjacentCommunity ? 1.0 : 0.0;
+                mod -= ((double) adjacentNodes.size() * graph.adjacentNodes(adjacentNode).size()) / (2 * edgeSize);
+                modularity += mod;
+            }
+        }
+        modularity /= (2 * edgeSize);
+        return modularity;
+    }
+
+    /**
+     * 重构新图，合并社区为新节点
+     *
+     * @param graph        图
+     * @param communityMap 社区map
+     * @return 新图
+     */
+    private Graph<N> rebuildGraph(Graph<N> graph, Map<N, N> communityMap) {
+        Graph<N> newGraph = GraphBuilder.<N>undirected().build();
+        Map<N, NodeContainer<N>> communityNodeMap = new LinkedHashMap<>();
+
+        // 初始化社区的边集合
+        for (N node : communityMap.keySet()) {
+            N community = communityMap.get(node);
+            if (!communityNodeMap.containsKey(community)) {
+                communityNodeMap.put(node, new NodeContainer<>(n -> new HashSet<>(), node));
+            }
+        }
+
+        // 构建新图，将合取合并为节点
+        for (N community : communityNodeMap.keySet()) {
+            Set<N> nodes = communityNodeMap.get(community).getAdjacent();
+            Set<N> newAdjacents = new HashSet<>();
+
+            for (N node : nodes) {
+                Set<N> adjacents = graph.adjacentNodes(node);
+
+                for (N adjacent : adjacents) {
+                    N adjacentCommunity = communityMap.get(adjacent);
+
+                    // 如果邻近节点在不同的社区，则添加为新节点的邻居
+                    if (adjacentCommunity != community) {
+                        newAdjacents.add(adjacentCommunity);
+                    }
+                }
+            }
+            // newGraph.
+        }
+        return newGraph;
     }
 }
