@@ -22,6 +22,11 @@ public class UnionFind<T> {
      */
     private final Map<T, Integer> heights;
 
+    /**
+     * 分组数量
+     */
+    private int count;
+
     public UnionFind() {
         parents = new LinkedHashMap<>();
         heights = new HashMap<>();
@@ -36,6 +41,7 @@ public class UnionFind<T> {
             parents.put(node, node);
             heights.put(node, 0);
         }
+        count = nodes.size();
     }
 
     /**
@@ -47,6 +53,7 @@ public class UnionFind<T> {
         }
         parents.put(node, node);
         heights.put(node, 0);
+        count++;
     }
 
     /**
@@ -99,6 +106,8 @@ public class UnionFind<T> {
         }
         parents.put(root1, root2);
         heights.put(root2, heights.get(root1) + 1);
+
+        count--;
     }
 
     /**
@@ -117,6 +126,11 @@ public class UnionFind<T> {
 
     public int size() {
         return parents.size();
+    }
+
+    public int numberOfSets() {
+        assert count >= 1 && count <= size();
+        return count;
     }
 
 }

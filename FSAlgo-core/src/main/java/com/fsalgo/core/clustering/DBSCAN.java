@@ -37,7 +37,7 @@ public class DBSCAN<T extends Comparable<T>> implements ClusteringAlgorithm<T>, 
      * @return list<cluster>
      */
     @Override
-    public List<List<SpacePoint<T>>> cluster(List<SpacePoint<T>> data) {
+    public List<List<SpacePoint<T>>> getClustering(List<SpacePoint<T>> data) {
         List<List<SpacePoint<T>>> result = new ArrayList<>();
         kdTree = new KDTree<>(data);
         for (SpacePoint<T> node : data) {
@@ -58,6 +58,11 @@ public class DBSCAN<T extends Comparable<T>> implements ClusteringAlgorithm<T>, 
             }});
         }
         return result;
+    }
+
+    @Override
+    public Clustering<T> getClustering() {
+        return null;
     }
 
     /**

@@ -93,7 +93,7 @@ public class ClusteringTest {
     @Test
     public void dbscanDemo() {
         ClusteringAlgorithm<String> clustering = new DBSCAN<>(3, 3);
-        List<List<SpacePoint<String>>> result = clustering.cluster(data);
+        List<List<SpacePoint<String>>> result = clustering.getClustering(data);
         for (List<SpacePoint<String>> list : result) {
             for (SpacePoint<String> temp : list) {
                 System.out.print(temp.getPoint() + ", ");

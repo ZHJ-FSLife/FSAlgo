@@ -15,7 +15,12 @@ public class KMeans<T extends Comparable<T>> implements ClusteringAlgorithm<T> {
     // 感觉不是很好用，懒得写了。
 
     @Override
-    public List<List<SpacePoint<T>>> cluster(List<SpacePoint<T>> coords) {
+    public List<List<SpacePoint<T>>> getClustering(List<SpacePoint<T>> data) {
+        return null;
+    }
+
+    @Override
+    public Clustering<T> getClustering() {
         return null;
     }
 
