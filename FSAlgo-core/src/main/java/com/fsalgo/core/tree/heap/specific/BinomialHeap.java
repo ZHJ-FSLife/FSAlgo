@@ -8,7 +8,7 @@ import com.fsalgo.core.tree.heap.Heap;
  * @Date: 2023/1/17 13:38
  * @Description: 二项式堆
  */
-public class BinomialHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Heap<T> {
+public class BinomialHeap<T extends Comparable<T>> extends AbstractHeap<T> {
 
     @Override
     public void add(T t) {

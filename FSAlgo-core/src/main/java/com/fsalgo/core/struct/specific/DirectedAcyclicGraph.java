@@ -1,7 +1,9 @@
 package com.fsalgo.core.struct.specific;
 
+import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.struct.Edge;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -9,7 +11,9 @@ import java.util.*;
  * @Date: 2023/3/26 23:09
  * @Description: 有向无环图
  */
-public class DirectedAcyclicGraph<N> extends DirectedGraph<N> {
+public class DirectedAcyclicGraph<N> extends DirectedGraph<N> implements Serializable {
+
+    private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
 
     private final Map<N, Integer> indegree = new HashMap<>();
 

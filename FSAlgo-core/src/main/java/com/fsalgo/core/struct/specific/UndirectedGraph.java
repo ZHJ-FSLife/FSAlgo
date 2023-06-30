@@ -1,14 +1,19 @@
 package com.fsalgo.core.struct.specific;
 
+import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.AbstractBaseGraph;
+
+import java.io.Serializable;
 
 /**
  * @Author: root
  * @Date: 2023/2/19 23:28
  * @Description:
  */
-public class UndirectedGraph<N> extends AbstractBaseGraph<N> {
+public class UndirectedGraph<N> extends AbstractBaseGraph<N> implements Serializable {
+
+    private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
 
     public UndirectedGraph() {
         super();

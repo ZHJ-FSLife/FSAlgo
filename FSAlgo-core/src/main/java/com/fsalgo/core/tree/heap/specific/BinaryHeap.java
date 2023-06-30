@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: 二叉堆、优先队列
  * java自带类库有现成的，java.util.PriorityQueue
  */
-public class BinaryHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Heap<T> {
+public class BinaryHeap<T extends Comparable<T>> extends AbstractHeap<T> {
 
     /**
      * 存放堆节点

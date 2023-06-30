@@ -2,7 +2,6 @@ package com.fsalgo.core.graph;
 
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.builder.GraphBuilder;
-import com.fsalgo.core.struct.specific.EdgeContainer;
 import com.fsalgo.core.struct.specific.NodeContainer;
 
 import java.util.*;
@@ -145,24 +144,7 @@ public class LouvainCommunityDetection<N> {
         }
 
         // 构建新图，将合取合并为节点
-        for (N community : communityNodeMap.keySet()) {
-            Set<N> nodes = communityNodeMap.get(community).getAdjacent();
-            Set<N> newAdjacents = new HashSet<>();
 
-            for (N node : nodes) {
-                Set<N> adjacents = graph.adjacentNodes(node);
-
-                for (N adjacent : adjacents) {
-                    N adjacentCommunity = communityMap.get(adjacent);
-
-                    // 如果邻近节点在不同的社区，则添加为新节点的邻居
-                    if (adjacentCommunity != community) {
-                        newAdjacents.add(adjacentCommunity);
-                    }
-                }
-            }
-            // newGraph.
-        }
         return newGraph;
     }
 }

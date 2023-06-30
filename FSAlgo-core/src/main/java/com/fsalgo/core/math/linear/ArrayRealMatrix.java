@@ -1,5 +1,6 @@
 package com.fsalgo.core.math.linear;
 
+import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.util.MatrixUtil;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.io.Serializable;
  */
 public class ArrayRealMatrix extends AbstractRealMatrix implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
 
     private double[][] data;
 

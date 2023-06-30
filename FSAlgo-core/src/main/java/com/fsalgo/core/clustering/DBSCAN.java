@@ -1,9 +1,11 @@
 package com.fsalgo.core.clustering;
 
+import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 import com.fsalgo.core.tree.vectorspace.specific.KDTree;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -11,7 +13,9 @@ import java.util.*;
  * @Date: 2023/3/6 9:14
  * @Description: Density-Based Spatial Clustering of Applications with Noise / 基于密度的空间聚类
  */
-public class DBSCAN<T extends Comparable<T>> implements ClusteringAlgorithm<T> {
+public class DBSCAN<T extends Comparable<T>> implements ClusteringAlgorithm<T>, Serializable {
+
+    private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
 
     private final int density;
 

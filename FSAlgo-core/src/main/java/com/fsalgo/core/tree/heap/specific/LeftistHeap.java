@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * @Date: 2023/1/17 13:39
  * @Description: 左倾堆 - 主要用于两个堆的合并
  */
-public class LeftistHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Heap<T> {
+public class LeftistHeap<T extends Comparable<T>> extends AbstractHeap<T> {
 
     private Node<T> root;
 

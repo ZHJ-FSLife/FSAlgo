@@ -1,5 +1,6 @@
 package com.fsalgo.core.interfaces;
 
+import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.struct.Edge;
 
 import java.io.Serializable;
@@ -48,7 +49,7 @@ public interface SpanningTreeAlgorithm<N> extends NameEntity {
      */
     class SpanningTreeImpl<N> implements SpanningTree<N>, Serializable {
 
-        private static final long serialVersionUID = 1301715048436309711L;
+        private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
 
         private final double weight;
         private final Set<Edge<N>> edges;

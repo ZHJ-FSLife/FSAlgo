@@ -19,7 +19,7 @@ import java.util.NoSuchElementException;
  * remove -> O(logN)
  * decreaseKey -> O(1)
  */
-public class FibonacciHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Heap<T> {
+public class FibonacciHeap<T extends Comparable<T>> extends AbstractHeap<T> {
 
     private static final double GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 

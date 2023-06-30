@@ -32,6 +32,12 @@ public class TrieTree {
         node.end = true;
     }
 
+    /**
+     * 关键字符串是否存在
+     *
+     * @param word 关键字符串
+     * @return true or false
+     */
     public boolean contains(String word) {
         Node node = root;
         for (char ch : word.toCharArray()) {
@@ -43,6 +49,12 @@ public class TrieTree {
         return node.end;
     }
 
+    /**
+     * 关键字前缀是否存在
+     *
+     * @param prefix 关键字前缀
+     * @return true or false
+     */
     public boolean containsKey(String prefix) {
         Node node = root;
         for (char ch : prefix.toCharArray()) {
