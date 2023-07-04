@@ -1,7 +1,7 @@
 package com.fsalgo.core.clustering;
 
 import com.fsalgo.core.constant.BaseConstant;
-import com.fsalgo.core.interfaces.ClusteringAlgorithm;
+import com.fsalgo.core.interfaces.clusters.ClusteringAlgorithm;
 import com.fsalgo.core.tree.vectorspace.specific.KDTree;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 

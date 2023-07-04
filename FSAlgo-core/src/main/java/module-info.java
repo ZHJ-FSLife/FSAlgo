@@ -20,5 +20,6 @@ module com.fsalgo.core {
     exports com.fsalgo.core.util;
     exports com.fsalgo.core.util.sort;
     exports com.fsalgo.core.interfaces.flow;
+    exports com.fsalgo.core.interfaces.clusters;
 
 }

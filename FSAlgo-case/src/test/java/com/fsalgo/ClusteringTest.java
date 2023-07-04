@@ -1,7 +1,7 @@
 package com.fsalgo;
 
 import com.fsalgo.core.clustering.DBSCAN;
-import com.fsalgo.core.interfaces.ClusteringAlgorithm;
+import com.fsalgo.core.interfaces.clusters.ClusteringAlgorithm;
 import com.fsalgo.core.math.geometrical.Distance;
 import com.fsalgo.core.tree.vectorspace.specific.BallTree;
 import com.fsalgo.core.tree.vectorspace.specific.KDTree;

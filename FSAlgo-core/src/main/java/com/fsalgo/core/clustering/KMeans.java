@@ -1,6 +1,6 @@
 package com.fsalgo.core.clustering;
 
-import com.fsalgo.core.interfaces.ClusteringAlgorithm;
+import com.fsalgo.core.interfaces.clusters.ClusteringAlgorithm;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
 import java.util.List;

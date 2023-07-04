@@ -1,6 +1,7 @@
-package com.fsalgo.core.interfaces;
+package com.fsalgo.core.interfaces.clusters;
 
 import com.fsalgo.core.constant.BaseConstant;
+import com.fsalgo.core.interfaces.NameEntity;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
 import java.io.Serializable;

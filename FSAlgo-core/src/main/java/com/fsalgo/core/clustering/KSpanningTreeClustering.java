@@ -2,12 +2,12 @@ package com.fsalgo.core.clustering;
 
 import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.graph.spanningtree.PrimMinimumSpanningTree;
-import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 import com.fsalgo.core.interfaces.SpanningTreeAlgorithm;
+import com.fsalgo.core.interfaces.clusters.Clustering;
+import com.fsalgo.core.interfaces.clusters.GraphNodeClusteringAlgo;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.tree.UnionFind;
-import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
 import java.io.Serializable;
 import java.util.*;
@@ -17,7 +17,7 @@ import java.util.*;
  * @Date: 2023/6/30 15:39
  * @Description:
  */
-public class KSpanningTreeClustering<N extends Comparable<N>> implements ClusteringAlgorithm<N>, Serializable {
+public class KSpanningTreeClustering<N extends Comparable<N>> implements GraphNodeClusteringAlgo<N>, Serializable {
 
     private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
 
@@ -33,13 +33,9 @@ public class KSpanningTreeClustering<N extends Comparable<N>> implements Cluster
         this.k = k;
     }
 
-    @Override
-    public List<List<SpacePoint<N>>> getClustering(List<SpacePoint<N>> data) {
-        return null;
-    }
 
     @Override
-    public Clustering getClustering() {
+    public Clustering<N> getClustering() {
 
         // 获取最小生成树
         SpanningTreeAlgorithm<N> primMst = new PrimMinimumSpanningTree<>(graph);
