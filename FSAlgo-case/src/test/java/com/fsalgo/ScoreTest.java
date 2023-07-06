@@ -1,7 +1,7 @@
 package com.fsalgo;
 
 import com.fsalgo.core.graph.scoring.PageRank;
-import com.fsalgo.core.interfaces.NodeScoringAlgorithm;
+import com.fsalgo.core.interfaces.score.NodeScoringAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.specific.DirectedGraph;

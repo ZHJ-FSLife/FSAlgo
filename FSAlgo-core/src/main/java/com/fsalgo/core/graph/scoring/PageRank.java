@@ -1,6 +1,6 @@
 package com.fsalgo.core.graph.scoring;
 
-import com.fsalgo.core.interfaces.NodeScoringAlgorithm;
+import com.fsalgo.core.interfaces.score.NodeScoringAlgorithm;
 import com.fsalgo.core.struct.Graph;
 
 import java.util.HashMap;

@@ -1,4 +1,6 @@
-package com.fsalgo.core.interfaces;
+package com.fsalgo.core.interfaces.score;
+
+import com.fsalgo.core.interfaces.NameEntity;
 
 import java.util.Map;
 
@@ -10,13 +12,15 @@ import java.util.Map;
 public interface NodeScoringAlgorithm<N, D> extends NameEntity {
 
     /**
-     * 获取所有节点的分值
+     * 获取所有节点的评分分值
+     *
      * @return 返回所有节点的分值
      */
     Map<N, D> getScores();
 
     /**
      * 获取指定节点的分值
+     *
      * @param n 节点
      * @return 分值
      */
