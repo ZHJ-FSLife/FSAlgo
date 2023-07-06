@@ -1,4 +1,4 @@
-package com.fsalgo.core.interfaces.clusters;
+package com.fsalgo.core.interfaces;
 
 import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.interfaces.NameEntity;
@@ -15,9 +15,13 @@ import java.util.Set;
  */
 public interface ClusteringAlgorithm<T> extends NameEntity {
 
-    List<List<SpacePoint<T>>> getClustering(List<SpacePoint<T>> data);
-
-    Clustering<T> getClustering();
+    /**
+     * 获取聚类
+     *
+     * @param <T>
+     * @return Clustering<T>
+     */
+    <T> Clustering<T> getClustering();
 
     interface Clustering<T> {
 

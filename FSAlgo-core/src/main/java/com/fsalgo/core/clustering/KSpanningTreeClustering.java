@@ -2,9 +2,8 @@ package com.fsalgo.core.clustering;
 
 import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.graph.spanningtree.PrimMinimumSpanningTree;
+import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 import com.fsalgo.core.interfaces.SpanningTreeAlgorithm;
-import com.fsalgo.core.interfaces.clusters.Clustering;
-import com.fsalgo.core.interfaces.clusters.GraphNodeClusteringAlgo;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.tree.UnionFind;
@@ -15,9 +14,20 @@ import java.util.*;
 /**
  * @Author: root
  * @Date: 2023/6/30 15:39
- * @Description:
+ * @Description: K生成树聚类
+ * 缺点：
+ * 1.对噪声和异常值敏感：
+ * 对噪声和异常值比较敏感。由于该算法是基于生成树的聚类方法，噪声或异常值可能导致生成的树结构产生偏移或不稳定。
+ * 2.需要指定K值：
+ * 需要预先指定簇的数量K。但在实际应用中，确定合适的K值可能是一个挑战。如果选择不合适的K值，可能会导致聚类结果不理想
+ * 3.对数据分布的假设：
+ * 假设数据点在每个簇中具有类似于生成树的分布。然而，对于非均匀分布的数据或具有复杂形状的簇，该算法可能无法准确地划分数据。
+ * 4.计算复杂度高：
+ * 生成树的构建和数据点的分配过程涉及计算相似度或距离矩阵，并进行迭代计算。在大规模数据集上，算法的计算复杂度可能较高。
+ * 5.无法处理高维数据：
+ * 在处理高维数据时可能遇到困难。在高维空间中，数据点之间的距离度量变得复杂，导致聚类结果可能不准确。
  */
-public class KSpanningTreeClustering<N extends Comparable<N>> implements GraphNodeClusteringAlgo<N>, Serializable {
+public class KSpanningTreeClustering<N extends Comparable<N>> implements ClusteringAlgorithm<N>, Serializable {
 
     private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
 
@@ -67,7 +77,7 @@ public class KSpanningTreeClustering<N extends Comparable<N>> implements GraphNo
             cluster.add(node);
         }
 
-        return null;
+        return new ClusteringAlgorithm.ClusteringImpl<>(new LinkedList<>(clusterMap.values()));
     }
 
     @Override

@@ -1,7 +1,8 @@
 package com.fsalgo.core.clustering;
 
 import com.fsalgo.core.constant.BaseConstant;
-import com.fsalgo.core.interfaces.clusters.ClusteringAlgorithm;
+import com.fsalgo.core.interfaces.ClusteringAlgorithm;
+import com.fsalgo.core.tree.vectorspace.NearestNeighborSearch;
 import com.fsalgo.core.tree.vectorspace.specific.KDTree;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
@@ -21,13 +22,27 @@ public class DBSCAN<T extends Comparable<T>> implements ClusteringAlgorithm<T>, 
 
     private final double radius;
 
-    private KDTree kdTree;
+    private List<SpacePoint<T>> points;
+
+    private NearestNeighborSearch neighborSearch;
 
     private final Set<SpacePoint<T>> flag = new HashSet<>();
 
-    public DBSCAN(int density, double radius) {
+    public DBSCAN(int density, double radius, List<SpacePoint<T>> points) {
+        this(density, radius, points, new KDTree(points));
+    }
+
+    /**
+     * @param density        密度，至少相邻的节点数
+     * @param radius         半径
+     * @param points         节点集
+     * @param neighborSearch 邻近搜索算法（默认使用KD-Tree）
+     */
+    public DBSCAN(int density, double radius, List<SpacePoint<T>> points, NearestNeighborSearch neighborSearch) {
         this.density = density;
         this.radius = radius;
+        this.points = points;
+        this.neighborSearch = neighborSearch;
     }
 
     /**
@@ -37,32 +52,26 @@ public class DBSCAN<T extends Comparable<T>> implements ClusteringAlgorithm<T>, 
      * @return list<cluster>
      */
     @Override
-    public List<List<SpacePoint<T>>> getClustering(List<SpacePoint<T>> data) {
-        List<List<SpacePoint<T>>> result = new ArrayList<>();
-        kdTree = new KDTree<>(data);
-        for (SpacePoint<T> node : data) {
-            if (flag.contains(node)) {
+    public Clustering<T> getClustering() {
+        List<Set<SpacePoint<T>>> result = new LinkedList<>();
+        for (SpacePoint<T> point : points) {
+            if (flag.contains(point)) {
                 continue;
             }
-            List<SpacePoint<T>> list = search(node);
+            Set<SpacePoint<T>> list = search(point);
             if (!list.isEmpty()) {
                 result.add(list);
             }
         }
-        for (SpacePoint<T> node : data) {
-            if (flag.contains(node)) {
+        for (SpacePoint<T> point : points) {
+            if (flag.contains(point)) {
                 continue;
             }
-            result.add(new LinkedList<>() {{
-                add(node);
+            result.add(new LinkedHashSet<>() {{
+                add(point);
             }});
         }
-        return result;
-    }
-
-    @Override
-    public Clustering<T> getClustering() {
-        return null;
+        return new ClusteringAlgorithm.ClusteringImpl(result);
     }
 
     /**
@@ -71,13 +80,13 @@ public class DBSCAN<T extends Comparable<T>> implements ClusteringAlgorithm<T>, 
      * @param source 指定节点坐标
      * @return 簇
      */
-    private List<SpacePoint<T>> search(SpacePoint<T> source) {
-        List<SpacePoint<T>> result = new ArrayList<>();
+    private Set<SpacePoint<T>> search(SpacePoint<T> source) {
+        Set<SpacePoint<T>> result = new LinkedHashSet<>();
         Deque<SpacePoint<T>> queue = new LinkedList<>();
         queue.add(source);
         while (!queue.isEmpty()) {
             SpacePoint<T> curr = queue.pop();
-            List<SpacePoint<T>> searchNode = kdTree.range(curr, radius);
+            List<SpacePoint<T>> searchNode = neighborSearch.range(curr, radius);
             if (searchNode.size() < density) {
                 continue;
             }

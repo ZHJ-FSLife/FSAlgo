@@ -1,7 +1,9 @@
 package com.fsalgo;
 
+import com.fsalgo.core.clustering.KSpanningTreeClustering;
 import com.fsalgo.core.graph.strongconn.TarjanCutPointAndBridge;
 import com.fsalgo.core.graph.strongconn.TarjanStrongConnectivityInspector;
+import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 import com.fsalgo.core.struct.*;
 import com.fsalgo.core.struct.builder.GraphBuilder;
 import com.fsalgo.core.struct.specific.*;

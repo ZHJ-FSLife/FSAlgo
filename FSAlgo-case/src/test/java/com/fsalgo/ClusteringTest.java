@@ -1,8 +1,12 @@
 package com.fsalgo;
 
 import com.fsalgo.core.clustering.DBSCAN;
-import com.fsalgo.core.interfaces.clusters.ClusteringAlgorithm;
+import com.fsalgo.core.clustering.KSpanningTreeClustering;
+import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 import com.fsalgo.core.math.geometrical.Distance;
+import com.fsalgo.core.struct.Edge;
+import com.fsalgo.core.struct.Graph;
+import com.fsalgo.core.struct.builder.GraphBuilder;
 import com.fsalgo.core.tree.vectorspace.specific.BallTree;
 import com.fsalgo.core.tree.vectorspace.specific.KDTree;
 import com.fsalgo.core.tree.vectorspace.specific.OcTree;
@@ -13,6 +17,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author: root
@@ -92,13 +97,48 @@ public class ClusteringTest {
 
     @Test
     public void dbscanDemo() {
-        ClusteringAlgorithm<String> clustering = new DBSCAN<>(3, 3);
-        List<List<SpacePoint<String>>> result = clustering.getClustering(data);
-        for (List<SpacePoint<String>> list : result) {
+        ClusteringAlgorithm<String> clustering = new DBSCAN<>(3, 2.5, data);
+        ClusteringAlgorithm.Clustering<SpacePoint<String>> clusters = clustering.getClustering();
+        System.out.println("the number of clusters: " + clusters.getNumberClusters());
+        for (Set<SpacePoint<String>> list : clusters.getClusters()) {
             for (SpacePoint<String> temp : list) {
                 System.out.print(temp.getPoint() + ", ");
             }
             System.out.println();
+        }
+    }
+
+    @Test
+    public void kSpanningTreeClusteringDemo() {
+        Graph<String> graph = GraphBuilder.<String>undirected().build();
+
+        String n1 = "n1";
+        String n2 = "n2";
+        String n3 = "n3";
+        String n4 = "n4";
+        String n5 = "n5";
+        String n6 = "n6";
+        String n7 = "n7";
+        String n8 = "n8";
+        String n9 = "n9";
+        graph.addEdge(new Edge<>(n1, n2));
+        graph.addEdge(new Edge<>(n1, n6));
+        graph.addEdge(new Edge<>(n2, n3));
+        graph.addEdge(new Edge<>(n3, n4));
+        graph.addEdge(new Edge<>(n4, n5));
+        graph.addEdge(new Edge<>(n5, n2));
+        graph.addEdge(new Edge<>(n5, n1));
+        graph.addEdge(new Edge<>(n6, n7));
+        graph.addEdge(new Edge<>(n6, n8));
+        graph.addEdge(new Edge<>(n8, n9));
+        graph.addEdge(new Edge<>(n9, n6));
+
+        ClusteringAlgorithm<String> clustering = new KSpanningTreeClustering(graph, 8);
+
+        ClusteringAlgorithm.Clustering<String> clusters = clustering.getClustering();
+        System.out.println("the number of clusters: " + clusters.getNumberClusters());
+        for (Set<String> list : clusters.getClusters()) {
+            System.out.println(list);
         }
     }
 }
