@@ -22,6 +22,7 @@ public interface ShortestPathAlgorithm<N> extends NameEntity {
 
     /**
      * 起始节点到目标节点的最小权重值
+     *
      * @param source 起始节点
      * @param target 目标节点
      * @return 图节点间的最小权重值

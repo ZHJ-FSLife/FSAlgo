@@ -3,6 +3,8 @@ package com.fsalgo.core.struct.specific;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.EdgeSetFactory;
 
+import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,13 +16,17 @@ public class EdgeContainer<N> {
 
     /**
      * 入边
+     * key: 源节点
+     * val: 两点之间的边
      */
-    Set<Edge<N>> incoming;
+    Map<N, Set<Edge<N>>> incoming;
 
     /**
      * 出边
+     * key: 目标节点
+     * val: 两点之间的边
      */
-    Set<Edge<N>> outgoing;
+    Map<N, Set<Edge<N>>> outgoing;
 
     public EdgeContainer(EdgeSetFactory<N> edgeSetFactory, N node) {
         incoming = edgeSetFactory.createEdgeSet(node);
@@ -28,18 +34,26 @@ public class EdgeContainer<N> {
     }
 
     public void setIncoming(Edge<N> edge) {
-        incoming.add(edge);
+        N source = edge.getSource();
+        if (!incoming.containsKey(source)) {
+            incoming.put(source, new LinkedHashSet<>());
+        }
+        incoming.get(source).add(edge);
     }
 
     public void setOutgoing(Edge<N> edge) {
-        outgoing.add(edge);
+        N target = edge.getTarget();
+        if (!outgoing.containsKey(target)) {
+            outgoing.put(target, new LinkedHashSet<>());
+        }
+        outgoing.get(target).add(edge);
     }
 
-    public Set<Edge<N>> getIncoming() {
+    public Map<N, Set<Edge<N>>> getIncoming() {
         return incoming;
     }
 
-    public Set<Edge<N>> getOutgoing() {
+    public Map<N, Set<Edge<N>>> getOutgoing() {
         return outgoing;
     }
 }

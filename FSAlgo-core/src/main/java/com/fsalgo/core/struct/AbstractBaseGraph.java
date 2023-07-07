@@ -4,10 +4,7 @@ import com.fsalgo.core.struct.specific.EdgeContainer;
 import com.fsalgo.core.struct.specific.NodeContainer;
 import com.fsalgo.core.util.TypeUtil;
 
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: root
@@ -63,13 +60,25 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     }
 
     /**
+     * 获取边
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     * @return 返回两点之间相连的边
+     */
+    @Override
+    public Set<Edge<N>> getEdge(N source, N target) {
+        return edgeMap.get(source).getOutgoing().get(target);
+    }
+
+    /**
      * 图中所有的节点
      *
      * @return 返回图中所有的节点
      */
     @Override
     public Set<N> nodes() {
-        return new HashSet<>(nodeMap.keySet());
+        return new LinkedHashSet<>(nodeMap.keySet());
     }
 
     /**
@@ -79,9 +88,9 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<Edge<N>> edges() {
-        Set<Edge<N>> allEdge = new HashSet<>();
-        for (EdgeContainer<N> edgeContainer : edgeMap.values()) {
-            allEdge.addAll(edgeContainer.getOutgoing());
+        Set<Edge<N>> allEdge = new LinkedHashSet<>();
+        for (N node : nodeMap.keySet()) {
+            allEdge.addAll(outgoingEdges(node));
         }
         return allEdge;
     }
@@ -171,7 +180,11 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<Edge<N>> incomingEdges(N node) {
-        return edgeMap.get(node).getIncoming();
+        Set<Edge<N>> allIncomingEdges = new LinkedHashSet<>();
+        for (Set<Edge<N>> edgeSet : edgeMap.get(node).getIncoming().values()) {
+            allIncomingEdges.addAll(edgeSet);
+        }
+        return allIncomingEdges;
     }
 
     /**
@@ -182,7 +195,11 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<Edge<N>> outgoingEdges(N node) {
-        return edgeMap.get(node).getOutgoing();
+        Set<Edge<N>> allOutgoingEdges = new LinkedHashSet<>();
+        for (Set<Edge<N>> edgeSet : edgeMap.get(node).getOutgoing().values()) {
+            allOutgoingEdges.addAll(edgeSet);
+        }
+        return allOutgoingEdges;
     }
 
     /**
@@ -194,7 +211,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
         if (edgeMap.containsKey(node)) {
             return;
         }
-        edgeMap.put(node, new EdgeContainer<>(n -> new HashSet<>(), node));
+        edgeMap.put(node, new EdgeContainer<>(n -> new LinkedHashMap<>(), node));
     }
 
     @Override

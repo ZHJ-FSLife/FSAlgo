@@ -35,11 +35,21 @@ public interface Graph<N> extends NameEntity {
 
     /**
      * 添加边
+     *
      * @param source 源节点
      * @param target 目标节点
      * @param weight 权重值
      */
     void addEdge(N source, N target, double weight);
+
+    /**
+     * 获取边
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     * @return 返回两点之间相连的边
+     */
+    Set<Edge<N>> getEdge(N source, N target);
 
     /**
      * 获取图中节点的数量

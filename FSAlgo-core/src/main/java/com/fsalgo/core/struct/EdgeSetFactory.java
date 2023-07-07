@@ -1,5 +1,6 @@
 package com.fsalgo.core.struct;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -15,5 +16,5 @@ public interface EdgeSetFactory<N> {
      * @param node 节点
      * @return 边集合
      */
-    Set<Edge<N>> createEdgeSet(N node);
+    Map<N, Set<Edge<N>>> createEdgeSet(N node);
 }
