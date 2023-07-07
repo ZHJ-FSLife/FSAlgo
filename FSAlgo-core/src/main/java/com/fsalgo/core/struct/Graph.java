@@ -43,13 +43,23 @@ public interface Graph<N> extends NameEntity {
     void addEdge(N source, N target, double weight);
 
     /**
-     * 获取边
+     * 获取源节点指向目标节点所有边
      *
      * @param source 源节点
      * @param target 目标节点
-     * @return 返回两点之间相连的边
+     * @return 返回源节点指向目标节点所有的边
      */
     Set<Edge<N>> getEdge(N source, N target);
+
+    /**
+     * 获取源节点指向目标节点所有边中指定的一条边
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     * @param edge   边
+     * @return 返回两点间指定的一条边
+     */
+    Edge<N> getEdge(N source, N target, Edge<N> edge);
 
     /**
      * 获取图中节点的数量
@@ -104,6 +114,14 @@ public interface Graph<N> extends NameEntity {
     Set<N> outgoingNodes(N node);
 
     /**
+     * 与该节点相邻的所有边
+     *
+     * @param node 节点
+     * @return 返回与该节点所有相邻的边
+     */
+    Set<Edge<N>> adjacentEdges(N node);
+
+    /**
      * 与该节点相连进来的边
      *
      * @param node 节点
@@ -127,5 +145,22 @@ public interface Graph<N> extends NameEntity {
      * @return true or false
      */
     boolean hasEdgeConnecting(N source, N target);
+
+    /**
+     * 图中是否包含由源节点到目标节点的边
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     * @return 是否包含指定原点到目标节点的边
+     */
+    boolean containsEdge(N source, N target);
+
+    /**
+     * 图中是否包含该节点
+     *
+     * @param node 节点
+     * @return 是否包含节点
+     */
+    boolean containsNode(N node);
 
 }

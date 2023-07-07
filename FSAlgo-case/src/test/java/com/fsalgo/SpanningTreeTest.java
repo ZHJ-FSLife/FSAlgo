@@ -1,18 +1,13 @@
 package com.fsalgo;
 
-import com.fsalgo.core.clustering.KSpanningTreeClustering;
 import com.fsalgo.core.graph.spanningtree.KruskalMinimumSpanningTree;
 import com.fsalgo.core.graph.spanningtree.PrimMinimumSpanningTree;
-import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 import com.fsalgo.core.interfaces.SpanningTreeAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.builder.GraphBuilder;
 import com.fsalgo.core.struct.specific.DirectedGraph;
-import com.fsalgo.core.tree.vectorspace.SpacePoint;
 import org.junit.Test;
-
-import java.util.Set;
 
 /**
  * @Author: root

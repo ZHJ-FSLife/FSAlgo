@@ -1,7 +1,6 @@
 package com.fsalgo.core.struct;
 
 import com.fsalgo.core.struct.specific.EdgeContainer;
-import com.fsalgo.core.struct.specific.NodeContainer;
 import com.fsalgo.core.util.TypeUtil;
 
 import java.util.*;
@@ -15,12 +14,10 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
 
     protected int edgeSize = 0;
 
-    protected Map<N, NodeContainer<N>> nodeMap;
-    protected Map<N, EdgeContainer<N>> edgeMap;
+    protected Map<N, EdgeContainer<N>> graphMap;
 
     protected AbstractBaseGraph() {
-        nodeMap = new LinkedHashMap<>();
-        edgeMap = new LinkedHashMap<>();
+        graphMap = new LinkedHashMap<>();
     }
 
     /**
@@ -30,10 +27,10 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public void addNode(N node) {
-        if (nodeMap.containsKey(node)) {
+        if (containsNode(node)) {
             return;
         }
-        nodeMap.put(node, new NodeContainer<>(n -> new HashSet<>(), node));
+        graphMap.put(node, new EdgeContainer<>(n -> new LinkedHashMap<>(), node));
     }
 
     /**
@@ -60,15 +57,39 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     }
 
     /**
-     * 获取边
+     * 获取源节点指向目标节点所有边
      *
      * @param source 源节点
      * @param target 目标节点
-     * @return 返回两点之间相连的边
+     * @return 返回源节点指向目标节点所有的边
      */
     @Override
     public Set<Edge<N>> getEdge(N source, N target) {
-        return edgeMap.get(source).getOutgoing().get(target);
+        if (!hasEdgeConnecting(source, target)) {
+            throw new IllegalArgumentException("The source node is not directly adjacent to the destination node！");
+        }
+        return graphMap.get(source).getOutgoing().get(target);
+    }
+
+    /**
+     * 获取源节点指向目标节点所有边中指定的一条边
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     * @param edge   边
+     * @return 返回两点间指定的一条边
+     */
+    @Override
+    public Edge<N> getEdge(N source, N target, Edge<N> edge) {
+        if (!hasEdgeConnecting(source, target)) {
+            throw new IllegalArgumentException("The source node is not directly adjacent to the destination node！");
+        }
+        for (Edge<N> e : graphMap.get(source).getOutgoing().get(target)) {
+            if (edge.equals(e)) {
+                return e;
+            }
+        }
+        return null;
     }
 
     /**
@@ -78,7 +99,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<N> nodes() {
-        return new LinkedHashSet<>(nodeMap.keySet());
+        return new LinkedHashSet<>(graphMap.keySet());
     }
 
     /**
@@ -89,7 +110,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     @Override
     public Set<Edge<N>> edges() {
         Set<Edge<N>> allEdge = new LinkedHashSet<>();
-        for (N node : nodeMap.keySet()) {
+        for (N node : graphMap.keySet()) {
             allEdge.addAll(outgoingEdges(node));
         }
         return allEdge;
@@ -102,7 +123,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public int nodeSize() {
-        return nodeMap.size();
+        return graphMap.size();
     }
 
     /**
@@ -123,10 +144,10 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<N> adjacentNodes(N node) {
-        if (!nodeMap.containsKey(node)) {
-            return null;
+        if (!containsNode(node)) {
+            return new LinkedHashSet<>();
         }
-        return nodeMap.get(node).getAdjacent();
+        return graphMap.get(node).getAdjacent().keySet();
     }
 
     /**
@@ -137,10 +158,10 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<N> incomingNodes(N node) {
-        if (!nodeMap.containsKey(node)) {
-            return null;
+        if (!containsNode(node)) {
+            return new LinkedHashSet<>();
         }
-        return nodeMap.get(node).getIncoming();
+        return graphMap.get(node).getIncoming().keySet();
     }
 
     /**
@@ -151,10 +172,10 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<N> outgoingNodes(N node) {
-        if (!nodeMap.containsKey(node)) {
-            return null;
+        if (!containsNode(node)) {
+            return new LinkedHashSet<>();
         }
-        return nodeMap.get(node).getOutgoing();
+        return graphMap.get(node).getOutgoing().keySet();
     }
 
     /**
@@ -166,10 +187,51 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public boolean hasEdgeConnecting(N source, N target) {
-        if (!nodeMap.containsKey(source) || !nodeMap.containsKey(target)) {
+        if (!containsNode(source) || !containsNode(target)) {
             throw new IllegalArgumentException("source node and target node must exist!");
         }
         return adjacentNodes(source).contains(target);
+    }
+
+    /**
+     * 图中是否包含由源节点到目标节点的边
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     * @return 是否包含指定原点到目标节点的边
+     */
+    @Override
+    public boolean containsEdge(N source, N target) {
+        if (!hasEdgeConnecting(source, target)) {
+            return false;
+        }
+        return outgoingNodes(source).contains(target);
+    }
+
+    /**
+     * 图中是否包含该节点
+     *
+     * @param node 节点
+     * @return 是否包含节点
+     */
+    @Override
+    public boolean containsNode(N node) {
+        return graphMap.containsKey(node);
+    }
+
+    /**
+     * 与该节点相邻的所有边
+     *
+     * @param node 节点
+     * @return 返回与该节点所有相邻的边
+     */
+    @Override
+    public Set<Edge<N>> adjacentEdges(N node) {
+        Set<Edge<N>> allAdjacentEdges = new LinkedHashSet<>();
+        for (Set<Edge<N>> edgeSet : graphMap.get(node).getAdjacent().values()) {
+            allAdjacentEdges.addAll(edgeSet);
+        }
+        return allAdjacentEdges;
     }
 
     /**
@@ -181,7 +243,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     @Override
     public Set<Edge<N>> incomingEdges(N node) {
         Set<Edge<N>> allIncomingEdges = new LinkedHashSet<>();
-        for (Set<Edge<N>> edgeSet : edgeMap.get(node).getIncoming().values()) {
+        for (Set<Edge<N>> edgeSet : graphMap.get(node).getIncoming().values()) {
             allIncomingEdges.addAll(edgeSet);
         }
         return allIncomingEdges;
@@ -196,30 +258,17 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     @Override
     public Set<Edge<N>> outgoingEdges(N node) {
         Set<Edge<N>> allOutgoingEdges = new LinkedHashSet<>();
-        for (Set<Edge<N>> edgeSet : edgeMap.get(node).getOutgoing().values()) {
+        for (Set<Edge<N>> edgeSet : graphMap.get(node).getOutgoing().values()) {
             allOutgoingEdges.addAll(edgeSet);
         }
         return allOutgoingEdges;
-    }
-
-    /**
-     * 给新增的节点创建新的边容器
-     *
-     * @param node 节点
-     */
-    public void addEdgeContainer(N node) {
-        if (edgeMap.containsKey(node)) {
-            return;
-        }
-        edgeMap.put(node, new EdgeContainer<>(n -> new LinkedHashMap<>(), node));
     }
 
     @Override
     public Object clone() {
         try {
             AbstractBaseGraph<N> newGraph = TypeUtil.uncheckedCase(super.clone());
-            newGraph.nodeMap = this.nodeMap;
-            newGraph.edgeMap = this.edgeMap;
+            newGraph.graphMap = this.graphMap;
             return newGraph;
         } catch (CloneNotSupportedException e) {
             throw new IllegalArgumentException("???");

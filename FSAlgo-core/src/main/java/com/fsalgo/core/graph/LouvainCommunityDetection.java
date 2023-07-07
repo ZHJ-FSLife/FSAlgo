@@ -2,7 +2,7 @@ package com.fsalgo.core.graph;
 
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.builder.GraphBuilder;
-import com.fsalgo.core.struct.specific.NodeContainer;
+import com.fsalgo.core.struct.specific.EdgeContainer;
 
 import java.util.*;
 
@@ -133,13 +133,13 @@ public class LouvainCommunityDetection<N> {
      */
     private Graph<N> rebuildGraph(Graph<N> graph, Map<N, N> communityMap) {
         Graph<N> newGraph = GraphBuilder.<N>undirected().build();
-        Map<N, NodeContainer<N>> communityNodeMap = new LinkedHashMap<>();
+        Map<N, EdgeContainer<N>> communityNodeMap = new LinkedHashMap<>();
 
         // 初始化社区的边集合
         for (N node : communityMap.keySet()) {
             N community = communityMap.get(node);
             if (!communityNodeMap.containsKey(community)) {
-                communityNodeMap.put(node, new NodeContainer<>(n -> new HashSet<>(), node));
+                communityNodeMap.put(node, new EdgeContainer<>(n -> new LinkedHashMap<>(), node));
             }
         }
 

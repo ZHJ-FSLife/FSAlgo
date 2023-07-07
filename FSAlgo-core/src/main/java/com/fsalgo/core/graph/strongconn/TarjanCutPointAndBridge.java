@@ -23,9 +23,9 @@ public class TarjanCutPointAndBridge<N> {
     private int searchSort = 0;
     private Map<N, Integer> indexs;
 
-    private Set<N> cutPoints = new HashSet<>();
+    private final Set<N> cutPoints = new HashSet<>();
 
-    private Set<Edge<N>> bridges = new HashSet<>();
+    private final Set<Edge<N>> bridges = new HashSet<>();
 
     public TarjanCutPointAndBridge(Graph<N> graph) {
         this.graph = graph;
@@ -47,8 +47,9 @@ public class TarjanCutPointAndBridge<N> {
     }
 
     public void search() {
-        for (N node : indexs.keySet()) {
-            if (visited[indexs.get(node)] || graph.outgoingEdges(node).size() == 0) {
+        for (Map.Entry<N, Integer> entry : indexs.entrySet()) {
+            N node = entry.getKey();
+            if (visited[indexs.get(node)] || graph.outgoingEdges(node).isEmpty()) {
                 continue;
             }
             searchSort = 1;
@@ -68,7 +69,7 @@ public class TarjanCutPointAndBridge<N> {
         dfn[index] = searchSort;
         low[index] = searchSort++;
 
-        if (graph.outgoingEdges(root).size() == 0) {
+        if (graph.outgoingEdges(root).isEmpty()) {
             return;
         }
 

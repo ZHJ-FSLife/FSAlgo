@@ -82,8 +82,9 @@ public class TarjanStrongConnectivityInspector<N> {
      * 已被访问过 或 无下一节点 的节点均略过
      */
     public void searchGraph() {
-        for (N node : indexs.keySet()) {
-            if (visited[indexs.get(node)] || graph.outgoingEdges(node).size() == 0) {
+        for (Map.Entry<N, Integer> entry : indexs.entrySet()) {
+            N node = entry.getKey();
+            if (visited[indexs.get(node)] || graph.outgoingEdges(node).isEmpty()) {
                 continue;
             }
             searchSort = 1;
@@ -109,7 +110,7 @@ public class TarjanStrongConnectivityInspector<N> {
         low[index] = searchSort++;
         stack.push(root);
 
-        if (graph.outgoingEdges(root).size() != 0) {
+        if (!graph.outgoingEdges(root).isEmpty()) {
 
             isCutNodeByChildNum(index, graph.outgoingEdges(root).size(), root);
 

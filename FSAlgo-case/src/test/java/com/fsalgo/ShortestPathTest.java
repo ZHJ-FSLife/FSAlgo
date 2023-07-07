@@ -26,6 +26,7 @@ public class ShortestPathTest {
         String n7 = "n7";
         String n8 = "n8";
         Graph<String> graph = GraphBuilder.<String>undirected().build();
+        assert graph != null;
         graph.addEdge(new Edge<>(n0, n1, 4));
         graph.addEdge(new Edge<>(n0, n7, 8));
         graph.addEdge(new Edge<>(n1, n7, 11));
@@ -44,7 +45,7 @@ public class ShortestPathTest {
         System.out.println(graph);
 
         ShortestPathAlgorithm<String> dijkstra = new DijkstraShortestPath<String>(graph) {};
-        ShortestPathAlgorithm.GraphPath paths = dijkstra.getPath(n0, n4);
+        ShortestPathAlgorithm.GraphPath<String> paths = dijkstra.getPath(n0, n4);
         System.out.println(paths.getNodes());
         System.out.println(paths.getEdges());
     }
