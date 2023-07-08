@@ -8,12 +8,15 @@ import java.util.*;
 /**
  * @Author: root
  * @Date: 2023/2/19 2:28
- * @Description:
+ * @Description: 图接口的基本结构与实现
  */
 public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements Graph<N> {
 
     protected int edgeSize = 0;
 
+    /**
+     * 图中节点与边的映射关系（邻接多重表）
+     */
     protected Map<N, EdgeContainer<N>> graphMap;
 
     protected AbstractBaseGraph() {
@@ -81,10 +84,10 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Edge<N> getEdge(N source, N target, Edge<N> edge) {
-        if (!hasEdgeConnecting(source, target)) {
-            throw new IllegalArgumentException("The source node is not directly adjacent to the destination node！");
+        if (edge == null) {
+            throw new IllegalArgumentException("The edge cannot be empty！");
         }
-        for (Edge<N> e : graphMap.get(source).getOutgoing().get(target)) {
+        for (Edge<N> e : getEdge(source, target)) {
             if (edge.equals(e)) {
                 return e;
             }

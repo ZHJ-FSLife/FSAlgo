@@ -69,12 +69,8 @@ public class KSpanningTreeClustering<N extends Comparable<N>> implements Cluster
         Map<N, Set<N>> clusterMap = new LinkedHashMap<>();
         for (N node : graph.nodes()) {
             N curr = unionFind.findRoot(node);
-            Set<N> cluster = clusterMap.get(curr);
-            if (cluster == null) {
-                cluster = new LinkedHashSet<>();
-                clusterMap.put(curr, cluster);
-            }
-            cluster.add(node);
+            clusterMap.putIfAbsent(curr,  new LinkedHashSet<>());
+            clusterMap.get(curr).add(node);
         }
 
         return new ClusteringAlgorithm.ClusteringImpl<>(new LinkedList<>(clusterMap.values()));

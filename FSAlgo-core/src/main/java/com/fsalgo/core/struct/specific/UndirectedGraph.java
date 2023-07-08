@@ -2,7 +2,6 @@ package com.fsalgo.core.struct.specific;
 
 import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.struct.Edge;
-import com.fsalgo.core.struct.AbstractBaseGraph;
 
 import java.io.Serializable;
 
