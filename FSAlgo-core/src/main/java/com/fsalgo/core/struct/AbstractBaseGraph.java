@@ -60,6 +60,59 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     }
 
     /**
+     * 从图中移除指定节点（包含起相连的所有边）
+     *
+     * @param node 节点
+     */
+    @Override
+    public void removeNode(N node) {
+        for (N incomingNode : incomingNodes(node)) {
+            graphMap.get(incomingNode).removeOutgoing(node);
+            graphMap.get(incomingNode).removeAdjacent(node);
+        }
+        for (N outgoingNode : outgoingNodes(node)) {
+            graphMap.get(outgoingNode).removeIncoming(node);
+            graphMap.get(outgoingNode).removeAdjacent(node);
+        }
+        graphMap.remove(node);
+    }
+
+    /**
+     * 移除图中指定的边
+     *
+     * @param edge 边
+     */
+    @Override
+    public void removeEdge(Edge<N> edge) {
+        removeEdge(edge.getSource(), edge.getTarget(), edge);
+    }
+
+    /**
+     * 移除图中两节点间所有的边
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     */
+    @Override
+    public void removeEdge(N source, N target) {
+        for (Edge<N> incomingEdge : incomingEdges(source)) {
+
+        }
+    }
+
+    /**
+     * 移除图中两节点间指定的一条边
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     * @param edge   边
+     */
+    @Override
+    public void removeEdge(N source, N target, Edge<N> edge) {
+
+    }
+
+    /**
      * 获取源节点指向目标节点所有边
      *
      * @param source 源节点

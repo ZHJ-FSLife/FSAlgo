@@ -87,6 +87,9 @@ public class GraphTest {
         Set<Edge<String>> outgoingEdges = graph.outgoingEdges(n1);
         System.out.println(outgoingEdges);
 
+        graph.removeNode(n1);
+        System.out.println(graph);
+
     }
 
     @Test

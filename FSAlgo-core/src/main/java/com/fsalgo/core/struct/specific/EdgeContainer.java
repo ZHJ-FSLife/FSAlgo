@@ -12,7 +12,7 @@ import java.util.Set;
  * @Date: 2023/2/19 3:44
  * @Description: 边容器，创建并存放与节点相邻的边
  */
-public class EdgeContainer<N> {
+public class EdgeContainer<N>{
 
     /**
      * 相邻边
@@ -41,7 +41,7 @@ public class EdgeContainer<N> {
         adjacent = edgeSetFactory.createEdgeSet(node);
     }
 
-    private void setAdjacent(Edge<N> edge, N node) {
+    protected void setAdjacent(Edge<N> edge, N node) {
         adjacent.putIfAbsent(node, new LinkedHashSet<>());
         adjacent.get(node).add(edge);
     }
@@ -72,5 +72,17 @@ public class EdgeContainer<N> {
 
     public Map<N, Set<Edge<N>>> getOutgoing() {
         return outgoing;
+    }
+
+    public void removeAdjacent(N node) {
+        adjacent.remove(node);
+    }
+
+    public void removeIncoming(N node) {
+        incoming.remove(node);
+    }
+
+    public void removeOutgoing(N node) {
+        outgoing.remove(node);
     }
 }

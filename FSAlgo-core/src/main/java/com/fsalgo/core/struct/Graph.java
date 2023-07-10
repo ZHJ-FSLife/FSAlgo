@@ -43,6 +43,37 @@ public interface Graph<N> extends NameEntity {
     void addEdge(N source, N target, double weight);
 
     /**
+     * 从图中移除指定节点（包含起相连的所有边）
+     *
+     * @param node 节点
+     */
+    void removeNode(N node);
+
+    /**
+     * 移除图中指定的边
+     *
+     * @param edge 边
+     */
+    void removeEdge(Edge<N> edge);
+
+    /**
+     * 移除图中两节点间所有的边
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     */
+    void removeEdge(N source, N target);
+
+    /**
+     * 移除图中两节点间指定的一条边
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     * @param edge   边
+     */
+    void removeEdge(N source, N target, Edge<N> edge);
+
+    /**
      * 获取源节点指向目标节点所有边
      *
      * @param source 源节点
