@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * @Author: root
  * @Date: 2023/2/19 23:28
- * @Description:
+ * @Description: 无向图
  */
 public class UndirectedGraph<N> extends DirectedGraph<N> implements Serializable {
 

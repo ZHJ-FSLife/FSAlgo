@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * @Author: root
  * @Date: 2023/2/19 3:05
- * @Description:
+ * @Description: 有向图
  */
 public class DirectedGraph<N> extends AbstractBaseGraph<N> implements Serializable {
 
