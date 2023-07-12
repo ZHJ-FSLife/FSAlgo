@@ -88,6 +88,9 @@ public class GraphTest {
         System.out.println(outgoingEdges);
 
         graph.removeNode(n1);
+
+        graph.removeEdge(n2, n3);
+
         System.out.println(graph);
 
     }

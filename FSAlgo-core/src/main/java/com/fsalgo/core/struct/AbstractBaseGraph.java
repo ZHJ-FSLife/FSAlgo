@@ -95,9 +95,16 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public void removeEdge(N source, N target) {
-        for (Edge<N> incomingEdge : incomingEdges(source)) {
-
+        if (!hasEdgeConnecting(source, target)) {
+            return;
         }
+        EdgeContainer<N> sourceEdgeContainer = graphMap.get(source);
+        sourceEdgeContainer.removeAdjacent(target);
+        sourceEdgeContainer.removeOutgoing(target);
+
+        EdgeContainer<N> targetEdgeContainer = graphMap.get(target);
+        targetEdgeContainer.removeAdjacent(target);
+        targetEdgeContainer.removeOutgoing(target);
     }
 
     /**
@@ -109,7 +116,16 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public void removeEdge(N source, N target, Edge<N> edge) {
+        if (!hasEdgeConnecting(source, target)) {
+            return;
+        }
+        EdgeContainer<N> sourceEdgeContainer = graphMap.get(source);
+        sourceEdgeContainer.getAdjacent().get(target).remove(edge);
+        sourceEdgeContainer.getOutgoing().get(target).remove(edge);
 
+        EdgeContainer<N> targetEdgeContainer = graphMap.get(target);
+        targetEdgeContainer.getAdjacent().get(source).remove(edge);
+        targetEdgeContainer.getIncoming().get(source).remove(edge);
     }
 
     /**
@@ -125,27 +141,6 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
             throw new IllegalArgumentException("The source node is not directly adjacent to the destination node！");
         }
         return graphMap.get(source).getOutgoing().get(target);
-    }
-
-    /**
-     * 获取源节点指向目标节点所有边中指定的一条边
-     *
-     * @param source 源节点
-     * @param target 目标节点
-     * @param edge   边
-     * @return 返回两点间指定的一条边
-     */
-    @Override
-    public Edge<N> getEdge(N source, N target, Edge<N> edge) {
-        if (edge == null) {
-            throw new IllegalArgumentException("The edge cannot be empty！");
-        }
-        for (Edge<N> e : getEdge(source, target)) {
-            if (edge.equals(e)) {
-                return e;
-            }
-        }
-        return null;
     }
 
     /**
@@ -247,6 +242,18 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
             throw new IllegalArgumentException("source node and target node must exist!");
         }
         return adjacentNodes(source).contains(target);
+    }
+
+    /**
+     * 源节点与目标节点之间是否存在一条指定的边连接两个节点
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     * @return true or false
+     */
+    @Override
+    public boolean hasEdgeConnecting(N source, N target, Edge<N> edge) {
+        return getEdge(source, target).contains(edge);
     }
 
     /**

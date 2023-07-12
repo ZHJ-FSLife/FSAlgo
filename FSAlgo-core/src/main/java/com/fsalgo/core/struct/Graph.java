@@ -83,16 +83,6 @@ public interface Graph<N> extends NameEntity {
     Set<Edge<N>> getEdge(N source, N target);
 
     /**
-     * 获取源节点指向目标节点所有边中指定的一条边
-     *
-     * @param source 源节点
-     * @param target 目标节点
-     * @param edge   边
-     * @return 返回两点间指定的一条边
-     */
-    Edge<N> getEdge(N source, N target, Edge<N> edge);
-
-    /**
      * 获取图中节点的数量
      *
      * @return 返回图中节点的总数量
@@ -169,13 +159,22 @@ public interface Graph<N> extends NameEntity {
     Set<Edge<N>> outgoingEdges(N node);
 
     /**
-     * 源节点与目标节点之间是否有一条边相连
+     * 源节点与目标节点之间是否存在至少一条边相连
      *
      * @param source 源节点
      * @param target 目标节点
      * @return true or false
      */
     boolean hasEdgeConnecting(N source, N target);
+
+    /**
+     * 源节点与目标节点之间是否存在一条指定的边连接两个节点
+     *
+     * @param source 源节点
+     * @param target 目标节点
+     * @return true or false
+     */
+    boolean hasEdgeConnecting(N source, N target, Edge<N> edge);
 
     /**
      * 图中是否包含由源节点到目标节点的边
