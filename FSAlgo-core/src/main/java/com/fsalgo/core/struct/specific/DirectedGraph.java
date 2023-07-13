@@ -39,6 +39,11 @@ public class DirectedGraph<N> extends AbstractBaseGraph<N> implements Serializab
     }
 
     @Override
+    protected void removeEdge() {
+        // edgeSize -= 2;
+    }
+
+    @Override
     public String getName() {
         return "directed-graph";
     }

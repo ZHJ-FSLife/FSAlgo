@@ -54,6 +54,10 @@ public class Edge<N> {
         return weight;
     }
 
+    public Edge<N> inversion() {
+        return new Edge<>(target, source, weight);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(source, target, weight);

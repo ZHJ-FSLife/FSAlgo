@@ -126,7 +126,11 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
         EdgeContainer<N> targetEdgeContainer = graphMap.get(target);
         targetEdgeContainer.getAdjacent().get(source).remove(edge);
         targetEdgeContainer.getIncoming().get(source).remove(edge);
+
+        // removeEdge();
     }
+
+    protected abstract void removeEdge();
 
     /**
      * 获取源节点指向目标节点所有边

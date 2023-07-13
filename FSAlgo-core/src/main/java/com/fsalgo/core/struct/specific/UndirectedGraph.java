@@ -28,9 +28,14 @@ public class UndirectedGraph<N> extends DirectedGraph<N> implements Serializable
         super.addEdge(edge);
 
         // 无向图在有向图的基础上添加一条反向的边
-        Edge<N> reverseEdge = new Edge<>(edge.getTarget(), edge.getSource(), edge.getWeight());
-        graphMap.get(edge.getSource()).setIncoming(reverseEdge);
-        graphMap.get(edge.getTarget()).setOutgoing(reverseEdge);
+        Edge<N> inversion = edge.inversion();
+        graphMap.get(edge.getSource()).setIncoming(inversion);
+        graphMap.get(edge.getTarget()).setOutgoing(inversion);
+    }
+
+    @Override
+    protected void removeEdge() {
+        // edgeSize -= 1;
     }
 
     @Override
