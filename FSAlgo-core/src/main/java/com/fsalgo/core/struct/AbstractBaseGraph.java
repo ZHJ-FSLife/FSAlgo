@@ -98,13 +98,6 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
         if (!hasEdgeConnecting(source, target)) {
             return;
         }
-        EdgeContainer<N> sourceEdgeContainer = graphMap.get(source);
-        sourceEdgeContainer.removeAdjacent(target);
-        sourceEdgeContainer.removeOutgoing(target);
-
-        EdgeContainer<N> targetEdgeContainer = graphMap.get(target);
-        targetEdgeContainer.removeAdjacent(target);
-        targetEdgeContainer.removeOutgoing(target);
     }
 
     /**
@@ -127,10 +120,9 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
         targetEdgeContainer.getAdjacent().get(source).remove(edge);
         targetEdgeContainer.getIncoming().get(source).remove(edge);
 
-        // removeEdge();
-    }
+        edgeSize--;
 
-    protected abstract void removeEdge();
+    }
 
     /**
      * 获取源节点指向目标节点所有边
@@ -335,6 +327,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     public Object clone() {
         try {
             AbstractBaseGraph<N> newGraph = TypeUtil.uncheckedCase(super.clone());
+            newGraph.edgeSize = this.edgeSize;
             newGraph.graphMap = this.graphMap;
             return newGraph;
         } catch (CloneNotSupportedException e) {

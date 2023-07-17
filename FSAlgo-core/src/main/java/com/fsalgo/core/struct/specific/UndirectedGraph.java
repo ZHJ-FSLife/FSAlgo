@@ -34,8 +34,23 @@ public class UndirectedGraph<N> extends DirectedGraph<N> implements Serializable
     }
 
     @Override
-    protected void removeEdge() {
-        // edgeSize -= 1;
+    public void removeEdge(N source, N target) {
+        super.removeEdge(source, target);
+
+        EdgeContainer<N> sourceEdgeContainer = graphMap.get(source);
+        EdgeContainer<N> targetEdgeContainer = graphMap.get(target);
+
+        int connectEdgeSize = sourceEdgeContainer.getOutgoing().size();
+
+        sourceEdgeContainer.removeAdjacent(target);
+        sourceEdgeContainer.removeIncoming(target);
+        sourceEdgeContainer.removeOutgoing(target);
+
+        targetEdgeContainer.removeAdjacent(source);
+        targetEdgeContainer.removeIncoming(source);
+        targetEdgeContainer.removeOutgoing(source);
+
+        edgeSize -= connectEdgeSize;
     }
 
     @Override

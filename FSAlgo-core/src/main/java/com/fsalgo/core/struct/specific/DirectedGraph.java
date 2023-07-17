@@ -39,8 +39,19 @@ public class DirectedGraph<N> extends AbstractBaseGraph<N> implements Serializab
     }
 
     @Override
-    protected void removeEdge() {
-        // edgeSize -= 2;
+    public void removeEdge(N source, N target) {
+        super.removeEdge(source, target);
+
+        int connectEdgeSize = 0;
+
+        EdgeContainer<N> sourceEdgeContainer = graphMap.get(source);
+        sourceEdgeContainer.removeAdjacent(target);
+        connectEdgeSize = sourceEdgeContainer.getOutgoing().size();
+        sourceEdgeContainer.removeOutgoing(target);
+
+        EdgeContainer<N> targetEdgeContainer = graphMap.get(target);
+
+
     }
 
     @Override
