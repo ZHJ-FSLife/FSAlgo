@@ -1,3 +1,3 @@
 # fucking shit algorithm
 
-![img](.documents/images/img-01.jpg)
+<img src=".documents/images/img-01.jpg" width="300" height="300" />
