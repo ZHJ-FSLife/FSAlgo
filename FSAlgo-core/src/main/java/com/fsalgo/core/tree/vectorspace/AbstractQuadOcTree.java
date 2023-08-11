@@ -29,7 +29,7 @@ public abstract class AbstractQuadOcTree<T extends Comparable<T>> extends Abstra
     }
 
     /**
-     * 构建QuadTree
+     * 构建树结构
      *
      * @param points 坐标集
      * @return root
@@ -39,7 +39,7 @@ public abstract class AbstractQuadOcTree<T extends Comparable<T>> extends Abstra
             return null;
         }
         if (points.size() == 1) {
-            return new Node(points.get(0), true);
+            return new Node<>(points.get(0), true);
         }
 
         Node<T> center = findCenter(points);
@@ -125,7 +125,7 @@ public abstract class AbstractQuadOcTree<T extends Comparable<T>> extends Abstra
 
     @Override
     public List<SpacePoint<T>> range(SpacePoint<T> point, double radius) {
-        return null;
+        return new ArrayList<>();
     }
 
     /**
