@@ -19,7 +19,7 @@ public class SpanningTreeTest {
     @Test
     public void KruskalDemo() {
         // 有向图和无向图都适用于克鲁斯卡尔算法
-        Graph<String> graph = new DirectedGraph<>();
+        Graph<String> graph = GraphBuilder.<String>directed().build();
 
         String A = "A";
         String B = "B";

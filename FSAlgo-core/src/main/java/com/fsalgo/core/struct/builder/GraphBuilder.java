@@ -59,12 +59,12 @@ public final class GraphBuilder<N> {
         if (directed && undirected) {
             return null;
         }
-        if (directed) {
-            if (allowingSelfLoops) {
-                return new DirectedAcyclicGraph<>();
-            }
-            return new DirectedGraph<>();
+        if (!directed) {
+            return new UndirectedGraph<>();
         }
-        return new UndirectedGraph<>();
+        if (allowingSelfLoops) {
+            return new DirectedAcyclicGraph<>();
+        }
+        return new DirectedGraph<>();
     }
 }
