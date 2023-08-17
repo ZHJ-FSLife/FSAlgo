@@ -25,8 +25,6 @@ UFSAlgo-core/src/main/java/com/fsalgo/core/tree/vectorspace/specific/package-inf
 KFSAlgo-core/src/main/java/com/fsalgo/core/interfaces/flow/package-info.java,6\f\6fda439ad33a1881e8097862e0c04d95939ea854
 €
 PFSAlgo-core/src/main/java/com/fsalgo/core/tree/vectorspace/specific/BKDTree.java,3\3\333f07df11fbb26dc7c54177b2c08ca4f64922ad
-v
-FFSAlgo-core/src/main/java/com/fsalgo/core/interfaces/package-info.java,0\9\091258171abd575774949be329123823636e7916
 l
 <FSAlgo-core/src/main/java/com/fsalgo/core/struct/Graphs.java,9\d\9d3e139b0cbd7606032907a0adef69de158db4c1
 ‡
@@ -49,8 +47,6 @@ LFSAlgo-core/src/main/java/com/fsalgo/core/graph/strongconn/package-info.java,4
 NFSAlgo-core/src/main/java/com/fsalgo/core/graph/spanningtree/package-info.java,0\2\02084f27b0994c60fcc886d7844a829b9ef2a272
 ~
 NFSAlgo-core/src/main/java/com/fsalgo/core/math/geometrical/DistanceMetric.java,3\3\33ecb3f92f555893135bf011bb846cf509586857
-~
-NFSAlgo-core/src/main/java/com/fsalgo/core/graph/shortestpath/package-info.java,8\c\8c71373332a0db7465609ec377bb98da350db5ed
 y
 IFSAlgo-core/src/main/java/com/fsalgo/core/graph/scoring/package-info.java,9\c\9cdcdb5cac41aeac21c2b4b2d10957affbeb1f87
 
@@ -61,16 +57,12 @@ GFSAlgo-core/src/main/java/com/fsalgo/core/math/linear/package-info.java,a\5\a5
 SFSAlgo-core/src/main/java/com/fsalgo/core/math/geometrical/GeometricalDistance.java,1\5\15325df1b92efe6a007c3847e65bb2e326e45d01
 r
 BFSAlgo-core/src/main/java/com/fsalgo/core/util/sort/MergeSort.java,3\4\34db7cc69cbcf320e7ba6e7da03d3343bb532b31
-t
-DFSAlgo-core/src/main/java/com/fsalgo/core/interfaces/NameEntity.java,0\b\0be48c0e1181e137d24e3b4f8b4e221a769a3198
 o
 ?FSAlgo-core/src/main/java/com/fsalgo/core/clustering/BIRCH.java,1\2\12cb245e8f409c5ca6c8822aca930965e5ddc000
 {
 KFSAlgo-core/src/main/java/com/fsalgo/core/clustering/KNearestNeighbors.java,b\1\b1240db1093b1e7fcc223dc4f3ed1c19666adfa3
 
 OFSAlgo-core/src/main/java/com/fsalgo/core/interfaces/ShortestPathAlgorithm.java,4\0\404e4084d29f0194fbe39025be5e9deeaaeb9d0b
-„
-TFSAlgo-core/src/main/java/com/fsalgo/core/interfaces/score/NodeScoringAlgorithm.java,2\9\29ebf207a9e66c96f43a20cf2bd815023a2d3552
 o
 ?FSAlgo-core/src/main/java/com/fsalgo/core/tree/HuffmanTree.java,d\7\d757cda0a8ef284025be977ad22100c62b7cbec0
 
@@ -81,8 +73,6 @@ s
 CFSAlgo-core/src/main/java/com/fsalgo/core/clustering/MeanShift.java,a\8\a88cf84423ea244a081594a49f36b82d19d5853a
 |
 LFSAlgo-core/src/main/java/com/fsalgo/core/tree/vectorspace/package-info.java,0\e\0eb1f7ad56e20d640cdee99b201fdf5bbe646599
-~
-NFSAlgo-core/src/main/java/com/fsalgo/core/graph/LouvainCommunityDetection.java,e\1\e13f9581238092a24f8cf8b33e87eb63c5de8a19
 
 QFSAlgo-core/src/main/java/com/fsalgo/core/clustering/ExpectationMaximization.java,b\7\b7a3980a8edb54c6af0719aa1d3f157820e9918d
 |
@@ -91,8 +81,6 @@ LFSAlgo-core/src/main/java/com/fsalgo/core/interfaces/score/package-info.java,3
 VFSAlgo-core/src/main/java/com/fsalgo/core/graph/scoring/EdgeBetweennessCentrality.java,c\6\c6f7c82545e80331402d5e0797096069e8c35a93
 „
 TFSAlgo-core/src/main/java/com/fsalgo/core/interfaces/score/EdgeScoringAlgorithm.java,d\f\df4caaa560bb7d833c52145543af30ab629bca5a
-j
-:FSAlgo-core/src/main/java/com/fsalgo/core/graph/KCore.java,4\e\4ed7276fcb6e313e7bd91804776a029bfb7bb50e
 u
 EFSAlgo-core/src/main/java/com/fsalgo/core/tree/heap/AbstractHeap.java,3\d\3decf375332a6ea57f552e22ef8a4e6d59ae7e10
 }
@@ -203,8 +191,6 @@ c
 3FSAlgo-case/src/test/java/com/fsalgo/ScoreTest.java,f\0\f0adf803d5ffa2bbb30ba783b50e1b4352df8d05
 b
 2FSAlgo-case/src/test/java/com/fsalgo/HeapTest.java,b\1\b19f2c4a92c96a46c9a31e0bd2422be869a62a37
-c
-3FSAlgo-case/src/test/java/com/fsalgo/GraphTest.java,3\0\30cd2ced4ca2c77eddd301b7ed8a6ce379a1f337
 h
 8FSAlgo-case/src/test/java/com/fsalgo/ClusteringTest.java,8\d\8d0821d6f17d695eff33db2dbccabbabdcfa8a16
 K
@@ -214,20 +200,14 @@ K
 :
 
 FSAlgo.iml,1\9\198528d21610c68458206fc8e60b1e77478ecbc5
-j
-:FSAlgo-case/src/test/java/com/fsalgo/SpanningTreeTest.java,d\e\deda15f7f114d7095ea6e41cea03b1243f6ca1f3
 n
 >FSAlgo-core/src/main/java/com/fsalgo/core/util/VectorUtil.java,2\5\25500dfa465ea9a09add4ddb56947fedc9ed5bb9
-t
-DFSAlgo-core/src/main/java/com/fsalgo/core/struct/EdgeSetFactory.java,2\8\2851e59286b565494099f206d0691974dc96c50f
 x
 HFSAlgo-core/src/main/java/com/fsalgo/core/struct/NodeToIndexMapping.java,9\f\9f2912d20b2077bee1886f17eb977af0465b67a5
 j
 :FSAlgo-core/src/main/java/com/fsalgo/core/struct/Edge.java,f\3\f369a9478b90a081c1923d5a778fc019baf49c7e
 €
 PFSAlgo-core/src/main/java/com/fsalgo/core/tree/vectorspace/specific/KDBTree.java,e\4\e46ae8094b4295c589f66221ae8d85b332f6e2e0
-|
-LFSAlgo-core/src/main/java/com/fsalgo/core/struct/specific/DirectedGraph.java,0\5\05f90b0fed97fb34995cbff0a8505ed2592cd1f7
 ~
 NFSAlgo-core/src/main/java/com/fsalgo/core/struct/specific/UndirectedGraph.java,1\8\181fc47a5cb5eba50c19b91be5410b7daa4185d7
 ƒ

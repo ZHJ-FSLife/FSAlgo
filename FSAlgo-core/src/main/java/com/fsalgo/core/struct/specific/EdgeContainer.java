@@ -19,21 +19,21 @@ public class EdgeContainer<N>{
      * key: 相邻节点
      * val: 相邻的边
      */
-    Map<N, Set<Edge<N>>> adjacent;
+    private final Map<N, Set<Edge<N>>> adjacent;
 
     /**
      * 入边
      * key: 源节点
      * val: 两点之间的边
      */
-    Map<N, Set<Edge<N>>> incoming;
+    private final Map<N, Set<Edge<N>>> incoming;
 
     /**
      * 出边
      * key: 目标节点
      * val: 两点之间的边
      */
-    Map<N, Set<Edge<N>>> outgoing;
+    private final Map<N, Set<Edge<N>>> outgoing;
 
     public EdgeContainer(EdgeSetFactory<N> edgeSetFactory, N node) {
         incoming = edgeSetFactory.createEdgeSet(node);
