@@ -279,6 +279,17 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     }
 
     /**
+     * 图中是否包含该边的存在
+     *
+     * @param edge 边
+     * @return 是否包含边
+     */
+    @Override
+    public boolean containsEdge(Edge<N> edge) {
+        return hasEdgeConnecting(edge.getSource(), edge.getTarget(), edge);
+    }
+
+    /**
      * 与该节点相邻的所有边
      *
      * @param node 节点

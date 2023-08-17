@@ -1,4 +1,4 @@
-package com.fsalgo.core.exception;
+package com.fsalgo.core.enums.exception;
 
 /**
  * @Author: root

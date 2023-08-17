@@ -1,4 +1,4 @@
-package com.fsalgo.core.interfaces;
+package com.fsalgo.core.enums;
 
 /**
  * @Author: root

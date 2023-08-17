@@ -193,4 +193,12 @@ public interface Graph<N> extends NameEntity {
      */
     boolean containsNode(N node);
 
+    /**
+     * 图中是否包含该边的存在
+     *
+     * @param edge 边
+     * @return 是否包含边
+     */
+    boolean containsEdge(Edge<N> edge);
+
 }

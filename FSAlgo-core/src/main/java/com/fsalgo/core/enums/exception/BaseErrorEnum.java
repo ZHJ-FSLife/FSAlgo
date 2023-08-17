@@ -1,6 +1,6 @@
-package com.fsalgo.core.exception;
+package com.fsalgo.core.enums.exception;
 
-import com.fsalgo.core.interfaces.BaseEnum;
+import com.fsalgo.core.enums.BaseEnum;
 
 /**
  * @Author: root
