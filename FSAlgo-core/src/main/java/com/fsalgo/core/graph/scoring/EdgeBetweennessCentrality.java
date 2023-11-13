@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @Author: root
  * @Date: 2023/7/6 10:31
- * @Description:
+ * @Description: 复杂网络中边的中心性
  */
 public class EdgeBetweennessCentrality<N> implements EdgeScoringAlgorithm<N, Double> {
 

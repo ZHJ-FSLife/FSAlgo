@@ -312,3 +312,5 @@ b
 2FSAlgo-case/src/test/java/com/fsalgo/TreeTest.java,a\1\a1d2b982b8d735777fd01c18e5e92f0ad56857b6
 r
 BFSAlgo-core/src/main/java/com/fsalgo/core/util/WeightCombiner.java,7\0\7043b4362d4749fac9675772310b3d4bc84223ff
+7
+LICENSE,0\3\0398ccd0f49298b10a3d76a47800d2ebecd49859
