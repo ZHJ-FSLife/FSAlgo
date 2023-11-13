@@ -310,3 +310,5 @@ HFSAlgo-core/src/main/java/com/fsalgo/core/math/geometrical/Distance.java,c\e\c
 OFSAlgo-core/src/main/java/com/fsalgo/core/tree/vectorspace/specific/KDTree.java,1\0\10ac32f45dec7b097233b889f69256c05af7736f
 b
 2FSAlgo-case/src/test/java/com/fsalgo/TreeTest.java,a\1\a1d2b982b8d735777fd01c18e5e92f0ad56857b6
+r
+BFSAlgo-core/src/main/java/com/fsalgo/core/util/WeightCombiner.java,7\0\7043b4362d4749fac9675772310b3d4bc84223ff
