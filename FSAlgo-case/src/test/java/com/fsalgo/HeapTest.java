@@ -80,7 +80,7 @@ public class HeapTest {
     }
 
     @Test
-    public void  SkewHeapDemo() {
+    public void SkewHeapDemo() {
         int[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
 
         Heap<Integer> heap = new SkewHeap<>() {
