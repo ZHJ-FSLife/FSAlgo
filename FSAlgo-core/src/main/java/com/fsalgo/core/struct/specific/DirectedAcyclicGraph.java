@@ -1,6 +1,7 @@
 package com.fsalgo.core.struct.specific;
 
 import com.fsalgo.core.constant.BaseConstant;
+import com.fsalgo.core.enums.GraphTypeEnum;
 import com.fsalgo.core.struct.Edge;
 
 import java.io.Serializable;
@@ -62,6 +63,11 @@ public class DirectedAcyclicGraph<N> extends DirectedGraph<N> implements Seriali
             }
         }
         return visited.size() != nodeSize();
+    }
+
+    @Override
+    public GraphTypeEnum getGraphType() {
+        return GraphTypeEnum.DIRECTED_ACYCLIC_GRAPH;
     }
 
     @Override

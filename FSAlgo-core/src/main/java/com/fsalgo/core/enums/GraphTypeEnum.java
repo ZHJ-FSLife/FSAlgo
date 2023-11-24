@@ -29,4 +29,9 @@ public enum GraphTypeEnum implements BaseEnum {
     public String getDesc() {
         return desc;
     }
+
+    @Override
+    public String toString() {
+        return getCode() + "::" + getDesc();
+    }
 }

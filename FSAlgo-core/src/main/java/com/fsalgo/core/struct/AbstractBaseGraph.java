@@ -1,5 +1,6 @@
 package com.fsalgo.core.struct;
 
+import com.fsalgo.core.enums.exception.GraphBaseErrorEnum;
 import com.fsalgo.core.struct.specific.EdgeContainer;
 import com.fsalgo.core.util.TypeUtil;
 
@@ -134,7 +135,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     @Override
     public Set<Edge<N>> getEdge(N source, N target) {
         if (!hasEdgeConnecting(source, target)) {
-            throw new IllegalArgumentException("The source node is not directly adjacent to the destination node！");
+            throw new IllegalArgumentException(GraphBaseErrorEnum.NODES_ARE_NOT_DIRECTLY_ADJACENT.getDesc());
         }
         return graphMap.get(source).getOutgoing().get(target);
     }
@@ -235,7 +236,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     @Override
     public boolean hasEdgeConnecting(N source, N target) {
         if (!containsNode(source) || !containsNode(target)) {
-            throw new IllegalArgumentException("source node and target node must exist!");
+            throw new IllegalArgumentException(GraphBaseErrorEnum.SOURCE_AND_TARGET_MUST_EXIST.getDesc());
         }
         return adjacentNodes(source).contains(target);
     }

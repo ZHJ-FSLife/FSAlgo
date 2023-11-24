@@ -1,6 +1,7 @@
 package com.fsalgo.core.struct.specific;
 
 import com.fsalgo.core.constant.BaseConstant;
+import com.fsalgo.core.enums.GraphTypeEnum;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.AbstractBaseGraph;
 
@@ -52,6 +53,11 @@ public class DirectedGraph<N> extends AbstractBaseGraph<N> implements Serializab
         EdgeContainer<N> targetEdgeContainer = graphMap.get(target);
 
 
+    }
+
+    @Override
+    public GraphTypeEnum getGraphType() {
+        return GraphTypeEnum.DIRECTED_GRAPH;
     }
 
     @Override

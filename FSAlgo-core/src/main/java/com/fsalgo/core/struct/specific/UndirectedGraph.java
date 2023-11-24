@@ -1,6 +1,7 @@
 package com.fsalgo.core.struct.specific;
 
 import com.fsalgo.core.constant.BaseConstant;
+import com.fsalgo.core.enums.GraphTypeEnum;
 import com.fsalgo.core.struct.Edge;
 
 import java.io.Serializable;
@@ -51,6 +52,11 @@ public class UndirectedGraph<N> extends DirectedGraph<N> implements Serializable
         targetEdgeContainer.removeOutgoing(source);
 
         edgeSize -= connectEdgeSize;
+    }
+
+    @Override
+    public GraphTypeEnum getGraphType() {
+        return GraphTypeEnum.UNDIRECTED_GRAPH;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.fsalgo.core.struct;
 
+import com.fsalgo.core.enums.GraphTypeEnum;
 import com.fsalgo.core.interfaces.NameEntity;
 
 import java.util.Set;
@@ -200,5 +201,7 @@ public interface Graph<N> extends NameEntity {
      * @return 是否包含边
      */
     boolean containsEdge(Edge<N> edge);
+
+    GraphTypeEnum getGraphType();
 
 }

@@ -92,6 +92,7 @@ public class GraphTest {
         graph.removeEdge(n2, n3);
 
         System.out.println(graph);
+        System.out.println(graph.getGraphType());
 
     }
 
@@ -104,6 +105,7 @@ public class GraphTest {
         System.out.println(graph);
         Set<Edge<String>> outgoingEdges = graph.outgoingEdges(n5);
         System.out.println(outgoingEdges);
+        System.out.println(graph.getGraphType());
 
     }
 

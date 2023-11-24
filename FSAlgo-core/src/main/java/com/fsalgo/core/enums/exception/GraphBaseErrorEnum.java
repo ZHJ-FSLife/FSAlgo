@@ -7,8 +7,10 @@ package com.fsalgo.core.enums.exception;
  */
 public enum GraphBaseErrorEnum implements BaseErrorEnum {
 
-      NODE_NOT_EXIST("节点不存在！")
-    , EDGE_NOT_EXIST("关系边不存在！")
+      NODE_NOT_EXIST("The node not exist！")
+    , EDGE_NOT_EXIST("The edge not exist！")
+    , NODES_ARE_NOT_DIRECTLY_ADJACENT("The source node is not directly adjacent to the target node！")
+    , SOURCE_AND_TARGET_MUST_EXIST("source node and target node must exist!")
     ;
 
     private final String desc;
