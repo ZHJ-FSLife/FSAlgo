@@ -20,8 +20,7 @@ public class Edge<N> {
     }
 
     public Edge(N source, N target) {
-        this.source = source;
-        this.target = target;
+        this(source, target, 0.0D);
     }
 
     public Edge(N source, N target, double weight) {
