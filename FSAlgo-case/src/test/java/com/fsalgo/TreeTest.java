@@ -13,6 +13,12 @@ import java.util.*;
 public class TreeTest {
 
     @Test
+    public void RadixTreeDemo() {
+        RadixTree trie = new RadixTree();
+
+    }
+
+    @Test
     public void AhoCorasickDemo() {
         AhoCorasick ac = new AhoCorasick();
         ac.add("彩票");

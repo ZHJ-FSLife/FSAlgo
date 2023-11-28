@@ -8,6 +8,7 @@ import com.fsalgo.core.struct.Graphs;
 import com.fsalgo.core.struct.builder.GraphBuilder;
 import com.fsalgo.core.struct.specific.DirectedGraph;
 import com.fsalgo.core.struct.specific.UndirectedGraph;
+import com.fsalgo.core.util.GraphUtil;
 import org.junit.Test;
 
 import java.util.Set;
@@ -123,6 +124,9 @@ public class GraphTest {
         graph.addEdge(new Edge<>(n6, n8));
         graph.addEdge(new Edge<>(n8, n9));
         // graph.addEdge(new Edge<>(n9, n6));
+
+        String mermaid = GraphUtil.toMermaid(graph);
+        System.out.println(mermaid);
     }
 
     private void addNodeToGraph(Graph<String> graph) {
