@@ -1,7 +1,9 @@
 package com.fsalgo.core.util;
 
+import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 
+import java.util.Set;
 import java.util.StringJoiner;
 
 /**
@@ -25,12 +27,12 @@ public class GraphUtil {
             sj.add(node.toString() + "((" + node.toString() + "))");
         }
         for (N node : graph.nodes()) {
-            StringJoiner tempSJ = new StringJoiner(" & ");
-            for (N nextNode : graph.outgoingNodes(node)) {
-                tempSJ.add(nextNode.toString());
+            Set<Edge<N>> edges = graph.outgoingEdges(node);
+            if (edges.isEmpty()) {
+                continue;
             }
-            if (tempSJ.length() != 0) {
-                sj.add(node.toString() + "-->" + tempSJ);
+            for (Edge<N> edge : edges) {
+                sj.add(node.toString() + "-->" + "|" + edge.getWeight() + "| " + edge.getTarget().toString());
             }
         }
         sj.add("```");
