@@ -1,6 +1,5 @@
 package com.fsalgo.core.util;
 
-import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 
 import java.util.StringJoiner;
@@ -25,14 +24,14 @@ public class GraphUtil {
         for (N node : graph.nodes()) {
             sj.add(node.toString() + "((" + node.toString() + "))");
         }
-        for (Edge<N> edge : graph.edges()) {
-            N source = edge.getSource();
-            graph.outgoingNodes(source);
+        for (N node : graph.nodes()) {
             StringJoiner tempSJ = new StringJoiner(" & ");
-            for (N node : graph.outgoingNodes(source)) {
-                tempSJ.add(node.toString());
+            for (N nextNode : graph.outgoingNodes(node)) {
+                tempSJ.add(nextNode.toString());
             }
-            sj.add(source.toString() + "-->" + tempSJ);
+            if (tempSJ.length() != 0) {
+                sj.add(node.toString() + "-->" + tempSJ);
+            }
         }
         sj.add("```");
         return sj.toString();

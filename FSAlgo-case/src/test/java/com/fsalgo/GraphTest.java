@@ -65,6 +65,8 @@ public class GraphTest {
         System.out.println(tarjan.getCutNodeRst());
         System.out.println(tarjan.getConnEdgeRst());
         System.out.println(tarjan.getConnGraphRst());
+
+        System.out.println(GraphUtil.toMermaid(graph));
     }
 
     @Test
@@ -76,6 +78,9 @@ public class GraphTest {
         tarjan.search(n1);
         System.out.println(tarjan.getCutPoints());
         System.out.println(tarjan.getBridges());
+
+        System.out.println(GraphUtil.toMermaid(graph));
+
     }
 
     @Test
@@ -94,6 +99,8 @@ public class GraphTest {
 
         System.out.println(graph);
         System.out.println(graph.getGraphType());
+
+        System.out.println(GraphUtil.toMermaid(graph));
 
     }
 
@@ -125,8 +132,7 @@ public class GraphTest {
         graph.addEdge(new Edge<>(n8, n9));
         // graph.addEdge(new Edge<>(n9, n6));
 
-        String mermaid = GraphUtil.toMermaid(graph);
-        System.out.println(mermaid);
+        System.out.println(GraphUtil.toMermaid(graph));
     }
 
     private void addNodeToGraph(Graph<String> graph) {
