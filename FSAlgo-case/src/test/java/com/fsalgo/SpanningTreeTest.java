@@ -6,7 +6,8 @@ import com.fsalgo.core.interfaces.SpanningTreeAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.builder.GraphBuilder;
-import com.fsalgo.core.struct.specific.DirectedGraph;
+import com.fsalgo.utils.FileUtils;
+import com.fsalgo.utils.GraphUtil;
 import org.junit.Test;
 
 /**
@@ -42,6 +43,8 @@ public class SpanningTreeTest {
         SpanningTreeAlgorithm.SpanningTree<String> result = kruskal.getSpanningTree();
         System.out.println(result.getEdges());
         System.out.println(result.getWeight());
+
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "KruskalDemo");
     }
 
     @Test
@@ -69,6 +72,8 @@ public class SpanningTreeTest {
         SpanningTreeAlgorithm.SpanningTree<String> result = prim.getSpanningTree();
         System.out.println(result.getEdges());
         System.out.println(result.getWeight());
+
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "PrimDemo");
 
     }
 }

@@ -8,7 +8,8 @@ import com.fsalgo.core.struct.Graphs;
 import com.fsalgo.core.struct.builder.GraphBuilder;
 import com.fsalgo.core.struct.specific.DirectedGraph;
 import com.fsalgo.core.struct.specific.UndirectedGraph;
-import com.fsalgo.core.util.GraphUtil;
+import com.fsalgo.utils.FileUtils;
+import com.fsalgo.utils.GraphUtil;
 import org.junit.Test;
 
 import java.util.Set;
@@ -66,7 +67,7 @@ public class GraphTest {
         System.out.println(tarjan.getConnEdgeRst());
         System.out.println(tarjan.getConnGraphRst());
 
-        System.out.println(GraphUtil.toMermaid(graph));
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "TarjanDemo");
     }
 
     @Test
@@ -79,7 +80,7 @@ public class GraphTest {
         System.out.println(tarjan.getCutPoints());
         System.out.println(tarjan.getBridges());
 
-        System.out.println(GraphUtil.toMermaid(graph));
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "TarjanCutPointAndBridgeDemo");
 
     }
 
@@ -100,7 +101,7 @@ public class GraphTest {
         System.out.println(graph);
         System.out.println(graph.getGraphType());
 
-        System.out.println(GraphUtil.toMermaid(graph));
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "DirectedGraphDemo");
 
     }
 
@@ -132,7 +133,7 @@ public class GraphTest {
         graph.addEdge(new Edge<>(n8, n9));
         // graph.addEdge(new Edge<>(n9, n6));
 
-        System.out.println(GraphUtil.toMermaid(graph));
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "DirectedAcyclicGraphDemo");
     }
 
     private void addNodeToGraph(Graph<String> graph) {

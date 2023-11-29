@@ -35,7 +35,6 @@ public class RadixTree implements NameEntity {
         return this.size;
     }
 
-
     static class Node {
         String key;
         boolean end;

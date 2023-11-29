@@ -5,7 +5,8 @@ import com.fsalgo.core.interfaces.ShortestPathAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.builder.GraphBuilder;
-import com.fsalgo.core.util.GraphUtil;
+import com.fsalgo.utils.FileUtils;
+import com.fsalgo.utils.GraphUtil;
 import org.junit.Test;
 
 /**
@@ -44,7 +45,7 @@ public class ShortestPathTest {
         graph.addEdge(new Edge<>(n5, n4, 10));
 
         System.out.println(graph);
-        System.out.println(GraphUtil.toMermaid(graph));
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "DijkstraDemo");
 
         ShortestPathAlgorithm<String> dijkstra = new DijkstraShortestPath<String>(graph) {};
         ShortestPathAlgorithm.GraphPath<String> paths = dijkstra.getPath(n0, n4);

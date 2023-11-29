@@ -1,4 +1,4 @@
-package com.fsalgo.core.util;
+package com.fsalgo.utils;
 
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
