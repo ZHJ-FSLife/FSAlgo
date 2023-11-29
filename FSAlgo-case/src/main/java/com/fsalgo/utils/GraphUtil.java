@@ -32,6 +32,10 @@ public class GraphUtil {
                 continue;
             }
             for (Edge<N> edge : edges) {
+                if (edge.getWeight() == 0) {
+                    sj.add(node.toString() + "-->" + edge.getTarget().toString());
+                    continue;
+                }
                 sj.add(node.toString() + "-->" + "|" + edge.getWeight() + "| " + edge.getTarget().toString());
             }
         }
