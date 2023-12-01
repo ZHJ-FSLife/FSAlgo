@@ -42,12 +42,16 @@ public class RadixTree implements NameEntity {
 
     public void add(List<String> words) {
         for (String word : words) {
-            add(root, word);
+            add(word);
         }
     }
 
-    public void add(Node node, String word) {
-        int matchLength = node.matchLength(word);
+    public void add(String word) {
+        add(root, word);
+    }
+
+    private void add(Node node, String word) {
+        // int matchLength = node.matchLength(word);
         // if (node == null)
     }
 

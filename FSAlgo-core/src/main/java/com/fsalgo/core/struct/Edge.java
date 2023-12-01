@@ -92,7 +92,9 @@ public class Edge<N> {
         }
 
         Edge<?> edge = (Edge<?>) obj;
-        return Objects.equals(source, edge.getSource()) && Objects.equals(target, edge.getTarget()) && (weight == edge.getWeight());
+        return Objects.equals(source, edge.getSource())
+                && Objects.equals(target, edge.getTarget())
+                && (weight == edge.getWeight());
     }
 
     @Override
