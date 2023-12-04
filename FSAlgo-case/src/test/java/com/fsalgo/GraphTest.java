@@ -90,18 +90,22 @@ public class GraphTest {
         Graph<String> graph = GraphBuilder.<String>directed().build();
         addNodeToGraph(graph);
 
-        System.out.println(graph);
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "DirectedGraphDemo");
+        System.out.println(graph.edgeSize());
+
+        // System.out.println(graph);
         Set<Edge<String>> outgoingEdges = graph.outgoingEdges(n1);
         System.out.println(outgoingEdges);
 
-        graph.removeNode(n1);
+        // graph.removeNode(n1);
 
         graph.removeEdge(n2, n3);
 
         System.out.println(graph);
         System.out.println(graph.getGraphType());
 
-        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "DirectedGraphDemo");
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "DirectedGraphDemo", true);
+        System.out.println(graph.edgeSize());
 
     }
 

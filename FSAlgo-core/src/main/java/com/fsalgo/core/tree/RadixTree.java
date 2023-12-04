@@ -37,7 +37,7 @@ public class RadixTree implements NameEntity {
 
     public RadixTree() {
         this.root = new Node();
-        this.root.key = "";
+        this.root.setKey("");
     }
 
     public void add(List<String> words) {
@@ -51,8 +51,10 @@ public class RadixTree implements NameEntity {
     }
 
     private void add(Node node, String word) {
-        // int matchLength = node.matchLength(word);
-        // if (node == null)
+        int matchLength = node.matchLength(word);
+        if (node == null) {
+            node.setKey(word);
+        }
     }
 
     public int size() {
@@ -60,19 +62,31 @@ public class RadixTree implements NameEntity {
     }
 
     static class Node {
-        String key;
+
         boolean end;
+        List<Character> key;
         List<Node> child;
 
         public Node() {
             end = false;
+            key = new ArrayList<>();
             child = new ArrayList<>();
+        }
+
+        public void setKey(String key) {
+            for (int i=0; i<key.length(); i++) {
+                this.key.add(key.charAt(i));
+            }
+        }
+
+        public void setKey(List<Character> key) {
+            this.key = key;
         }
 
         public int matchLength(String key) {
             int length = 0;
-            while (length < key.length() && length < this.key.length()) {
-                if (key.charAt(length) != this.key.charAt(length)) {
+            while (length < key.length() && length < this.key.size()) {
+                if (key.charAt(length) != this.key.get(length)) {
                     break;
                 }
                 length++;
@@ -82,7 +96,7 @@ public class RadixTree implements NameEntity {
 
         @Override
         public String toString() {
-            return key;
+            return key.toString();
         }
     }
 
