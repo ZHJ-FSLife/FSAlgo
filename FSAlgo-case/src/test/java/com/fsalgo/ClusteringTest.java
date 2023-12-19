@@ -7,17 +7,18 @@ import com.fsalgo.core.math.geometrical.Distance;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.builder.GraphBuilder;
+import com.fsalgo.core.tree.vectorspace.AbstractQuadOcTree;
+import com.fsalgo.core.tree.vectorspace.SpacePoint;
 import com.fsalgo.core.tree.vectorspace.specific.BallTree;
 import com.fsalgo.core.tree.vectorspace.specific.KDTree;
 import com.fsalgo.core.tree.vectorspace.specific.OcTree;
 import com.fsalgo.core.tree.vectorspace.specific.QuadTree;
-import com.fsalgo.core.tree.vectorspace.SpacePoint;
+import com.fsalgo.utils.FileUtils;
+import com.fsalgo.utils.GraphUtil;
+import com.fsalgo.utils.TreeUtil;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: root
@@ -64,6 +65,17 @@ public class ClusteringTest {
         SpacePoint<String> nearestPoint = ocTree.nearest(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 6, 5}));
         System.out.println(nearestPoint);
         System.out.println(ocTree);
+
+        FileUtils.toMdFile(TreeUtil.toMermaid(ocTree.getRoot(), (AbstractQuadOcTree.Node node) -> {
+            List<AbstractQuadOcTree.Node> list = new LinkedList<>();
+            if (node.getChild() == null) {
+                return list;
+            }
+            for (AbstractQuadOcTree.Node n : node.getChild()) {
+                list.add(n);
+            }
+            return list;
+        }), "OcTreeDemo");
     }
 
     @Test
@@ -93,6 +105,7 @@ public class ClusteringTest {
         for (SpacePoint<String> temp : rangPoint) {
             System.out.print(Arrays.toString(temp.getCoord()) + ":" + temp.getDistance() + ", ");
         }
+        FileUtils.toMdFile(TreeUtil.toMermaid(kDimensionalTree.getRoot(), KDTree.Node::getChild), "KDTree");
     }
 
     @Test
@@ -140,5 +153,7 @@ public class ClusteringTest {
         for (Set<String> list : clusters.getClusters()) {
             System.out.println(list);
         }
+
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "kSpanningTreeClusteringDemo");
     }
 }

@@ -1,6 +1,9 @@
 package com.fsalgo;
 
 import com.fsalgo.core.tree.*;
+import com.fsalgo.utils.FileUtils;
+import com.fsalgo.utils.GraphUtil;
+import com.fsalgo.utils.TreeUtil;
 import org.junit.Test;
 
 import java.util.*;
@@ -61,6 +64,8 @@ public class TreeTest {
             bTree.add(num);
         }
         System.out.println(bTree);
+
+        FileUtils.toMdFile(TreeUtil.toMermaid(bTree.getRoot(), BTree.Node::getChild), "BTree");
     }
 
     @Test
@@ -76,6 +81,8 @@ public class TreeTest {
 
         System.out.println(root);
         System.out.println(avlTree.isBalance(root));
+
+        FileUtils.toMdFile(TreeUtil.toMermaid(root, AvlTree.Node::getChild), "Avltree");
     }
 
     @Test

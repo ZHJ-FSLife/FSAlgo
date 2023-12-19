@@ -26,6 +26,7 @@ import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -47,6 +48,10 @@ public class KDTree<T extends Comparable<T>> extends AbstractNearestNeighborSear
             throw new IllegalArgumentException("points cannot be empty!");
         }
         root = buildTree(points, 0);
+    }
+
+    public Node<T> getRoot() {
+        return root;
     }
 
     /**
@@ -178,6 +183,18 @@ public class KDTree<T extends Comparable<T>> extends AbstractNearestNeighborSear
         public Node(SpacePoint<T> point, int depth) {
             this.point = point;
             this.depth = depth;
+        }
+
+        @Override
+        public String toString() {
+            return point.getPoint().toString();
+        }
+
+        public List<Node<T>> getChild() {
+            return new LinkedList<>(){{
+                add(left);
+                add(right);
+            }};
         }
     }
 }

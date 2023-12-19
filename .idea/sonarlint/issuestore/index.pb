@@ -320,3 +320,7 @@ EFSAlgo-core/src/main/java/com/fsalgo/core/graph/scoring/PageRank.java,0\7\0789
 LFSAlgo-core/src/main/java/com/fsalgo/core/tree/heap/specific/BinaryHeap.java,0\8\0846587dc1b05deb977b4babdedceac8d3fc6e0b
 Å
 QFSAlgo-core/src/main/java/com/fsalgo/core/enums/exception/GraphBaseErrorEnum.java,b\1\b1ad810c2523e46631521d14ebd4bb10c945c6ed
+h
+8FSAlgo-case/src/main/java/com/fsalgo/utils/TreeUtil.java,2\2\22e1bab4425b5b8b0c8eb1dcfa1c39dac3186ca2
+d
+4FSAlgo-case/src/main/java/com/fsalgo/NodeMapper.java,8\f\8ffa6df6478d7aaec8164edf2c30583396092728

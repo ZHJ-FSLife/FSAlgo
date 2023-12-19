@@ -23,6 +23,7 @@ import com.fsalgo.core.math.geometrical.DistanceMetric;
 import com.fsalgo.core.util.VectorUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -45,6 +46,10 @@ public abstract class AbstractQuadOcTree<T extends Comparable<T>> extends Abstra
         this.dimension = getDimension();
         this.childNums = (int) Math.pow(2, this.dimension);
         root = buildTree(points);
+    }
+
+    public Node<T> getRoot() {
+        return root;
     }
 
     /**
@@ -217,6 +222,11 @@ public abstract class AbstractQuadOcTree<T extends Comparable<T>> extends Abstra
 
         public boolean getLeaf() {
             return leaf;
+        }
+
+        @Override
+        public String toString() {
+            return Arrays.toString(point.getCoord());
         }
     }
 }

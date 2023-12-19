@@ -20,6 +20,7 @@
 package com.fsalgo.core.tree;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -43,6 +44,10 @@ public class BTree<T extends Comparable<T>> {
     public BTree(int degree) {
         this.degree = degree;
         this.root = new Node<>();
+    }
+
+    public Node<T> getRoot() {
+        return root;
     }
 
     /**
@@ -136,6 +141,15 @@ public class BTree<T extends Comparable<T>> {
             this.leaf = true;
             this.keys = new ArrayList<>();
             this.child = new ArrayList<>();
+        }
+
+        public List<Node<T>> getChild() {
+            return child;
+        }
+
+        @Override
+        public String toString() {
+            return keys.toString();
         }
     }
 }

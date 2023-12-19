@@ -19,6 +19,10 @@
  */
 package com.fsalgo.core.tree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * @Author: root
  * @Date: 2023/1/17 13:40
@@ -37,6 +41,13 @@ public class AvlTree<T extends Comparable<T>> {
         public Node(T key, int height) {
             this.key = key;
             this.height = height;
+        }
+
+        public List<Node<T>> getChild() {
+            return new LinkedList<>(){{
+                add(left);
+                add(right);
+            }};
         }
 
         @Override
