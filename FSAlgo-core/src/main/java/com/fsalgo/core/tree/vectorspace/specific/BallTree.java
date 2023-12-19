@@ -24,7 +24,6 @@ import com.fsalgo.core.math.geometrical.DistanceMetric;
 import com.fsalgo.core.tree.vectorspace.AbstractNearestNeighborSearch;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +47,6 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
             throw new IllegalArgumentException("points cannot be empty!");
         }
         root = buildTree(points);
-        System.out.println(root);
     }
 
     public Node<T> getRoot() {
@@ -110,6 +108,13 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         return new SpacePoint.SpacePointImpl<>(null, center);
     }
 
+    /**
+     * 找坐标集中里中心点最远的点
+     *
+     * @param points 坐标集
+     * @param center 中心点
+     * @return 最远点
+     */
     private SpacePoint<T> findFarthest(List<SpacePoint<T>> points, SpacePoint<T> center) {
         double radius = 0;
         SpacePoint<T> farthest = null;
@@ -173,7 +178,7 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         }
 
         public List<Node<T>> getChild() {
-            return new LinkedList<>(){{
+            return new LinkedList<>() {{
                 add(left);
                 add(right);
             }};
