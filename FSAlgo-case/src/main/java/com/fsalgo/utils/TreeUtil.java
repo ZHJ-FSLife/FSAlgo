@@ -1,6 +1,8 @@
 package com.fsalgo.utils;
 
 import com.fsalgo.NodeMapper;
+import com.fsalgo.core.tree.vectorspace.AbstractQuadOcTree;
+import com.fsalgo.core.tree.vectorspace.specific.QuadTree;
 
 import java.util.Deque;
 import java.util.LinkedList;

@@ -85,12 +85,25 @@ public class ClusteringTest {
         System.out.println(nearestPoint);
         System.out.println("{6, 7.3} -> {6, 8} = " + Distance.EUCLIDEAN.getDistance(new double[]{6, 7.3}, new double[]{6, 8}));
         System.out.println("{6, 7.3} -> {7, 7} = " + Distance.EUCLIDEAN.getDistance(new double[]{6, 7.3}, new double[]{7, 7}));
+
+        FileUtils.toMdFile(TreeUtil.toMermaid(quadTree.getRoot(), (AbstractQuadOcTree.Node node) -> {
+            List<AbstractQuadOcTree.Node> list = new LinkedList<>();
+            if (node.getChild() == null) {
+                return list;
+            }
+            for (AbstractQuadOcTree.Node n : node.getChild()) {
+                list.add(n);
+            }
+            return list;
+        }), "QuadTreeDemo");
     }
 
     @Test
     public void BallTreeDemo() {
         BallTree<String> ballTree = new BallTree<>(data);
         System.out.println(ballTree);
+
+        FileUtils.toMdFile(TreeUtil.toMermaid(ballTree.getRoot(), BallTree.Node::getChild), "BallTreeDemo");
     }
 
     @Test
