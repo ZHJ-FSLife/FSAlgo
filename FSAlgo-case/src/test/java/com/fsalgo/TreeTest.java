@@ -65,7 +65,7 @@ public class TreeTest {
         }
         System.out.println(bTree);
 
-        FileUtils.toMdFile(TreeUtil.toMermaid(bTree.getRoot(), BTree.Node::getChild), "BTree");
+        FileUtils.toMdFile(TreeUtil.toMermaid(bTree.getRoot(), BTree.Node::getChild), "BTreeDemo");
     }
 
     @Test
@@ -82,7 +82,7 @@ public class TreeTest {
         System.out.println(root);
         System.out.println(avlTree.isBalance(root));
 
-        FileUtils.toMdFile(TreeUtil.toMermaid(root, AvlTree.Node::getChild), "Avltree");
+        FileUtils.toMdFile(TreeUtil.toMermaid(root, AvlTree.Node::getChild), "AvlTreeDemo");
     }
 
     @Test

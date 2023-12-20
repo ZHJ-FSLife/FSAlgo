@@ -100,8 +100,14 @@ public class ClusteringTest {
 
     @Test
     public void BallTreeDemo() {
+        // data.add(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4}));
         BallTree<String> ballTree = new BallTree<>(data);
-        System.out.println(ballTree);
+
+        SpacePoint<String> queryPoint = new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4});
+        List<SpacePoint<String>> rangPoint = ballTree.range(queryPoint, 4);
+        for (SpacePoint<String> temp : rangPoint) {
+            System.out.print(Arrays.toString(temp.getCoord()) + ":" + temp.getDistance() + ", ");
+        }
 
         FileUtils.toMdFile(TreeUtil.toMermaid(ballTree.getRoot(), BallTree.Node::getChild), "BallTreeDemo");
     }
@@ -118,7 +124,7 @@ public class ClusteringTest {
         for (SpacePoint<String> temp : rangPoint) {
             System.out.print(Arrays.toString(temp.getCoord()) + ":" + temp.getDistance() + ", ");
         }
-        FileUtils.toMdFile(TreeUtil.toMermaid(kDimensionalTree.getRoot(), KDTree.Node::getChild), "KDTree");
+        FileUtils.toMdFile(TreeUtil.toMermaid(kDimensionalTree.getRoot(), KDTree.Node::getChild), "KDTreeDemo");
     }
 
     @Test

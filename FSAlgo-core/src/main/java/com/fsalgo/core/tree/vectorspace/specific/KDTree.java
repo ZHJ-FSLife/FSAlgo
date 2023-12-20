@@ -191,10 +191,14 @@ public class KDTree<T extends Comparable<T>> extends AbstractNearestNeighborSear
         }
 
         public List<Node<T>> getChild() {
-            return new LinkedList<>(){{
-                add(left);
-                add(right);
-            }};
+            List<Node<T>> childs = new LinkedList<>();
+            if (left != null) {
+                childs.add(left);
+            }
+            if (right != null) {
+                childs.add(right);
+            }
+            return childs;
         }
     }
 }

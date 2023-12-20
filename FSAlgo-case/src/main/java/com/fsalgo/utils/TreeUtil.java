@@ -6,6 +6,7 @@ import com.fsalgo.core.tree.vectorspace.specific.QuadTree;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,7 +42,11 @@ public class TreeUtil {
         queue.addLast(root);
         while (!queue.isEmpty()) {
             N node = queue.pollFirst();
-            for (N tempNode : mapper.getChildNode(node)) {
+            List<N> childs = mapper.getChildNode(node);
+            if (childs == null || childs.isEmpty()) {
+                sj.add("style " + filtration(node) + " fill: green");
+            }
+            for (N tempNode : childs) {
                 if (tempNode == null) {
                     continue;
                 }

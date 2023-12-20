@@ -19,6 +19,8 @@
  */
 package com.fsalgo.core.tree;
 
+import com.fsalgo.core.tree.vectorspace.specific.BallTree;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,10 +46,14 @@ public class AvlTree<T extends Comparable<T>> {
         }
 
         public List<Node<T>> getChild() {
-            return new LinkedList<>(){{
-                add(left);
-                add(right);
-            }};
+            List<Node<T>> childs = new LinkedList<>();
+            if (left != null) {
+                childs.add(left);
+            }
+            if (right != null) {
+                childs.add(right);
+            }
+            return childs;
         }
 
         @Override
