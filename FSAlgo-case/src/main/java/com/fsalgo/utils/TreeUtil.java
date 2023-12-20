@@ -20,6 +20,11 @@ public class TreeUtil {
     private static final String REGEX = "[\\s\\[\\]]";
     private static final Pattern PATTERN = Pattern.compile(REGEX);
 
+    public static <N> String filtration(N treeNode) {
+        Matcher matcher = PATTERN.matcher(treeNode.toString());
+        return matcher.replaceAll("");
+    }
+
     /**
      * 生成mermaid树结构（方便debug校验树结构是否正确）
      * @param root 根节点
@@ -46,10 +51,5 @@ public class TreeUtil {
         }
         sj.add("```");
         return sj.toString();
-    }
-
-    public static <N> String filtration(N treeNode) {
-        Matcher matcher = PATTERN.matcher(treeNode.toString());
-        return matcher.replaceAll("");
     }
 }
