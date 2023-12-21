@@ -155,21 +155,14 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         return nearest(point, root);
     }
 
-    private SpacePoint<T> nearest(SpacePoint<T> point, Node<T> center) {
-        if (center != null || center.leaf) {
-            return center.center;
+    private SpacePoint<T> nearest(SpacePoint<T> point, Node<T> node) {
+        if (node == null) {
+            return null;
         }
-        double toLeft = Double.MAX_VALUE;
-        double toRight = Double.MAX_VALUE;
-        if (center.left != null) {
-            toLeft = distanceMetric.getDistance(point.getCoord(), center.left.center.getCoord());
+        if (node.leaf) {
+            return node.point;
         }
-        if (center.right != null) {
-            toRight = distanceMetric.getDistance(point.getCoord(), center.right.center.getCoord());
-        }
-        if (toLeft <= toRight) {
-            nearest(point, center.left);
-        }
+
 
         return null;
     }
@@ -185,9 +178,9 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         if (node == null) {
             return;
         }
-        double toCenter = distanceMetric.getDistance(point.getCoord(), node.center.getCoord());
+        double toCenter = distanceMetric.getDistance(point.getCoord(), node.point.getCoord());
         if (node.leaf && toCenter <= radius) {
-            result.add(node.center);
+            result.add(node.point);
             return;
         }
         if (toCenter - node.radius <= radius) {
@@ -204,23 +197,23 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
     }
 
     public static class Node<T extends Comparable<T>> {
-        final SpacePoint<T> center;
+        final SpacePoint<T> point;
         final double radius;
         Node<T> left;
         Node<T> right;
         boolean leaf;
 
-        public Node(SpacePoint<T> center, double radius, Node<T> left, Node<T> right) {
-            this.center = center;
+        public Node(SpacePoint<T> point, double radius, Node<T> left, Node<T> right) {
+            this.point = point;
             this.radius = radius;
             this.left = left;
             this.right = right;
-            this.leaf = center.getPoint() != null;
+            this.leaf = point.getPoint() != null;
         }
 
         @Override
         public String toString() {
-            return leaf ? center.getPoint().toString() : Arrays.toString(center.getCoord());
+            return leaf ? point.getPoint().toString() : Arrays.toString(point.getCoord());
         }
 
         public List<Node<T>> getChild() {
