@@ -19,6 +19,8 @@
  */
 package com.fsalgo.core.tree;
 
+import java.util.Comparator;
+
 /**
  * @Author: root
  * @Date: 2023/3/23 19:38
@@ -29,5 +31,15 @@ package com.fsalgo.core.tree;
  * 4、如果一个节点是红色的，则它的两个子节点都是黑色的
  * 5、对于每个节点，从该节点到其所有后代叶子节点的简单路径上，均包含相同数量的黑色节点
  */
-public class RedBlackTree {
+public class RedBlackTree<K extends Comparable<K>, V> {
+
+    private final Comparator<? super K> comparator;
+
+    public RedBlackTree() {
+        this(Comparator.naturalOrder());
+    }
+
+    public RedBlackTree(Comparator<? super K> comparator) {
+        this.comparator = comparator;
+    }
 }

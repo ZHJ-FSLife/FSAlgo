@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.tree;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -26,13 +27,23 @@ import java.util.List;
  * @Date: 2023/1/5 9:15
  * @Description: B+树
  */
-public class BPlusTree<T extends Comparable<T>, V> {
+public class BPlusTree<K extends Comparable<K>, V> {
 
-    public static class Node<T> {
+    private final Comparator<? super K> comparator;
+
+    public BPlusTree() {
+        this(Comparator.naturalOrder());
+    }
+
+    public BPlusTree(Comparator<? super K> comparator) {
+        this.comparator = comparator;
+    }
+
+    public static class Node<K> {
         boolean leaf;
-        List<T> keys;
-        List<Node<T>> child;
-        Node<T> next;
+        List<K> keys;
+        List<Node<K>> child;
+        Node<K> next;
     }
 
 }
