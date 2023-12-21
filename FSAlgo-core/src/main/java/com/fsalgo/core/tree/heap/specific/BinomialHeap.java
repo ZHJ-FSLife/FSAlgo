@@ -21,12 +21,22 @@ package com.fsalgo.core.tree.heap.specific;
 
 import com.fsalgo.core.tree.heap.AbstractHeap;
 
+import java.util.Comparator;
+
 /**
  * @Author: root
  * @Date: 2023/1/17 13:38
  * @Description: 二项式堆
  */
 public class BinomialHeap<T extends Comparable<T>> extends AbstractHeap<T> {
+
+    public BinomialHeap() {
+        this(Comparator.naturalOrder());
+    }
+
+    public BinomialHeap(Comparator<? super T> comparator) {
+        super(comparator);
+    }
 
     @Override
     public void add(T t) {

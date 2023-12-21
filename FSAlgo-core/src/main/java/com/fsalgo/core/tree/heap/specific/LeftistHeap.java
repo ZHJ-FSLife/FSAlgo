@@ -20,8 +20,8 @@
 package com.fsalgo.core.tree.heap.specific;
 
 import com.fsalgo.core.tree.heap.AbstractHeap;
-import com.fsalgo.core.tree.heap.Heap;
 
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 /**
@@ -34,6 +34,14 @@ public class LeftistHeap<T extends Comparable<T>> extends AbstractHeap<T> {
     private Node<T> root;
 
     private int size = 0;
+
+    public LeftistHeap() {
+        this(Comparator.naturalOrder());
+    }
+
+    public LeftistHeap(Comparator<? super T> comparator) {
+        super(comparator);
+    }
 
     @Override
     public void add(T t) {

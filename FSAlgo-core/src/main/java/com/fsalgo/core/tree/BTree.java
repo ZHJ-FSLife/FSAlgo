@@ -20,7 +20,7 @@
 package com.fsalgo.core.tree;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -35,15 +35,22 @@ public class BTree<T extends Comparable<T>> {
      */
     private final int degree;
 
+    private final Comparator<? super T> comparator;
+
     private Node<T> root;
 
     public BTree() {
-        this(2);
+        this(2, Comparator.naturalOrder());
     }
 
     public BTree(int degree) {
+        this(degree, Comparator.naturalOrder());
+    }
+
+    public BTree(int degree, Comparator<? super T> comparator) {
         this.degree = degree;
         this.root = new Node<>();
+        this.comparator = comparator;
     }
 
     public Node<T> getRoot() {
@@ -129,7 +136,7 @@ public class BTree<T extends Comparable<T>> {
      * 比较节点元素大小
      */
     public boolean compareTo(T x, T y) {
-        return x.compareTo(y) > 0;
+        return comparator.compare(x, y) > 0;
     }
 
     public static class Node<T> {

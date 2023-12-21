@@ -19,12 +19,24 @@
  */
 package com.fsalgo.core.util.sort;
 
+import java.util.Comparator;
+
 /**
  * @Author: root
  * @Date: 2023/3/4 16:23
  * @Description: 归并排序
  */
 public class MergeSort<T extends Comparable<T>> {
+
+    private final Comparator<? super T> comparator;
+
+    public MergeSort() {
+        this(Comparator.naturalOrder());
+    }
+
+    public MergeSort(Comparator<? super T> comparator) {
+        this.comparator = comparator;
+    }
 
     public void sort(T[] arr) {
         if (arr == null || arr.length == 0) {
@@ -79,6 +91,6 @@ public class MergeSort<T extends Comparable<T>> {
     }
 
     public boolean compareTo(T x, T y) {
-        return x.compareTo(y) > 0;
+        return comparator.compare(x, y) > 0;
     }
 }

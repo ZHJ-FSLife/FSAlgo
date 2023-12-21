@@ -19,9 +19,7 @@
  */
 package com.fsalgo.core.tree;
 
-import com.fsalgo.core.tree.vectorspace.specific.BallTree;
-
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,34 +30,16 @@ import java.util.List;
  */
 public class AvlTree<T extends Comparable<T>> {
 
+    private final Comparator<? super T> comparator;
+
     private static final int MAX_HEIGHT_DIFFERENCE = 1;
 
-    public static class Node<T> {
-        T key;
-        int height;
-        Node<T> left;
-        Node<T> right;
+    public AvlTree() {
+        this(Comparator.naturalOrder());
+    }
 
-        public Node(T key, int height) {
-            this.key = key;
-            this.height = height;
-        }
-
-        public List<Node<T>> getChild() {
-            List<Node<T>> childs = new LinkedList<>();
-            if (left != null) {
-                childs.add(left);
-            }
-            if (right != null) {
-                childs.add(right);
-            }
-            return childs;
-        }
-
-        @Override
-        public String toString() {
-            return key.toString();
-        }
+    public AvlTree(Comparator<? super T> comparator) {
+        this.comparator = comparator;
     }
 
     /**
@@ -198,6 +178,34 @@ public class AvlTree<T extends Comparable<T>> {
      * 比较节点元素大小
      */
     public boolean compareTo(T x, T y) {
-        return x.compareTo(y) > 0;
+        return comparator.compare(x, y) > 0;
+    }
+
+    public static class Node<T> {
+        T key;
+        int height;
+        Node<T> left;
+        Node<T> right;
+
+        public Node(T key, int height) {
+            this.key = key;
+            this.height = height;
+        }
+
+        public List<Node<T>> getChild() {
+            List<Node<T>> childs = new LinkedList<>();
+            if (left != null) {
+                childs.add(left);
+            }
+            if (right != null) {
+                childs.add(right);
+            }
+            return childs;
+        }
+
+        @Override
+        public String toString() {
+            return key.toString();
+        }
     }
 }

@@ -17,13 +17,7 @@ public class HeapTest {
     @Test
     public void FibonacciHeapDemo() {
         int[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
-        Heap<Integer> heap = new FibonacciHeap<Integer>() {
-            // 重写该方法，小顶堆换成大顶堆
-            @Override
-            public boolean compareTo(Integer o1, Integer o2) {
-                return o1.compareTo(o2) > 0;
-            }
-        };
+        Heap<Integer> heap = new FibonacciHeap<>();
 
         for (int num : nums) {
             heap.add(num);
@@ -43,12 +37,7 @@ public class HeapTest {
     public void BinaryHeapDemo() {
         int[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
 
-        Heap<Integer> heap = new BinaryHeap<>() {
-            @Override
-            public boolean compareTo(Integer o1, Integer o2) {
-                return o1.compareTo(o2) > 0;
-            }
-        };
+        Heap<Integer> heap = new BinaryHeap<>();
 
         for (int num : nums) {
             heap.add(num);
@@ -63,12 +52,7 @@ public class HeapTest {
     public void LeftisHeapDemo() {
         int[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
 
-        Heap<Integer> heap = new LeftistHeap<>() {
-            @Override
-            public boolean compareTo(Integer o1, Integer o2) {
-                return o1.compareTo(o2) > 0;
-            }
-        };
+        Heap<Integer> heap = new LeftistHeap<>();
 
         for (int num : nums) {
             heap.add(num);
@@ -83,12 +67,7 @@ public class HeapTest {
     public void SkewHeapDemo() {
         int[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
 
-        Heap<Integer> heap = new SkewHeap<>() {
-            @Override
-            public boolean compareTo(Integer o1, Integer o2) {
-                return o1.compareTo(o2) > 0;
-            }
-        };
+        Heap<Integer> heap = new SkewHeap<>();
 
         for (int num : nums) {
             heap.add(num);

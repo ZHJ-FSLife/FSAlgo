@@ -22,6 +22,7 @@ package com.fsalgo.core.tree.heap.specific;
 import com.fsalgo.core.tree.heap.AbstractHeap;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -38,6 +39,11 @@ public class BinaryHeap<T extends Comparable<T>> extends AbstractHeap<T> {
     private final List<T> queue;
 
     public BinaryHeap() {
+        this(Comparator.naturalOrder());
+    }
+
+    public BinaryHeap(Comparator<? super T> comparator) {
+        super(comparator);
         this.queue = new ArrayList<>();
     }
 

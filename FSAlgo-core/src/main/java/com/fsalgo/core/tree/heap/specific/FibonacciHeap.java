@@ -20,8 +20,8 @@
 package com.fsalgo.core.tree.heap.specific;
 
 import com.fsalgo.core.tree.heap.AbstractHeap;
-import com.fsalgo.core.tree.heap.Heap;
 
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 /**
@@ -47,6 +47,14 @@ public class FibonacciHeap<T extends Comparable<T>> extends AbstractHeap<T> {
     private int size = 0;
 
     private int rootNum = 0;
+
+    public FibonacciHeap() {
+        this(Comparator.naturalOrder());
+    }
+
+    public FibonacciHeap(Comparator<? super T> comparator) {
+        super(comparator);
+    }
 
     /**
      * 添加新元素到堆中，并创建其对应的堆节点

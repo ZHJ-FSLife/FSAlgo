@@ -19,12 +19,20 @@
  */
 package com.fsalgo.core.tree.heap;
 
+import java.util.Comparator;
+
 /**
  * @Author: root
  * @Date: 2023/3/26 2:31
  * @Description:
  */
-public abstract class AbstractHeap<T extends Comparable<T>> implements Heap<T> {
+public abstract class AbstractHeap<T> implements Heap<T> {
+
+    protected final Comparator<? super T> comparator;
+
+    protected AbstractHeap(Comparator<? super T> comparator) {
+        this.comparator = comparator;
+    }
 
     /**
      * 比较堆中元素的大小 - 默认为小顶堆
@@ -33,7 +41,7 @@ public abstract class AbstractHeap<T extends Comparable<T>> implements Heap<T> {
      */
     @Override
     public boolean compareTo(T x, T y) {
-        return x.compareTo(y) < 0;
+        return comparator.compare(x, y) < 0;
     }
 
 }
