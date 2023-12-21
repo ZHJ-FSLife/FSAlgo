@@ -324,3 +324,7 @@ h
 8FSAlgo-case/src/main/java/com/fsalgo/utils/TreeUtil.java,2\2\22e1bab4425b5b8b0c8eb1dcfa1c39dac3186ca2
 d
 4FSAlgo-case/src/main/java/com/fsalgo/NodeMapper.java,8\f\8ffa6df6478d7aaec8164edf2c30583396092728
+k
+;FSAlgo-core/src/main/java/com/fsalgo/core/util/BitUtil.java,3\c\3cb7ec9a1d9f6af64ecd80a3950f476500d77f5b
+c
+3FSAlgo-case/src/test/java/com/fsalgo/OtherTest.java,b\8\b8505dc8fbc3598049841c981ca4a9ed6294c588
