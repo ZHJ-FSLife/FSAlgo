@@ -1,8 +1,6 @@
 package com.fsalgo.utils;
 
 import com.fsalgo.NodeMapper;
-import com.fsalgo.core.tree.vectorspace.AbstractQuadOcTree;
-import com.fsalgo.core.tree.vectorspace.specific.QuadTree;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -28,10 +26,11 @@ public class TreeUtil {
 
     /**
      * 生成mermaid树结构（方便debug校验树结构是否正确）
-     * @param root 根节点
+     *
+     * @param root   根节点
      * @param mapper lambda表达式（获取不同TreeNode的子节点用）
-     * @return
      * @param <N>
+     * @return
      */
     public static <N> String toMermaid(N root, NodeMapper<N> mapper) {
         StringJoiner sj = new StringJoiner("\n");

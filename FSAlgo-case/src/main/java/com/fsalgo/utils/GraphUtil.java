@@ -17,9 +17,10 @@ public class GraphUtil {
 
     /**
      * 生成mermaid图（没啥用）
+     *
      * @param graph
-     * @return
      * @param <N>
+     * @return
      */
     public static <N> String toMermaid(Graph<N> graph) {
         StringJoiner sj = new StringJoiner("\n");
@@ -51,17 +52,12 @@ public class GraphUtil {
     }
 
     public static String generateRandomHexColor() {
-        // 创建一个随机数生成器
         SecureRandom random = new SecureRandom();
 
-        // 生成 RGB 分量的随机值
         int red = random.nextInt(256);
         int green = random.nextInt(256);
         int blue = random.nextInt(256);
 
-        // 将 RGB 转换为 16 进制表示
-        String hexColor = String.format("#%02X%02X%02X", red, green, blue);
-
-        return hexColor;
+        return String.format("#%02X%02X%02X", red, green, blue);
     }
 }
