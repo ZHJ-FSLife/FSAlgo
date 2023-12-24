@@ -69,15 +69,16 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         }
 
         SpacePoint<T> center = findCenter(points);
-        SpacePoint<T> farthest = findFarthest(points, center);
+        SpacePoint<T> farthestLeft = findFarthest(points, center);
+        SpacePoint<T> farthestRight = findFarthest(points, farthestLeft);
 
         List<SpacePoint<T>> left = new LinkedList<>();
         List<SpacePoint<T>> right = new LinkedList<>();
 
         for (SpacePoint<T> point : points) {
-            double toCenter = distanceMetric.getDistance(point.getCoord(), center.getCoord());
-            double toFarthest = distanceMetric.getDistance(point.getCoord(), farthest.getCoord());
-            if (toCenter > toFarthest) {
+            double toLeft = distanceMetric.getDistance(point.getCoord(), farthestLeft.getCoord());
+            double toRight = distanceMetric.getDistance(point.getCoord(), farthestRight.getCoord());
+            if (toLeft < toRight) {
                 left.add(point);
             } else {
                 right.add(point);
@@ -86,7 +87,7 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         Node<T> leftNode = buildTree(left);
         Node<T> rightNode = buildTree(right);
 
-        double radius = distanceMetric.getDistance(center.getCoord(), farthest.getCoord());
+        double radius = distanceMetric.getDistance(center.getCoord(), farthestLeft.getCoord());
 
         return new Node<>(center, radius, leftNode, rightNode);
     }
@@ -152,19 +153,30 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         if (root == null) {
             throw new IllegalArgumentException("the ball-tree is not built!");
         }
-        return nearest(point, root);
+        return nearest(point, root, null);
     }
 
-    private SpacePoint<T> nearest(SpacePoint<T> point, Node<T> node) {
+    private SpacePoint<T> nearest(SpacePoint<T> point, Node<T> node, SpacePoint<T> best) {
         if (node == null) {
-            return null;
+            return best;
         }
+        double dist = distanceMetric.getDistance(point.getCoord(), node.point.getCoord());
         if (node.leaf) {
-            return node.point;
+            if (best == null) {
+                best = node.point;
+                return best;
+            }
+            double toBest = distanceMetric.getDistance(point.getCoord(), best.getCoord());
+            best = dist < toBest ? node.point : best;
+        }
+        if (node.left != null && dist <= node.radius + node.left.radius) {
+            nearest(point, node.left, best);
+        }
+        if (node.right != null && dist <= node.radius + node.right.radius) {
+            nearest(point, node.right, best);
         }
 
-
-        return null;
+        return best;
     }
 
     @Override
@@ -178,15 +190,14 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         if (node == null) {
             return;
         }
-        double toCenter = distanceMetric.getDistance(point.getCoord(), node.point.getCoord());
-        if (node.leaf && toCenter <= radius) {
+        double dist = distanceMetric.getDistance(point.getCoord(), node.point.getCoord());
+        if (node.leaf && dist <= radius) {
             result.add(node.point);
-            return;
         }
-        if (toCenter - node.radius <= radius) {
+        if (node.left != null && dist <= node.radius + node.left.radius) {
             range(node.left, point, radius, result);
         }
-        if (toCenter + node.radius <= radius) {
+        if (node.right != null && dist <= node.radius + node.right.radius) {
             range(node.right, point, radius, result);
         }
     }

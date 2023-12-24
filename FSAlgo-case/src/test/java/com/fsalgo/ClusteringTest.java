@@ -18,6 +18,7 @@ import com.fsalgo.utils.GraphUtil;
 import com.fsalgo.utils.TreeUtil;
 import org.junit.Test;
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -100,13 +101,15 @@ public class ClusteringTest {
 
     @Test
     public void BallTreeDemo() {
-        // data.add(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4}));
+        data.add(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4}));
         BallTree<String> ballTree = new BallTree<>(data);
 
         SpacePoint<String> queryPoint = new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4});
+        SpacePoint<String> nearestPoint = ballTree.nearest(queryPoint);
         List<SpacePoint<String>> rangPoint = ballTree.range(queryPoint, 4);
+        System.out.println(nearestPoint);
         for (SpacePoint<String> temp : rangPoint) {
-            System.out.print(Arrays.toString(temp.getCoord()) + ":" + temp.getDistance() + ", ");
+            System.out.println(temp.getPoint() + ": " + Arrays.toString(temp.getCoord()));
         }
 
         FileUtils.toMdFile(TreeUtil.toMermaid(ballTree.getRoot(), BallTree.Node::getChild), "BallTreeDemo");
@@ -122,7 +125,7 @@ public class ClusteringTest {
         List<SpacePoint<String>> rangPoint = kDimensionalTree.range(queryPoint, 4);
         System.out.println(nearestPoint);
         for (SpacePoint<String> temp : rangPoint) {
-            System.out.print(Arrays.toString(temp.getCoord()) + ":" + temp.getDistance() + ", ");
+            System.out.println(temp.getPoint() + ": " + Arrays.toString(temp.getCoord()));
         }
         FileUtils.toMdFile(TreeUtil.toMermaid(kDimensionalTree.getRoot(), KDTree.Node::getChild), "KDTreeDemo");
     }
