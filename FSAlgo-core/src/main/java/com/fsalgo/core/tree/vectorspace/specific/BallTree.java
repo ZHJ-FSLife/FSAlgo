@@ -132,22 +132,6 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         return farthest;
     }
 
-    /**
-     * 找到中心点的最大半径
-     *
-     * @param points 坐标集
-     * @param center 中心点
-     * @return 半径
-     */
-    private double findRadius(List<SpacePoint<T>> points, SpacePoint<T> center) {
-        double radius = 0;
-        for (SpacePoint<T> point : points) {
-            double distance = distanceMetric.getDistance(center.getCoord(), point.getCoord());
-            radius = Math.max(distance, radius);
-        }
-        return radius;
-    }
-
     @Override
     public SpacePoint<T> nearest(SpacePoint<T> point) {
         if (root == null) {
@@ -194,10 +178,8 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         if (node.leaf && dist <= radius) {
             result.add(node.point);
         }
-        if (node.left != null && dist <= node.radius + node.left.radius) {
+        if (dist <= node.radius + radius) {
             range(node.left, point, radius, result);
-        }
-        if (node.right != null && dist <= node.radius + node.right.radius) {
             range(node.right, point, radius, result);
         }
     }

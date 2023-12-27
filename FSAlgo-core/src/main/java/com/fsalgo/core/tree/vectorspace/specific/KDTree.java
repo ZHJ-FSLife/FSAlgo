@@ -103,7 +103,7 @@ public class KDTree<T extends Comparable<T>> extends AbstractNearestNeighborSear
      * @return 最近坐标
      */
     private SpacePoint<T> nearest(Node<T> node, SpacePoint<T> point, int depth, SpacePoint<T> best) {
-        if (node == null) {
+        if (node == null || node.point.getPoint().equals(point.getPoint())) {
             return best;
         }
         if (best.getPoint().compareTo(point.getPoint()) == 0) {

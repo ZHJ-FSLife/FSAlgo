@@ -105,9 +105,11 @@ public class ClusteringTest {
         BallTree<String> ballTree = new BallTree<>(data);
 
         SpacePoint<String> queryPoint = new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4});
-        SpacePoint<String> nearestPoint = ballTree.nearest(queryPoint);
+
+        // SpacePoint<String> nearestPoint = ballTree.nearest(queryPoint);
+        // System.out.println(nearestPoint);
+
         List<SpacePoint<String>> rangPoint = ballTree.range(queryPoint, 4);
-        System.out.println(nearestPoint);
         for (SpacePoint<String> temp : rangPoint) {
             System.out.println(temp.getPoint() + ": " + Arrays.toString(temp.getCoord()));
         }
@@ -117,16 +119,19 @@ public class ClusteringTest {
 
     @Test
     public void KDTreeDemo() {
-        data.add(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4}));
+        String node = "B";
+        data.add(new SpacePoint.SpacePointImpl<>(node, new double[]{8, 4}));
         KDTree<String> kDimensionalTree = new KDTree<>(data);
 
-        SpacePoint<String> queryPoint = new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4});
+        SpacePoint<String> queryPoint = new SpacePoint.SpacePointImpl<>(node, new double[]{8, 4});
         SpacePoint<String> nearestPoint = kDimensionalTree.nearest(queryPoint);
-        List<SpacePoint<String>> rangPoint = kDimensionalTree.range(queryPoint, 4);
         System.out.println(nearestPoint);
+
+        List<SpacePoint<String>> rangPoint = kDimensionalTree.range(queryPoint, 4);
         for (SpacePoint<String> temp : rangPoint) {
             System.out.println(temp.getPoint() + ": " + Arrays.toString(temp.getCoord()));
         }
+
         FileUtils.toMdFile(TreeUtil.toMermaid(kDimensionalTree.getRoot(), KDTree.Node::getChild), "KDTreeDemo");
     }
 

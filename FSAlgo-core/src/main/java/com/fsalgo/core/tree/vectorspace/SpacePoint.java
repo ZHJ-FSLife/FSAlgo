@@ -68,7 +68,7 @@ public interface SpacePoint<T> {
 
         @Override
         public String toString() {
-            return point.toString() + " : " + Arrays.toString(coord) + " : " + distance;
+            return point.toString();
         }
 
         @Override
