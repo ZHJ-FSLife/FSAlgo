@@ -106,7 +106,7 @@ public class KDTree<T extends Comparable<T>> extends AbstractNearestNeighborSear
         if (node == null || node.point.getPoint().equals(point.getPoint())) {
             return best;
         }
-        if (best.getPoint().compareTo(point.getPoint()) == 0) {
+        if (best.getPoint().equals(point.getPoint())) {
             best = node.point;
         } else {
             double distance1 = distanceMetric.getDistance(point.getCoord(), node.point.getCoord());

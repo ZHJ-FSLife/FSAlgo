@@ -106,8 +106,8 @@ public class ClusteringTest {
 
         SpacePoint<String> queryPoint = new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4});
 
-        // SpacePoint<String> nearestPoint = ballTree.nearest(queryPoint);
-        // System.out.println(nearestPoint);
+        SpacePoint<String> nearestPoint = ballTree.nearest(queryPoint);
+        System.out.println(nearestPoint);
 
         List<SpacePoint<String>> rangPoint = ballTree.range(queryPoint, 4);
         for (SpacePoint<String> temp : rangPoint) {
