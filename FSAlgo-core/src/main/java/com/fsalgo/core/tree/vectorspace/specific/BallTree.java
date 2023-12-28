@@ -131,6 +131,12 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         return farthest;
     }
 
+    /**
+     * 搜索指定坐标最近的点的坐标
+     *
+     * @param point 节点坐标
+     * @return 距离最近的节点的坐标
+     */
     @Override
     public SpacePoint<T> nearest(SpacePoint<T> point) {
         if (root == null) {
@@ -139,24 +145,42 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         return nearest(point, root, root.point);
     }
 
+    /**
+     * 搜索指定坐标最近的点的坐标
+     *
+     * @param node  节点
+     * @param point 节点坐标
+     * @param best  最近坐标
+     * @return 最近坐标
+     */
     private SpacePoint<T> nearest(SpacePoint<T> point, Node<T> node, SpacePoint<T> best) {
         if (node == null || node.point.getPoint().equals(point.getPoint())) {
             return best;
         }
-        double distance1 = distanceMetric.getDistance(point.getCoord(), node.point.getCoord());
-        double distance2 = distanceMetric.getDistance(point.getCoord(), best.getCoord());
-        if (distance1 < distance2) {
+
+        double toNode = distanceMetric.getDistance(point.getCoord(), node.point.getCoord());
+        double toBest = distanceMetric.getDistance(point.getCoord(), best.getCoord());
+
+        if (toNode < toBest) {
             best = node.point;
         }
-        if (node.left != null) {
+
+        if (node.left != null && distanceMetric.getDistance(point.getCoord(), node.left.point.getCoord()) < toBest) {
             best = nearest(point, node.left, best);
         }
-        if (node.right != null) {
+        if (node.right != null && distanceMetric.getDistance(point.getCoord(), node.right.point.getCoord()) < toBest) {
             best = nearest(point, node.right, best);
         }
         return best;
     }
 
+    /**
+     * 指定节点半径内的左右节点的坐标
+     *
+     * @param point  节点坐标
+     * @param radius 搜寻半径
+     * @return 半径内所有节点的坐标
+     */
     @Override
     public List<SpacePoint<T>> range(SpacePoint<T> point, double radius) {
         List<SpacePoint<T>> result = new ArrayList<>();
@@ -164,6 +188,14 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         return result;
     }
 
+    /**
+     * 指定节点半径内的左右节点的坐标
+     *
+     * @param node   节点
+     * @param point  节点坐标
+     * @param radius 搜寻半径
+     * @param result 结果坐标
+     */
     private void range(Node<T> node, SpacePoint<T> point, double radius, List<SpacePoint<T>> result) {
         if (node == null) {
             return;
