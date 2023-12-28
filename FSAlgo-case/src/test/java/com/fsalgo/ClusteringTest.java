@@ -101,10 +101,12 @@ public class ClusteringTest {
 
     @Test
     public void BallTreeDemo() {
-        data.add(new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4}));
+        String node = "B";
+        double[] coord = new double[] {8, 4};
+        data.add(new SpacePoint.SpacePointImpl<>(node, coord));
         BallTree<String> ballTree = new BallTree<>(data);
 
-        SpacePoint<String> queryPoint = new SpacePoint.SpacePointImpl<>("B", new double[]{8, 4});
+        SpacePoint<String> queryPoint = new SpacePoint.SpacePointImpl<>(node, coord);
 
         SpacePoint<String> nearestPoint = ballTree.nearest(queryPoint);
         System.out.println(nearestPoint);
@@ -120,10 +122,11 @@ public class ClusteringTest {
     @Test
     public void KDTreeDemo() {
         String node = "B";
-        data.add(new SpacePoint.SpacePointImpl<>(node, new double[]{8, 4}));
+        double[] coord = new double[] {8, 4};
+        data.add(new SpacePoint.SpacePointImpl<>(node, coord));
         KDTree<String> kDimensionalTree = new KDTree<>(data);
 
-        SpacePoint<String> queryPoint = new SpacePoint.SpacePointImpl<>(node, new double[]{8, 4});
+        SpacePoint<String> queryPoint = new SpacePoint.SpacePointImpl<>(node, coord);
         SpacePoint<String> nearestPoint = kDimensionalTree.nearest(queryPoint);
         System.out.println(nearestPoint);
 
