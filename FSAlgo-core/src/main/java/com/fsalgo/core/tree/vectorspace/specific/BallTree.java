@@ -44,11 +44,6 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         if (points.isEmpty()) {
             throw new IllegalArgumentException("points cannot be empty!");
         }
-
-        // 取中心坐标，根绝每个节点到中心坐标的距离排序
-        double[] center = findCenter(points);
-        points.sort(Comparator.comparingDouble(n -> distanceMetric.getDistance(center, n.getCoord())));
-
         root = buildTree(points);
     }
 
@@ -70,6 +65,10 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
             return new Node<>(points.get(0), 0, null, null);
         }
 
+        // 取中心坐标，根据每个节点到中心坐标的距离排序
+        double[] centerCoord = findCenter(points);
+        points.sort(Comparator.comparingDouble(n -> distanceMetric.getDistance(centerCoord, n.getCoord())));
+
         SpacePoint<T> center = points.get(0);
         SpacePoint<T> farthestLeft = points.get(points.size() - 1);
         SpacePoint<T> farthestRight = findFarthest(points, farthestLeft);
@@ -77,8 +76,14 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         List<SpacePoint<T>> left = new LinkedList<>();
         List<SpacePoint<T>> right = new LinkedList<>();
 
-        for (SpacePoint<T> point : points) {
-            if (center.getPoint().equals(point.getPoint())) {
+        for (int i = 1; i < points.size(); i++) {
+            SpacePoint<T> point = points.get(i);
+            if (farthestLeft.equals(point)) {
+                left.add(point);
+                continue;
+            }
+            if (farthestRight.equals(point)) {
+                right.add(point);
                 continue;
             }
             double toLeft = distanceMetric.getDistance(point.getCoord(), farthestLeft.getCoord());
@@ -95,40 +100,6 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         double radius = distanceMetric.getDistance(center.getCoord(), farthestLeft.getCoord());
 
         return new Node<>(center, radius, leftNode, rightNode);
-    }
-
-    private double[] findCenter(List<SpacePoint<T>> points) {
-        int dimension = points.get(0).getCoord().length;
-        double[] center = new double[dimension];
-        for (SpacePoint<T> point : points) {
-            for (int i = 0; i < dimension; i++) {
-                center[i] += point.getCoord()[i];
-            }
-        }
-        for (int i = 0; i < dimension; i++) {
-            center[i] /= points.size();
-        }
-        return center;
-    }
-
-    /**
-     * 找坐标集中里中心点最远的点
-     *
-     * @param points 坐标集
-     * @param center 中心点
-     * @return 最远点
-     */
-    private SpacePoint<T> findFarthest(List<SpacePoint<T>> points, SpacePoint<T> center) {
-        double radius = 0;
-        SpacePoint<T> farthest = center;
-        for (SpacePoint<T> point : points) {
-            double distance = distanceMetric.getDistance(center.getCoord(), point.getCoord());
-            if (distance > radius) {
-                radius = distance;
-                farthest = point;
-            }
-        }
-        return farthest;
     }
 
     /**
@@ -208,6 +179,40 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
             range(node.left, point, radius, result);
             range(node.right, point, radius, result);
         }
+    }
+
+    private double[] findCenter(List<SpacePoint<T>> points) {
+        int dimension = points.get(0).getCoord().length;
+        double[] center = new double[dimension];
+        for (SpacePoint<T> point : points) {
+            for (int i = 0; i < dimension; i++) {
+                center[i] += point.getCoord()[i];
+            }
+        }
+        for (int i = 0; i < dimension; i++) {
+            center[i] /= points.size();
+        }
+        return center;
+    }
+
+    /**
+     * 找坐标集中里中心点最远的点
+     *
+     * @param points 坐标集
+     * @param center 中心点
+     * @return 最远点
+     */
+    private SpacePoint<T> findFarthest(List<SpacePoint<T>> points, SpacePoint<T> center) {
+        double radius = 0;
+        SpacePoint<T> farthest = center;
+        for (SpacePoint<T> point : points) {
+            double distance = distanceMetric.getDistance(center.getCoord(), point.getCoord());
+            if (distance > radius) {
+                radius = distance;
+                farthest = point;
+            }
+        }
+        return farthest;
     }
 
     @Override

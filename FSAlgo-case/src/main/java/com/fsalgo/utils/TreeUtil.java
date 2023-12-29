@@ -33,9 +33,13 @@ public class TreeUtil {
      * @return
      */
     public static <N> String toMermaid(N root, NodeMapper<N> mapper) {
+        return toMermaid(root, mapper, "TD");
+    }
+
+    public static <N> String toMermaid(N root, NodeMapper<N> mapper, String dire) {
         StringJoiner sj = new StringJoiner("\n");
         sj.add("```mermaid");
-        sj.add("graph");
+        sj.add("graph " + dire);
 
         Deque<N> queue = new LinkedList<>();
         queue.addLast(root);
