@@ -18,24 +18,40 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.fsalgo.core.tree.vectorspace.specific.bvh;
+package com.fsalgo.core.tree.vectorspace.boundingvolume;
 
 /**
  * @Author: root
- * @Date: 2023/12/29 13:34
+ * @Date: 2023/12/29 13:26
  * @Description:
  */
-public class BVHNode {
+public class BoundingBox {
 
-    private BoundingBox boundingBox;
+    private double[] min;
+    private double[] max;
 
-    private BVHNode left;
+    public BoundingBox(double[] min, double[] max) {
+        this.min = min;
+        this.max = max;
+    }
 
-    private BVHNode right;
+    public void setMin(double[] min) {
+        this.min = min;
+    }
 
-    public BVHNode(BoundingBox boundingBox, BVHNode left, BVHNode right) {
-        this.boundingBox = boundingBox;
-        this.left = left;
-        this.right = right;
+    public void setMax(double[] max) {
+        this.max = max;
+    }
+
+    public void updateMin(int dimension, double val) {
+        updateVal(dimension, val, this.min);
+    }
+
+    public void updateMax(int dimension, double val) {
+        updateVal(dimension, val, this.max);
+    }
+
+    public void updateVal(int dimension, double val, double[] target) {
+        target[dimension] = val;
     }
 }

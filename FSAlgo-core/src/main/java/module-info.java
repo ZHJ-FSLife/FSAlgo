@@ -22,6 +22,6 @@ module com.fsalgo.core {
     exports com.fsalgo.core.util;
     exports com.fsalgo.core.util.sort;
     exports com.fsalgo.core.enums;
-    exports com.fsalgo.core.tree.vectorspace.specific.bvh;
+    exports com.fsalgo.core.tree.vectorspace.boundingvolume;
 
 }

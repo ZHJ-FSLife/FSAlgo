@@ -18,12 +18,24 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.fsalgo.core.tree.vectorspace;
+package com.fsalgo.core.tree.vectorspace.boundingvolume;
 
 /**
  * @Author: root
- * @Date: 2023/12/29 14:34
- * @Description: Axis-Aligned Bounding Box Trees, 轴对称边界树
+ * @Date: 2023/12/29 13:34
+ * @Description:
  */
-public class AABBTree {
+public class BVHNode {
+
+    private BoundingBox boundingBox;
+
+    private BVHNode left;
+
+    private BVHNode right;
+
+    public BVHNode(BoundingBox boundingBox, BVHNode left, BVHNode right) {
+        this.boundingBox = boundingBox;
+        this.left = left;
+        this.right = right;
+    }
 }

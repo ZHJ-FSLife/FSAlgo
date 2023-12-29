@@ -19,6 +19,6 @@
  */
 
 /**
- * Bounding volume hierarchy, 边界体积层次结构
+ * Bounding volume, 边界体积结构
  */
-package com.fsalgo.core.tree.vectorspace.specific.bvh;
+package com.fsalgo.core.tree.vectorspace.boundingvolume;

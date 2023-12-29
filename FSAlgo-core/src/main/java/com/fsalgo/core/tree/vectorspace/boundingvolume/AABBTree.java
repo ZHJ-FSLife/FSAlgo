@@ -17,12 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.fsalgo.core.tree.vectorspace.specific.bvh;
+
+package com.fsalgo.core.tree.vectorspace.boundingvolume;
 
 /**
  * @Author: root
- * @Date: 2023/3/19 13:18
- * @Description: 层次包围盒树 / Bounding Volume Hierarchy Based On Tree
+ * @Date: 2023/12/29 14:34
+ * @Description: Axis-Aligned Bounding Box Trees, 轴对称边界树
  */
-public class BVHTree<T extends Comparable<T>> {
+public class AABBTree {
 }
