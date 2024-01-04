@@ -29,7 +29,7 @@ import com.fsalgo.core.struct.Graph;
  */
 public class TopologicalOrderIterator<N> extends AbstractGraphIterator<N> {
 
-    protected TopologicalOrderIterator(Graph<N> graph) {
+    public TopologicalOrderIterator(Graph<N> graph) {
         super(graph);
     }
 

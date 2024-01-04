@@ -6,6 +6,8 @@ import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.Graphs;
 import com.fsalgo.core.struct.builder.GraphBuilder;
+import com.fsalgo.core.struct.iterator.BreadthFirstIterator;
+import com.fsalgo.core.struct.iterator.GraphIterator;
 import com.fsalgo.core.struct.specific.DirectedGraph;
 import com.fsalgo.core.struct.specific.UndirectedGraph;
 import com.fsalgo.utils.FileUtils;
@@ -157,5 +159,15 @@ public class GraphTest {
     @Test
     public void graphTypeDemo() {
         GraphBuilder.<String>mixed().weighted(true).build();
+    }
+
+    @Test
+    public void iteratorDemo() {
+        Graph<String> graph = GraphBuilder.<String>directed().allowsCycles(true).build();
+        addNodeToGraph(graph);
+        GraphIterator<String> graphIterator = new BreadthFirstIterator<>(graph);
+        while (graphIterator.hasNext()) {
+            graphIterator.next();
+        }
     }
 }

@@ -22,6 +22,9 @@ package com.fsalgo.core.struct.iterator;
 
 import com.fsalgo.core.struct.Graph;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * @Author: root
  * @Date: 2024/1/4 15:50
@@ -29,7 +32,13 @@ import com.fsalgo.core.struct.Graph;
  */
 public class BreadthFirstIterator<N> extends AbstractGraphIterator<N> {
 
-    protected BreadthFirstIterator(Graph<N> graph) {
+    private Deque<N> queue = new ArrayDeque<>();
+
+    public BreadthFirstIterator(Graph<N> graph) {
+        this(graph, null);
+    }
+
+    public BreadthFirstIterator(Graph<N> graph, N startNode) {
         super(graph);
     }
 

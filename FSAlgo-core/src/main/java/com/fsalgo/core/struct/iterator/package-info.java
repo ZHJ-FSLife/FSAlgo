@@ -18,33 +18,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.fsalgo.core.struct.iterator;
-
-import com.fsalgo.core.struct.Graph;
-
 /**
  * @Author: root
- * @Date: 2024/1/4 15:51
- * @Description: 深度优先迭代器
+ * @Date: 2024/1/4 16:36
+ * @Description: 图遍历迭代器
  */
-public class DepthFirstIterator<N> extends AbstractGraphIterator<N> {
-
-    public DepthFirstIterator(Graph<N> graph) {
-        super(graph);
-    }
-
-    @Override
-    public boolean hasNext() {
-        return false;
-    }
-
-    @Override
-    public N next() {
-        return null;
-    }
-
-    @Override
-    public void remove() {
-
-    }
-}
+package com.fsalgo.core.struct.iterator;
