@@ -30,7 +30,7 @@ import com.fsalgo.core.struct.Graph;
 public class TopologicalOrderIterator<N> extends AbstractGraphIterator<N> {
 
     public TopologicalOrderIterator(Graph<N> graph) {
-        super(graph);
+        super(graph, null);
     }
 
     @Override
@@ -41,6 +41,21 @@ public class TopologicalOrderIterator<N> extends AbstractGraphIterator<N> {
     @Override
     public N next() {
         return null;
+    }
+
+    @Override
+    public N getNextNode() {
+        return null;
+    }
+
+    @Override
+    public N removeNexteNode() {
+        return null;
+    }
+
+    @Override
+    public void addChildNode(N node) {
+
     }
 
     @Override

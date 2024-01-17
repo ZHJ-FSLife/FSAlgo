@@ -22,6 +22,9 @@ package com.fsalgo.core.struct.iterator;
 
 import com.fsalgo.core.struct.Graph;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
  * @Author: root
  * @Date: 2024/1/4 15:51
@@ -29,18 +32,33 @@ import com.fsalgo.core.struct.Graph;
  */
 public class DepthFirstIterator<N> extends AbstractGraphIterator<N> {
 
+    private Deque<N> queue = new LinkedList<>();
+
     public DepthFirstIterator(Graph<N> graph) {
-        super(graph);
+        this(graph, null);
+    }
+
+    public DepthFirstIterator(Graph<N> graph, N source) {
+        super(graph, source);
+        queue.addFirst(source);
     }
 
     @Override
-    public boolean hasNext() {
-        return false;
+    public N getNextNode() {
+        return queue.peekFirst();
     }
 
     @Override
-    public N next() {
-        return null;
+    public N removeNexteNode() {
+        source = queue.removeFirst();
+        return source;
+    }
+
+    @Override
+    public void addChildNode(N node) {
+        for (N child : graph.outgoingNodes(node)) {
+            queue.addFirst(child);
+        }
     }
 
     @Override

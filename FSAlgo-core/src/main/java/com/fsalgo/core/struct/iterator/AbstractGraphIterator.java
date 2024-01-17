@@ -22,6 +22,10 @@ package com.fsalgo.core.struct.iterator;
 
 import com.fsalgo.core.struct.Graph;
 
+import java.util.HashSet;
+import java.util.NoSuchElementException;
+import java.util.Set;
+
 /**
  * @Author: root
  * @Date: 2024/1/4 15:48
@@ -29,9 +33,39 @@ import com.fsalgo.core.struct.Graph;
  */
 public abstract class AbstractGraphIterator<N> implements GraphIterator<N> {
 
+    protected final Set<N> visited = new HashSet<>();
+
     protected final Graph<N> graph;
 
-    protected AbstractGraphIterator(Graph<N> graph) {
+    protected N source;
+
+    protected AbstractGraphIterator(Graph<N> graph, N source) {
         this.graph = graph;
+        this.source = source;
+    }
+
+    @Override
+    public boolean hasNext() {
+        while (visited.contains(getNextNode())) {
+            removeNexteNode();
+        }
+        return getNextNode() != null;
+    }
+
+    @Override
+    public N next() {
+        if (source == null) {
+            throw new NullPointerException();
+        }
+        N nextNode;
+        if (hasNext()) {
+            nextNode = removeNexteNode();
+            visited.add(nextNode);
+
+            addChildNode(nextNode);
+        } else {
+            throw new NoSuchElementException();
+        }
+        return nextNode;
     }
 }

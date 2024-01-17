@@ -7,6 +7,7 @@ import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.Graphs;
 import com.fsalgo.core.struct.builder.GraphBuilder;
 import com.fsalgo.core.struct.iterator.BreadthFirstIterator;
+import com.fsalgo.core.struct.iterator.DepthFirstIterator;
 import com.fsalgo.core.struct.iterator.GraphIterator;
 import com.fsalgo.core.struct.specific.DirectedGraph;
 import com.fsalgo.core.struct.specific.UndirectedGraph;
@@ -98,6 +99,26 @@ public class GraphTest {
         // System.out.println(graph);
         Set<Edge<String>> outgoingEdges = graph.outgoingEdges(n1);
         System.out.println(outgoingEdges);
+
+
+        // 广搜迭代器测试
+        GraphIterator<String> bfsIterator = new BreadthFirstIterator<>(graph, n1);
+        System.out.print("广搜迭代器测试: ");
+        while (bfsIterator.hasNext()) {
+            String next = bfsIterator.next();
+            System.out.print(next + ", ");
+        }
+        System.out.println();
+
+        // 深搜迭代器测试
+        GraphIterator<String> dfsIterator = new DepthFirstIterator<>(graph, n1);
+        System.out.print("深搜迭代器测试: ");
+        while (dfsIterator.hasNext()) {
+            String next = dfsIterator.next();
+            System.out.print(next + ", ");
+        }
+        System.out.println();
+
 
         // graph.removeNode(n1);
 
