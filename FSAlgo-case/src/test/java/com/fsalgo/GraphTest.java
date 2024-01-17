@@ -143,6 +143,17 @@ public class GraphTest {
         System.out.println(outgoingEdges);
         System.out.println(graph.getGraphType());
 
+        // 广搜迭代器测试
+        GraphIterator<String> bfsIterator = new BreadthFirstIterator<>(graph, n1);
+        System.out.print("广搜迭代器测试: ");
+        while (bfsIterator.hasNext()) {
+            String next = bfsIterator.next();
+            System.out.print(next + ", ");
+        }
+        System.out.println();
+
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "UndirectedGraphDemo", true);
+
     }
 
     @Test
