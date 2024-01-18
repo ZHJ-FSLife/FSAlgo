@@ -34,32 +34,17 @@ public class TopologicalOrderIterator<N> extends AbstractGraphIterator<N> {
     }
 
     @Override
-    public boolean hasNext() {
-        return false;
-    }
-
-    @Override
-    public N next() {
+    protected N getNextNode() {
         return null;
     }
 
     @Override
-    public N getNextNode() {
+    protected N removeNextNode() {
         return null;
     }
 
     @Override
-    public N removeNexteNode() {
-        return null;
-    }
-
-    @Override
-    public void addChildNode(N node) {
-
-    }
-
-    @Override
-    public void remove() {
+    protected void addChildNode(N node) {
 
     }
 }

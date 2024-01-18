@@ -44,10 +44,16 @@ public abstract class AbstractGraphIterator<N> implements GraphIterator<N> {
         this.source = source;
     }
 
+    protected abstract N getNextNode();
+
+    protected abstract N removeNextNode();
+
+    protected abstract void addChildNode(N node);
+
     @Override
     public boolean hasNext() {
         while (visited.contains(getNextNode())) {
-            removeNexteNode();
+            removeNextNode();
         }
         return getNextNode() != null;
     }
@@ -59,7 +65,7 @@ public abstract class AbstractGraphIterator<N> implements GraphIterator<N> {
         }
         N nextNode;
         if (hasNext()) {
-            nextNode = removeNexteNode();
+            nextNode = removeNextNode();
             visited.add(nextNode);
 
             addChildNode(nextNode);

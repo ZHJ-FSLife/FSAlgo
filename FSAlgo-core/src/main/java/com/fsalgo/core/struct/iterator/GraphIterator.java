@@ -29,12 +29,4 @@ import java.util.Iterator;
  */
 public interface GraphIterator<N> extends Iterator<N> {
 
-    N getNextNode();
-
-    N removeNexteNode();
-
-    void addChildNode(N node);
-
-    @Override
-    void remove();
 }

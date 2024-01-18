@@ -15,6 +15,7 @@ import com.fsalgo.utils.FileUtils;
 import com.fsalgo.utils.GraphUtil;
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -100,9 +101,8 @@ public class GraphTest {
         Set<Edge<String>> outgoingEdges = graph.outgoingEdges(n1);
         System.out.println(outgoingEdges);
 
-
         // 广搜迭代器测试
-        GraphIterator<String> bfsIterator = new BreadthFirstIterator<>(graph, n1);
+        Iterator<String> bfsIterator = new BreadthFirstIterator<>(graph, n1);
         System.out.print("广搜迭代器测试: ");
         while (bfsIterator.hasNext()) {
             String next = bfsIterator.next();
@@ -111,7 +111,7 @@ public class GraphTest {
         System.out.println();
 
         // 深搜迭代器测试
-        GraphIterator<String> dfsIterator = new DepthFirstIterator<>(graph, n1);
+        Iterator<String> dfsIterator = new DepthFirstIterator<>(graph, n1);
         System.out.print("深搜迭代器测试: ");
         while (dfsIterator.hasNext()) {
             String next = dfsIterator.next();
@@ -144,7 +144,7 @@ public class GraphTest {
         System.out.println(graph.getGraphType());
 
         // 广搜迭代器测试
-        GraphIterator<String> bfsIterator = new BreadthFirstIterator<>(graph, n1);
+        Iterator<String> bfsIterator = new BreadthFirstIterator<>(graph, n1);
         System.out.print("广搜迭代器测试: ");
         while (bfsIterator.hasNext()) {
             String next = bfsIterator.next();

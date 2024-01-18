@@ -44,25 +44,20 @@ public class DepthFirstIterator<N> extends AbstractGraphIterator<N> {
     }
 
     @Override
-    public N getNextNode() {
+    protected N getNextNode() {
         return queue.peekFirst();
     }
 
     @Override
-    public N removeNexteNode() {
+    protected N removeNextNode() {
         source = queue.removeFirst();
         return source;
     }
 
     @Override
-    public void addChildNode(N node) {
+    protected void addChildNode(N node) {
         for (N child : graph.outgoingNodes(node)) {
             queue.addFirst(child);
         }
-    }
-
-    @Override
-    public void remove() {
-
     }
 }
