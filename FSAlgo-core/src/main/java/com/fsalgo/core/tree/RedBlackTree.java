@@ -19,10 +19,13 @@
  */
 package com.fsalgo.core.tree;
 
+import com.fsalgo.core.struct.Edge;
+
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author: root
@@ -62,6 +65,10 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
         Node<K> node = new Node<>(key, true);
         add(node);
         addFixup(node);
+    }
+
+    public void remove(K key) {
+
     }
 
     private void add(Node<K> node) {
@@ -214,6 +221,25 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
         @Override
         public String toString() {
             return key == null ? "nil" : key.toString() + (red ? "R" : "B");
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(key);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+
+            Node<?> node = (Node<?>) obj;
+            return Objects.equals(key, node.key);
         }
     }
 }
