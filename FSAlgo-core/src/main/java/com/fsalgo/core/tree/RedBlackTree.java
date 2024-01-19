@@ -42,100 +42,105 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
 
     private Node<K> root;
 
+    private Node<K> leaf;
+
     public RedBlackTree() {
         this(Comparator.naturalOrder());
     }
 
     public RedBlackTree(Comparator<? super K> comparator) {
         this.comparator = comparator;
+        leaf = new Node<>(null);
+        root = leaf;
     }
 
     public Node<K> getRoot() {
         return this.root;
     }
 
-    public void add(K key) {
-        add(new Node<>(key, false, null, null, null));
+    private Node<K> getParent(Node<K> node) {
+        return node != null ? node.parent : null;
     }
 
-    private void add(Node<K> node) {
-
-        Node<K> temp = null;
-        Node<K> next = this.root;
-
-        while (next != null) {
-            temp = next;
-            next = compareTo(node, next) ? next.left : next.right;
-        }
-        node.parent = temp;
-
-        if (temp != null) {
-            addChild(temp, node);
-        } else {
-            this.root = node;
-        }
-
-        node.red = true;
+    public void add(K key) {
+        Node<K> node = new Node<>(key, true);
+        add(node);
         addFixup(node);
     }
 
-    private void addFixup(Node<K> node) {
-        Node<K> parent;
-        Node<K> gparent;
+    private void add(Node<K> node) {
+        Node<K> temp = leaf;
+        Node<K> next = root;
 
-        // 父节点不为空，并且当前节点为红色节点
-        while (node != null && node.parent != null && node.red) {
-            parent = node.parent;
-            gparent = parent.parent;
-
-            Node<K> uncle = parent == gparent.left ? gparent.right : gparent.right;
-            if (parent == gparent.left) {
-                // 叔节点为红色
-                if (uncle != null && uncle.red) {
-                    uncle.red = false;
-                    parent.red = false;
-                    gparent.red = true;
-                    node = gparent;
-                    continue;
-                }
-                // 叔节点为黑色， 且当当前节点为右节点
-                if (parent.right == node) {
-                    rotateLL(parent);
-                    swap(node, parent);
-                }
-                parent.red = false;
-                gparent.red = true;
-                rotateRR(gparent);
-            } else {
-                if (uncle != null && uncle.red) {
-                    uncle.red = false;
-                    parent.red = false;
-                    gparent.red = true;
-                    node = gparent;
-                    continue;
-                }
-                if (parent.left == node) {
-                    rotateRR(parent);
-                    swap(node, parent);
-                }
-                parent.red = false;
-                gparent.red = true;
-                rotateLL(gparent);
-            }
+        while (next != leaf) {
+            temp = next;
+            next = compareTo(node, next) ? next.left : next.right;
         }
+
+        node.parent = temp;
+        if (temp == leaf) {
+            root = node;
+        } else if (compareTo(node, temp)) {
+            temp.left = node;
+        } else {
+            temp.right = node;
+        }
+
+        node.left = node.right = leaf;
     }
 
-    private void rotateLL(Node<K> node) {
+    private void addFixup(Node<K> node) {
+        Node<K> parent = node.parent;
+        Node<K> grandparent = parent.parent;
+        while (parent.red) {
+            if (parent == grandparent.left) {
+                Node<K> uncle = grandparent.right;
+                if (uncle.red) {
+                    uncle.red = false;
+                    parent.red = false;
+                    grandparent.red = true;
+                    node = grandparent;
+                } else {
+                    if (node == parent.right) {
+                        node = parent;
+                        leftRotate(node);
+                    }
+                    parent.red = false;
+                    grandparent.red = true;
+                    rightRotate(grandparent);
+                }
+            } else {
+                Node<K> uncle = grandparent.left;
+                if (uncle.red) {
+                    uncle.red = false;
+                    parent.red = false;
+                    grandparent.red = true;
+                    node = grandparent;
+                } else {
+                    if (node == parent.left) {
+                        node = parent;
+                        rightRotate(node);
+                    }
+                    parent.red = false;
+                    grandparent.red = true;
+                    leftRotate(grandparent);
+                }
+            }
+        }
+        root.red = false;
+    }
+
+    private void leftRotate(Node<K> node) {
         Node<K> temp = node.right;
 
         node.right = temp.left;
-        if (temp.left != null) {
+        if (temp.left != leaf) {
             temp.left.parent = node;
         }
 
         temp.parent = node.parent;
 
-        if (node.parent == null) {
+        if (node.parent == leaf) {
             this.root = temp;
         } else {
             if (node.parent.left == node) {
@@ -149,17 +154,17 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
         node.parent = temp;
     }
 
-    private void rotateRR(Node<K> node) {
+    private void rightRotate(Node<K> node) {
         Node<K> temp = node.left;
 
         node.left = temp.right;
-        if (temp.right != null) {
+        if (temp.right != leaf) {
             temp.right.parent = node;
         }
 
         temp.parent = node.parent;
 
-        if (node.parent == null) {
+        if (node.parent == leaf) {
             this.root = temp;
         } else {
             if (node.parent.right == node) {
@@ -173,26 +178,12 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
         node.parent = temp;
     }
 
-    private void addChild(Node<K> parent, Node<K> child) {
-        if (compareTo(parent, child)) {
-            parent.right = child;
-        } else {
-            parent.left = child;
-        }
-    }
-
-    private void swap(Node<K> x, Node<K> y) {
-        Node<K> temp = x;
-        x = y;
-        y = temp;
-    }
-
     private boolean compareTo(Node<K> x, Node<K> y) {
         return compareTo(x.key, y.key);
     }
 
     public boolean compareTo(K x, K y) {
-        return comparator.compare(x, y) < 0;
+        return comparator.compare(x, y) > 0;
     }
 
     public static class Node<K extends Comparable<K>> {
@@ -202,12 +193,13 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
         Node<K> right;
         Node<K> parent;
 
-        public Node(K key, boolean red, Node<K> left, Node<K> right, Node<K> parent) {
+        public Node(K key) {
+            this(key, false);
+        }
+
+        public Node(K key, boolean red) {
             this.key = key;
             this.red = red;
-            this.left = left;
-            this.right = right;
-            this.parent = parent;
         }
 
         public List<Node<K>> getChild() {
@@ -219,6 +211,11 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
                 childs.add(right);
             }
             return childs;
+        }
+
+        @Override
+        public String toString() {
+            return key == null ? "nil" : key.toString() + (red ? "R" : "B");
         }
     }
 }
