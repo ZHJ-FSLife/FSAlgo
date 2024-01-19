@@ -20,16 +20,25 @@
 
 package com.fsalgo.core.interfaces.functional;
 
-import java.util.List;
+import com.fsalgo.core.struct.Graph;
+
+import java.util.Collection;
 
 /**
  * @Author: root
- * @Date: 2024/1/18 21:05
+ * @Date: 2024/1/19 10:32
  * @Description:
  */
 @FunctionalInterface
-public interface ChildNodeMapper<N> {
+public interface GraphNodeMapper<N> {
 
-    List<N> children(N root);
+    /**
+     * 获取图结构下任意指定节点指向出去的所有相邻节点
+     *
+     * @param graph 图结构
+     * @param node 任意指定节点
+     * @return 向外指向的所有相邻节点
+     */
+    Collection<N> outgoingNodes(Graph<N> graph, N node);
 
 }

@@ -2,6 +2,7 @@ package com.fsalgo;
 
 import com.fsalgo.core.graph.strongconn.TarjanCutPointAndBridge;
 import com.fsalgo.core.graph.strongconn.TarjanStrongConnectivityInspector;
+import com.fsalgo.core.interfaces.functional.GraphNodeMapper;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.Graphs;
@@ -14,8 +15,7 @@ import com.fsalgo.utils.FileUtils;
 import com.fsalgo.utils.GraphUtil;
 import org.junit.Test;
 
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: root
@@ -196,9 +196,29 @@ public class GraphTest {
     public void iteratorDemo() {
         Graph<String> graph = GraphBuilder.<String>directed().allowsCycles(true).build();
         addNodeToGraph(graph);
-        Iterator<String> graphIterator = new BreadthFirstIterator<>(graph);
+        Iterator<String> graphIterator = new BreadthFirstIterator<>(graph, n1);
         while (graphIterator.hasNext()) {
-            graphIterator.next();
+            System.out.printf(graphIterator.next() + ", ");;
         }
+
+        GraphNodeMapper<String> graphNodeMapper = Graph::outgoingNodes;
+        // Set<String> temp = (Set<String>) graphNodeMapper.outgoingNodes(graph, n1);
+
+        Set<String> flag = new HashSet<>();
+        Deque<String> queue = new LinkedList<>();
+        queue.add(n1);
+        System.out.println();
+        while (!queue.isEmpty()) {
+            String node = queue.removeFirst();
+            System.out.printf(node + ", ");
+            flag.add(node);
+            for (String next : graphNodeMapper.outgoingNodes(graph, node)) {
+                if (flag.contains(next)) {
+                    continue;
+                }
+                queue.addLast(next);
+            }
+        }
+
     }
 }

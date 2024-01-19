@@ -1,6 +1,6 @@
 package com.fsalgo.utils;
 
-import com.fsalgo.core.interfaces.functional.ChildNodeMapper;
+import com.fsalgo.core.interfaces.functional.TreeNodeMapper;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -32,11 +32,11 @@ public class TreeUtil {
      * @param <N>
      * @return
      */
-    public static <N> String toMermaid(N root, ChildNodeMapper<N> mapper) {
+    public static <N> String toMermaid(N root, TreeNodeMapper<N> mapper) {
         return toMermaid(root, mapper, "TD");
     }
 
-    public static <N> String toMermaid(N root, ChildNodeMapper<N> mapper, String dire) {
+    public static <N> String toMermaid(N root, TreeNodeMapper<N> mapper, String dire) {
         StringJoiner sj = new StringJoiner("\n");
         sj.add("```mermaid");
         sj.add("graph " + dire);

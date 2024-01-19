@@ -31,9 +31,7 @@ import java.util.*;
  * @Date: 2023/2/19 2:28
  * @Description: 图接口的基本结构与实现
  */
-public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements Graph<N>, Serializable {
-
-    private static final long serialVersionUID = 1L;
+public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements Graph<N> {
 
     protected int edgeSize = 0;
 
