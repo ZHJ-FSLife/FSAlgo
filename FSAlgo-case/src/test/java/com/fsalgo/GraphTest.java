@@ -196,7 +196,7 @@ public class GraphTest {
     public void iteratorDemo() {
         Graph<String> graph = GraphBuilder.<String>directed().allowsCycles(true).build();
         addNodeToGraph(graph);
-        GraphIterator<String> graphIterator = new BreadthFirstIterator<>(graph);
+        Iterator<String> graphIterator = new BreadthFirstIterator<>(graph);
         while (graphIterator.hasNext()) {
             graphIterator.next();
         }
