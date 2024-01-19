@@ -22,6 +22,17 @@ public class TreeTest {
     }
 
     @Test
+    public void RBTreeDemo() {
+        int[] nums = {3, 1, 2, 4, 6, 0, 9, 7, 8, 5};
+        RedBlackTree<Integer> tree = new RedBlackTree<>();
+        for (int num : nums) {
+            tree.add(num);
+        }
+
+        FileUtils.toMdFile(TreeUtil.toMermaid(tree.getRoot(), RedBlackTree.Node::getChild), "BTreeDemo");
+    }
+
+    @Test
     public void AhoCorasickDemo() {
         AhoCorasick ac = new AhoCorasick();
         ac.add("彩票");
@@ -143,7 +154,6 @@ public class TreeTest {
 
         System.out.println(Arrays.toString(nums));
         System.out.println(Arrays.toString(bit.getTree()));
-
 
     }
 }
