@@ -18,8 +18,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.fsalgo.core.struct.iterator;
+package com.fsalgo.core.iterator.graph;
 
+import com.fsalgo.core.iterator.AbstractNodeIterator;
 import com.fsalgo.core.struct.Graph;
 
 /**
@@ -27,10 +28,13 @@ import com.fsalgo.core.struct.Graph;
  * @Date: 2024/1/4 15:53
  * @Description: 拓朴排序迭代器
  */
-public class TopologicalOrderIterator<N> extends AbstractGraphIterator<N> {
+public class TopologicalOrderIterator<N> extends AbstractNodeIterator<N> {
+
+    private final Graph<N> graph;
 
     public TopologicalOrderIterator(Graph<N> graph) {
-        super(graph, null);
+        super(null);
+        this.graph = graph;
     }
 
     @Override

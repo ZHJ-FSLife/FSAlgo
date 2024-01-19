@@ -18,15 +18,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.fsalgo.core.struct.iterator;
+package com.fsalgo.core.iterator;
 
 import java.util.Iterator;
 
 /**
  * @Author: root
- * @Date: 2024/1/4 15:46
+ * @Date: 2024/1/19 9:22
  * @Description:
  */
-public interface GraphIterator<N> extends Iterator<N> {
-
+public interface NodeTraverseIterator<N> extends Iterator<N> {
 }

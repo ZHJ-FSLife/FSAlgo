@@ -18,9 +18,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.fsalgo.core.struct.iterator;
-
-import com.fsalgo.core.struct.Graph;
+package com.fsalgo.core.iterator;
 
 import java.util.HashSet;
 import java.util.NoSuchElementException;
@@ -31,16 +29,13 @@ import java.util.Set;
  * @Date: 2024/1/4 15:48
  * @Description:
  */
-public abstract class AbstractGraphIterator<N> implements GraphIterator<N> {
+public abstract class AbstractNodeIterator<N> implements NodeTraverseIterator<N> {
 
     protected final Set<N> visited = new HashSet<>();
 
-    protected final Graph<N> graph;
-
     protected N source;
 
-    protected AbstractGraphIterator(Graph<N> graph, N source) {
-        this.graph = graph;
+    protected AbstractNodeIterator(N source) {
         this.source = source;
     }
 
@@ -50,6 +45,10 @@ public abstract class AbstractGraphIterator<N> implements GraphIterator<N> {
 
     protected abstract void addChildNode(N node);
 
+    @Override
+    public void remove() {
+        removeNextNode();
+    }
     @Override
     public boolean hasNext() {
         while (visited.contains(getNextNode())) {

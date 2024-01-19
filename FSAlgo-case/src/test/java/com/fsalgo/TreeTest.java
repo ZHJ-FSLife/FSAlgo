@@ -58,7 +58,7 @@ public class TreeTest {
 
     @Test
     public void BTreeDemo() {
-        int[] nums = {3, 1, 2, 4, 6, 0, 9, 7, 8, 5, 3, 1, 2, 4, 6, 0, 9, 7, 8, 5};
+        int[] nums = {3, 1, 2, 4, 6, 0, 9, 7, 8, 5, 3, 1, 2, 4, 6, 0, 9, 7, 8, 5, 4, 6, 0, 9, 7, 8, 5};
         BTree<Integer> bTree = new BTree<>(3);
         for (int num : nums) {
             bTree.add(num);

@@ -18,9 +18,18 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+package com.fsalgo.core.interfaces.functional;
+
+import java.util.List;
+
 /**
  * @Author: root
- * @Date: 2024/1/4 16:36
- * @Description: 图遍历迭代器
+ * @Date: 2024/1/18 21:05
+ * @Description:
  */
-package com.fsalgo.core.struct.iterator;
+@FunctionalInterface
+public interface ChildNodeMapper<N> {
+
+    List<N> children(N root);
+
+}

@@ -18,28 +18,31 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.fsalgo.core.struct.iterator;
+package com.fsalgo.core.iterator.graph;
 
+import com.fsalgo.core.iterator.AbstractNodeIterator;
 import com.fsalgo.core.struct.Graph;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * @Author: root
- * @Date: 2024/1/4 15:51
- * @Description: 深度优先迭代器
+ * @Date: 2024/1/4 15:50
+ * @Description: 广度优先迭代器
  */
-public class DepthFirstIterator<N> extends AbstractGraphIterator<N> {
+public class BreadthFirstIterator<N> extends AbstractNodeIterator<N> {
 
     private Deque<N> queue = new LinkedList<>();
 
-    public DepthFirstIterator(Graph<N> graph) {
+    private final Graph<N> graph;
+
+    public BreadthFirstIterator(Graph<N> graph) {
         this(graph, null);
     }
 
-    public DepthFirstIterator(Graph<N> graph, N source) {
-        super(graph, source);
+    public BreadthFirstIterator(Graph<N> graph, N source) {
+        super(source);
+        this.graph = graph;
         queue.addFirst(source);
     }
 
@@ -57,7 +60,7 @@ public class DepthFirstIterator<N> extends AbstractGraphIterator<N> {
     @Override
     protected void addChildNode(N node) {
         for (N child : graph.outgoingNodes(node)) {
-            queue.addFirst(child);
+            queue.addLast(child);
         }
     }
 }

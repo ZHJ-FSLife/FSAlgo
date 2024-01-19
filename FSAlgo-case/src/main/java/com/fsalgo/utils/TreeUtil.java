@@ -1,6 +1,6 @@
 package com.fsalgo.utils;
 
-import com.fsalgo.NodeMapper;
+import com.fsalgo.core.interfaces.functional.ChildNodeMapper;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -32,11 +32,11 @@ public class TreeUtil {
      * @param <N>
      * @return
      */
-    public static <N> String toMermaid(N root, NodeMapper<N> mapper) {
+    public static <N> String toMermaid(N root, ChildNodeMapper<N> mapper) {
         return toMermaid(root, mapper, "TD");
     }
 
-    public static <N> String toMermaid(N root, NodeMapper<N> mapper, String dire) {
+    public static <N> String toMermaid(N root, ChildNodeMapper<N> mapper, String dire) {
         StringJoiner sj = new StringJoiner("\n");
         sj.add("```mermaid");
         sj.add("graph " + dire);
@@ -45,7 +45,7 @@ public class TreeUtil {
         queue.addLast(root);
         while (!queue.isEmpty()) {
             N node = queue.pollFirst();
-            List<N> childs = mapper.getChildNode(node);
+            List<N> childs = mapper.children(node);
             if (childs == null || childs.isEmpty()) {
                 sj.add("style " + filtration(node) + " fill: green");
             }
