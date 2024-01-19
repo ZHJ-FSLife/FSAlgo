@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.tree.heap;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -26,7 +27,9 @@ import java.util.Comparator;
  * @Date: 2023/3/26 2:31
  * @Description:
  */
-public abstract class AbstractHeap<T> implements Heap<T> {
+public abstract class AbstractHeap<T> implements Heap<T>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     protected final Comparator<? super T> comparator;
 

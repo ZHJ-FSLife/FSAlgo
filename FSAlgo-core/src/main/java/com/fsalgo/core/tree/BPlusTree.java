@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.tree;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 
@@ -27,7 +28,9 @@ import java.util.List;
  * @Date: 2023/1/5 9:15
  * @Description: B+树
  */
-public class BPlusTree<K extends Comparable<K>, V> {
+public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Comparator<? super K> comparator;
 

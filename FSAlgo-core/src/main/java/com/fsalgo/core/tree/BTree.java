@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.tree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -28,7 +29,9 @@ import java.util.List;
  * @Date: 2023/1/5 9:15
  * @Description: B-树
  */
-public class BTree<T extends Comparable<T>> {
+public class BTree<T extends Comparable<T>> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 度，B树的阶数为: 2 * degree - 1

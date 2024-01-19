@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.tree;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -26,7 +27,9 @@ import java.util.*;
  * @Date: 2023/1/5 9:15
  * @Description:
  */
-public class HuffmanTree<T extends Comparable<T>> {
+public class HuffmanTree<T extends Comparable<T>> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private static final int LEFT = 0;
 

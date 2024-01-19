@@ -21,12 +21,16 @@ package com.fsalgo.core.clustering;
 
 import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 
+import java.io.Serializable;
+
 /**
  * @Author: root
  * @Date: 2023/3/6 9:14
  * @Description: k-means clustering algorithm / K均值聚类
  */
-public class KMeans<T extends Comparable<T>> implements ClusteringAlgorithm<T> {
+public class KMeans<T extends Comparable<T>> implements ClusteringAlgorithm<T>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     // 感觉不是很好用，懒得写了。
 

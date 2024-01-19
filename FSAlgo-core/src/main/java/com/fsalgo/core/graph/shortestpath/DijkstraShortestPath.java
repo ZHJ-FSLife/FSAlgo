@@ -26,6 +26,7 @@ import com.fsalgo.core.struct.Graphs;
 import com.fsalgo.core.tree.heap.Heap;
 import com.fsalgo.core.tree.heap.specific.FibonacciHeap;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -33,7 +34,9 @@ import java.util.*;
  * @Date: 2023/2/20 20:14
  * @Description:
  */
-public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPathAlgorithm<N> {
+public class DijkstraShortestPath<N extends Comparable<N>> implements ShortestPathAlgorithm<N>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Graph<N> graph;
 

@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.struct;
 
+import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.enums.exception.GraphBaseErrorEnum;
 import com.fsalgo.core.struct.specific.EdgeContainer;
 import com.fsalgo.core.util.TypeUtil;
@@ -30,7 +31,9 @@ import java.util.*;
  * @Date: 2023/2/19 2:28
  * @Description: 图接口的基本结构与实现
  */
-public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements Graph<N> {
+public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements Graph<N>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     protected int edgeSize = 0;
 

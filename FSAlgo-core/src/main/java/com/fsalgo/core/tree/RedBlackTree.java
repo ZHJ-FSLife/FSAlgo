@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.tree;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -31,7 +32,9 @@ import java.util.Comparator;
  * 4、如果一个节点是红色的，则它的两个子节点都是黑色的
  * 5、对于每个节点，从该节点到其所有后代叶子节点的简单路径上，均包含相同数量的黑色节点
  */
-public class RedBlackTree<K extends Comparable<K>, V> {
+public class RedBlackTree<K extends Comparable<K>, V> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Comparator<? super K> comparator;
 

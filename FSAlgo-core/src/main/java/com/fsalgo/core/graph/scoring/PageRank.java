@@ -22,6 +22,7 @@ package com.fsalgo.core.graph.scoring;
 import com.fsalgo.core.interfaces.score.NodeScoringAlgorithm;
 import com.fsalgo.core.struct.Graph;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -31,7 +32,9 @@ import java.util.Objects;
  * @Date: 2022/12/21 20:04
  * @Description: Page - 排名算法
  */
-public class PageRank<N> implements NodeScoringAlgorithm<N, Double> {
+public class PageRank<N> implements NodeScoringAlgorithm<N, Double>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 最大迭代次数

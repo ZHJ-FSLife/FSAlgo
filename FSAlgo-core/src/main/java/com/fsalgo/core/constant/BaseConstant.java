@@ -27,9 +27,5 @@ package com.fsalgo.core.constant;
 public class BaseConstant {
 
     private BaseConstant() { }
-    /**
-     * 序列化id
-     */
-    public static final long SERIAL_VERSION_UID = 1L;
 
 }

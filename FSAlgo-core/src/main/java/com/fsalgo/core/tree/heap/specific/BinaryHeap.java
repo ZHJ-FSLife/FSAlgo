@@ -21,6 +21,7 @@ package com.fsalgo.core.tree.heap.specific;
 
 import com.fsalgo.core.tree.heap.AbstractHeap;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -31,7 +32,9 @@ import java.util.List;
  * @Description: 二叉堆、优先队列
  * java自带类库有现成的，java.util.PriorityQueue
  */
-public class BinaryHeap<T extends Comparable<T>> extends AbstractHeap<T> {
+public class BinaryHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 存放堆节点

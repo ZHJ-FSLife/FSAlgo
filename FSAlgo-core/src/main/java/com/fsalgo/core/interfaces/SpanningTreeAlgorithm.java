@@ -68,7 +68,7 @@ public interface SpanningTreeAlgorithm<N> extends NameEntity {
      */
     class SpanningTreeImpl<N> implements SpanningTree<N>, Serializable {
 
-        private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
+        private static final long serialVersionUID = 1L;
 
         private final double weight;
         private final Set<Edge<N>> edges;

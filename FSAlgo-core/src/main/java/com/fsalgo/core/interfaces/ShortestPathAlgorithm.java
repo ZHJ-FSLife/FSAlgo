@@ -21,6 +21,7 @@ package com.fsalgo.core.interfaces;
 
 import com.fsalgo.core.struct.Edge;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -63,7 +64,9 @@ public interface ShortestPathAlgorithm<N> extends NameEntity {
         List<Edge<N>> getEdges();
     }
 
-    class GraphPathImpl<N> implements GraphPath<N> {
+    class GraphPathImpl<N> implements GraphPath<N>, Serializable {
+
+        private static final long serialVersionUID = 1L;
 
         private List<N> nodes;
         private List<Edge<N>> edges;

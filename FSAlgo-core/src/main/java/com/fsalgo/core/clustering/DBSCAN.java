@@ -35,7 +35,7 @@ import java.util.*;
  */
 public class DBSCAN<T extends Comparable<T>> implements ClusteringAlgorithm<T>, Serializable {
 
-    private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
+    private static final long serialVersionUID = 1L;
 
     private final int density;
 

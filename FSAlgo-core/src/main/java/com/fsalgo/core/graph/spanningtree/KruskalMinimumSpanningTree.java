@@ -24,6 +24,7 @@ import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.tree.UnionFind;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -31,7 +32,9 @@ import java.util.*;
  * @Date: 2022/12/21 20:03
  * @Description: 最小生成树 - 克鲁斯卡尔算法
  */
-public class KruskalMinimumSpanningTree<N> implements SpanningTreeAlgorithm<N> {
+public class KruskalMinimumSpanningTree<N> implements SpanningTreeAlgorithm<N>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Graph<N> graph;
 

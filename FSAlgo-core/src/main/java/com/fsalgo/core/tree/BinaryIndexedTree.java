@@ -19,6 +19,8 @@
  */
 package com.fsalgo.core.tree;
 
+import java.io.Serializable;
+
 /**
  * @Author: root
  * @Date: 2022/3/29 18:46
@@ -40,7 +42,9 @@ package com.fsalgo.core.tree;
  * |   |    |    |
  * 1   3    5    7
  */
-public class BinaryIndexedTree {
+public class BinaryIndexedTree implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final double[] tree;
 

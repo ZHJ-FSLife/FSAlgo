@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.tree;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +29,9 @@ import java.util.List;
  * @Date: 2023/1/17 13:40
  * @Description: 自平衡二叉树
  */
-public class AvlTree<T extends Comparable<T>> {
+public class AvlTree<T extends Comparable<T>> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Comparator<? super T> comparator;
 

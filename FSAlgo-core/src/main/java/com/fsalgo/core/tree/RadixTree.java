@@ -21,6 +21,7 @@ package com.fsalgo.core.tree;
 
 import com.fsalgo.core.interfaces.NameEntity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,9 @@ import java.util.List;
  * @Date: 2023/11/27 14:35
  * @Description:
  */
-public class RadixTree implements NameEntity {
+public class RadixTree implements NameEntity, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Node root;
 

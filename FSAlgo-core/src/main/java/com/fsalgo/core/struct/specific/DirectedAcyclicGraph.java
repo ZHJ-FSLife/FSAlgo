@@ -33,7 +33,7 @@ import java.util.*;
  */
 public class DirectedAcyclicGraph<N> extends DirectedGraph<N> implements Serializable {
 
-    private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
+    private static final long serialVersionUID = 1L;
 
     private final Map<N, Integer> indegree = new HashMap<>();
 

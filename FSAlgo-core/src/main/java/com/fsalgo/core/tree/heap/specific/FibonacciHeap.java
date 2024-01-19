@@ -21,6 +21,7 @@ package com.fsalgo.core.tree.heap.specific;
 
 import com.fsalgo.core.tree.heap.AbstractHeap;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
@@ -38,7 +39,9 @@ import java.util.NoSuchElementException;
  * remove -> O(logN)
  * decreaseKey -> O(1)
  */
-public class FibonacciHeap<T extends Comparable<T>> extends AbstractHeap<T> {
+public class FibonacciHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private static final double GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
 

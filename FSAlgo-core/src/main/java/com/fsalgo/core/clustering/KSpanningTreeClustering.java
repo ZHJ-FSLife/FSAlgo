@@ -48,7 +48,7 @@ import java.util.*;
  */
 public class KSpanningTreeClustering<N extends Comparable<N>> implements ClusteringAlgorithm<N>, Serializable {
 
-    private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
+    private static final long serialVersionUID = 1L;
 
     private Graph<N> graph;
 

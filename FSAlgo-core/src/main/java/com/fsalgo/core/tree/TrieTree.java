@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.tree;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +28,9 @@ import java.util.Map;
  * @Date: 2023/6/26 11:08
  * @Description: 字典树
  */
-public class TrieTree {
+public class TrieTree implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Node root;
 

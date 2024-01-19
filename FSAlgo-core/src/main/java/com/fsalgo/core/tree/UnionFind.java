@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.tree;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -29,7 +30,9 @@ import java.util.Set;
  * @Date: 2022/12/27 19:55
  * @Description: 并查集
  */
-public class UnionFind<T> {
+public class UnionFind<T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 记录节点的父级节点（或根节点），初始为节点本身

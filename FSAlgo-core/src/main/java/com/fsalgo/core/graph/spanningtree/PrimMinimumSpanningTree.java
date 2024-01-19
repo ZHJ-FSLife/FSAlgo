@@ -26,6 +26,7 @@ import com.fsalgo.core.struct.Graphs;
 import com.fsalgo.core.tree.heap.Heap;
 import com.fsalgo.core.tree.heap.specific.FibonacciHeap;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Map;
@@ -36,7 +37,9 @@ import java.util.Set;
  * @Date: 2022/12/21 20:03
  * @Description: 最小生成树 - 普里姆算法
  */
-public class PrimMinimumSpanningTree<N extends Comparable<N>> implements SpanningTreeAlgorithm<N> {
+public class PrimMinimumSpanningTree<N extends Comparable<N>> implements SpanningTreeAlgorithm<N>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Graph<N> graph;
 

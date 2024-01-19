@@ -21,6 +21,7 @@ package com.fsalgo.core.interfaces.flow;
 
 import com.fsalgo.core.struct.Edge;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -64,7 +65,9 @@ public interface MaximumFlowAlgorithm<N> extends FlowAlgorithm<N> {
      *
      * @param <N>
      */
-    class MaximumFlowImpl<N> extends FlowImpl<N> implements MaximumFlow<N> {
+    class MaximumFlowImpl<N> extends FlowImpl<N> implements MaximumFlow<N>, Serializable {
+
+        private static final long serialVersionUID = 1L;
 
         private Double value;
 

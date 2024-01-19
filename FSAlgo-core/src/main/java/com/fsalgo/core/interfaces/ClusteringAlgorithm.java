@@ -61,7 +61,7 @@ public interface ClusteringAlgorithm<T> extends NameEntity {
 
     class ClusteringImpl<T> implements Clustering<T>, Serializable {
 
-        private static final long serialVersionUID = BaseConstant.SERIAL_VERSION_UID;
+        private static final long serialVersionUID = 1L;
 
         private final List<Set<T>> clusters;
 
