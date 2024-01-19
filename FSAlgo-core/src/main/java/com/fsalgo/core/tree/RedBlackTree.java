@@ -58,10 +58,6 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
         return this.root;
     }
 
-    private Node<K> getParent(Node<K> node) {
-        return node != null ? node.parent : null;
-    }
-
     public void add(K key) {
         Node<K> node = new Node<>(key, true);
         add(node);
@@ -90,40 +86,38 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
     }
 
     private void addFixup(Node<K> node) {
-        Node<K> parent = node.parent;
-        Node<K> grandparent = parent.parent;
-        while (parent.red) {
-            if (parent == grandparent.left) {
-                Node<K> uncle = grandparent.right;
+        while (node.parent.red) {
+            if (node.parent == node.parent.parent.left) {
+                Node<K> uncle = node.parent.parent.right;
                 if (uncle.red) {
                     uncle.red = false;
-                    parent.red = false;
-                    grandparent.red = true;
-                    node = grandparent;
+                    node.parent.red = false;
+                    node.parent.parent.red = true;
+                    node = node.parent.parent;
                 } else {
-                    if (node == parent.right) {
-                        node = parent;
+                    if (node == node.parent.right) {
+                        node = node.parent;
                         leftRotate(node);
                     }
-                    parent.red = false;
-                    grandparent.red = true;
-                    rightRotate(grandparent);
+                    node.parent.red = false;
+                    node.parent.parent.red = true;
+                    rightRotate(node.parent.parent);
                 }
             } else {
-                Node<K> uncle = grandparent.left;
+                Node<K> uncle = node.parent.parent.left;
                 if (uncle.red) {
                     uncle.red = false;
-                    parent.red = false;
-                    grandparent.red = true;
-                    node = grandparent;
+                    node.parent.red = false;
+                    node.parent.parent.red = true;
+                    node = node.parent.parent;
                 } else {
-                    if (node == parent.left) {
-                        node = parent;
+                    if (node == node.parent.left) {
+                        node = node.parent;
                         rightRotate(node);
                     }
-                    parent.red = false;
-                    grandparent.red = true;
-                    leftRotate(grandparent);
+                    node.parent.red = false;
+                    node.parent.parent.red = true;
+                    leftRotate(node.parent.parent);
                 }
             }
         }
@@ -211,6 +205,10 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
                 childs.add(right);
             }
             return childs;
+        }
+
+        public boolean isRed() {
+             return red;
         }
 
         @Override

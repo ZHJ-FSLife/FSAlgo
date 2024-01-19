@@ -29,7 +29,7 @@ public class TreeTest {
             tree.add(num);
         }
 
-        FileUtils.toMdFile(TreeUtil.toMermaid(tree.getRoot(), RedBlackTree.Node::getChild), "RedBlackTree");
+        FileUtils.toMdFile(TreeUtil.rbtree2Mermaid(tree.getRoot(), RedBlackTree.Node::getChild), "RedBlackTree");
     }
 
     @Test
