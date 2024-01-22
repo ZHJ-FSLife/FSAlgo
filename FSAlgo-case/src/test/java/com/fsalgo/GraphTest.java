@@ -92,6 +92,7 @@ public class GraphTest {
 
         Graph<String> graph = GraphBuilder.<String>directed().build();
         addNodeToGraph(graph);
+        graph.addNode("n100");
 
         FileUtils.toMdFile(GraphUtil.toMermaid(graph), "DirectedGraphDemo");
         System.out.println(graph.edgeSize());
@@ -119,7 +120,7 @@ public class GraphTest {
         System.out.println();
 
 
-        // graph.removeNode(n1);
+        graph.removeNode(n1);
 
         graph.removeEdge(n2, n3);
 

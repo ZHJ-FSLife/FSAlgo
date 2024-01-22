@@ -19,7 +19,6 @@
  */
 package com.fsalgo.core.struct.specific;
 
-import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.enums.GraphTypeEnum;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.AbstractBaseGraph;
@@ -52,6 +51,8 @@ public class DirectedGraph<N> extends AbstractBaseGraph<N> implements Serializab
         addNode(source);
         addNode(target);
 
+        unattainable.remove(target);
+
         graphMap.get(source).setOutgoing(edge);
         graphMap.get(target).setIncoming(edge);
 
@@ -74,15 +75,17 @@ public class DirectedGraph<N> extends AbstractBaseGraph<N> implements Serializab
             sourceEdgeContainer.removeOutgoing(target);
         }
 
-        if (targetEdgeContainer.getOutgoing().containsKey(source)) {
-            connectEdgeSize += targetEdgeContainer.getOutgoing().get(source).size();
+        if (targetEdgeContainer.getIncoming().containsKey(source)) {
+            connectEdgeSize += targetEdgeContainer.getIncoming().get(source).size();
             targetEdgeContainer.removeAdjacent(source);
             targetEdgeContainer.removeIncoming(source);
             targetEdgeContainer.removeOutgoing(source);
         }
 
-        edgeSize -= connectEdgeSize;
+        addUnattainableNode(source);
+        addUnattainableNode(target);
 
+        edgeSize -= connectEdgeSize;
     }
 
     @Override

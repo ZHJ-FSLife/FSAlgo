@@ -131,6 +131,13 @@ public interface Graph<N> extends NameEntity {
     Set<Edge<N>> edges();
 
     /**
+     * 获取那些不可达的根节点、或孤儿节点
+     *
+     * @return 不可达的节点
+     */
+    Set<N> unattainableNodes();
+
+    /**
      * 该节点相邻的所有节点
      *
      * @param node 节点

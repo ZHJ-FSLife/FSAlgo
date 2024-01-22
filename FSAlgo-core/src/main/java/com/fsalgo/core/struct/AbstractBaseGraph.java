@@ -37,6 +37,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
 
     /**
      * 有向图中维护一个集合，记录那些没有被其它节点指向的节点，类似 GC root
+     * 无向图虽然是双向的有向图，但是也会存在那种即没有指向其它节点，也没有被其它节点指向的 “孤儿节点” 存在
      * 默认所有节点都是不可达的，之后逐一将其移除
      */
     protected Set<N> unattainable;
@@ -61,6 +62,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
         if (containsNode(node)) {
             return;
         }
+        addUnattainableNode(node);
         graphMap.put(node, new EdgeContainer<>(n -> new HashMap<>(), node));
     }
 
@@ -101,6 +103,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
         for (N outgoingNode : outgoingNodes(node)) {
             graphMap.get(outgoingNode).removeIncoming(node);
             graphMap.get(outgoingNode).removeAdjacent(node);
+            addUnattainableNode(outgoingNode);
         }
         graphMap.remove(node);
     }
@@ -209,6 +212,17 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     @Override
     public int edgeSize() {
         return edgeSize;
+    }
+
+    protected final void addUnattainableNode(N node) {
+        if (incomingNodes(node).isEmpty()) {
+            unattainable.add(node);
+        }
+    }
+
+    @Override
+    public Set<N> unattainableNodes() {
+        return unattainable;
     }
 
     /**

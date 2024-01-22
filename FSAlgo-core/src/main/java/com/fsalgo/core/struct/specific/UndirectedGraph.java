@@ -47,6 +47,8 @@ public class UndirectedGraph<N> extends DirectedGraph<N> implements Serializable
     public void addEdge(Edge<N> edge) {
         super.addEdge(edge);
 
+        unattainable.remove(edge.getSource());
+
         // 无向图在有向图的基础上添加一条反向的边
         Edge<N> inversion = edge.inversion();
         graphMap.get(edge.getSource()).setIncoming(inversion);
@@ -69,6 +71,9 @@ public class UndirectedGraph<N> extends DirectedGraph<N> implements Serializable
         targetEdgeContainer.removeAdjacent(source);
         targetEdgeContainer.removeIncoming(source);
         targetEdgeContainer.removeOutgoing(source);
+
+        addUnattainableNode(source);
+        addUnattainableNode(target);
 
         edgeSize -= connectEdgeSize;
     }
