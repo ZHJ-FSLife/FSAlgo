@@ -36,12 +36,19 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     protected int edgeSize = 0;
 
     /**
+     * 有向图中维护一个集合，记录那些没有被其它节点指向的节点，类似 GC root
+     * 默认所有节点都是不可达的，之后逐一将其移除
+     */
+    protected Set<N> unattainable;
+
+    /**
      * 图中节点与边的映射关系（邻接多重表）
      */
     protected Map<N, EdgeContainer<N>> graphMap;
 
     protected AbstractBaseGraph() {
-        graphMap = new LinkedHashMap<>();
+        unattainable = new HashSet<>();
+        graphMap = new HashMap<>();
     }
 
     /**
@@ -54,7 +61,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
         if (containsNode(node)) {
             return;
         }
-        graphMap.put(node, new EdgeContainer<>(n -> new LinkedHashMap<>(), node));
+        graphMap.put(node, new EdgeContainer<>(n -> new HashMap<>(), node));
     }
 
     /**
