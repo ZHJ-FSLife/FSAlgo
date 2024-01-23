@@ -35,7 +35,8 @@ public class DirectedAcyclicGraph<N> extends DirectedGraph<N> implements Seriali
 
     private static final long serialVersionUID = 1L;
 
-    private final Map<N, Integer> indegree = new HashMap<>();
+    // 队列记录入度为0的节点，用于增量式拓朴排序校验
+    private Deque<N> queue = new LinkedList<>();
 
     public DirectedAcyclicGraph() {
         super();
@@ -44,7 +45,11 @@ public class DirectedAcyclicGraph<N> extends DirectedGraph<N> implements Seriali
     @Override
     public void addNode(N node) {
         super.addNode(node);
-        indegree.putIfAbsent(node, 0);
+        // 如果该节点入度为0，加入队列
+        if (incomingNodes(node).isEmpty()) {
+            queue.add(node);
+        }
+
     }
 
     @Override
@@ -52,35 +57,35 @@ public class DirectedAcyclicGraph<N> extends DirectedGraph<N> implements Seriali
         super.addEdge(edge);
         N target = edge.getTarget();
 
-        indegree.put(target, indegree.get(target) + 1);
         if (hasCycle()) {
             throw new IllegalArgumentException("There are loops in the figure！");
         }
     }
 
     /**
-     * 拓朴排序检查是否存在环路（但是每次插入边时，都要检查一遍，比较耗时）
+     * 增量式拓扑排序的方式检验是否满足有向无环图
      *
      * @return true or false
      */
     private boolean hasCycle() {
         Set<N> visited = new HashSet<>();
-        Deque<N> zeroIndegree = new LinkedList<>();
-        for (N node : indegree.keySet()) {
-            if (indegree.get(node) == 0) {
-                zeroIndegree.offer(node);
+        Map<N, Integer> inDegreeCount = new HashMap<>();
+
+        while (!queue.isEmpty()) {
+            N node = queue.poll();
+            // 队列中节点可能随着新edge加入而度不为0
+            if (!incomingNodes(node).isEmpty()) {
+                continue;
             }
-        }
-        while (!zeroIndegree.isEmpty()) {
-            N node = zeroIndegree.poll();
             visited.add(node);
             for (N next : outgoingNodes(node)) {
-                indegree.put(next, indegree.get(next) - 1);
-                if (indegree.get(next) == 0) {
-                    zeroIndegree.offer(next);
+                if (inDegreeCount.containsKey(next)) {
+
                 }
             }
+
         }
+
         return visited.size() != nodeSize();
     }
 
