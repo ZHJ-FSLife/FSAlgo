@@ -64,13 +64,8 @@ public class UndirectedGraph<N> extends DirectedGraph<N> implements Serializable
 
         int connectEdgeSize = sourceEdgeContainer.getOutgoing().size();
 
-        sourceEdgeContainer.removeAdjacent(target);
-        sourceEdgeContainer.removeIncoming(target);
-        sourceEdgeContainer.removeOutgoing(target);
-
-        targetEdgeContainer.removeAdjacent(source);
-        targetEdgeContainer.removeIncoming(source);
-        targetEdgeContainer.removeOutgoing(source);
+        sourceEdgeContainer.removeAdjacentAll(target);
+        targetEdgeContainer.removeAdjacentAll(source);
 
         addUnattainableNode(source);
         addUnattainableNode(target);

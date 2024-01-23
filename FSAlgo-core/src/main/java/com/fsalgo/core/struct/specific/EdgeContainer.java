@@ -97,6 +97,12 @@ public class EdgeContainer<N>{
         adjacent.remove(node);
     }
 
+    public void removeAdjacentAll(N node) {
+        removeIncoming(node);
+        removeOutgoing(node);
+        removeAdjacent(node);
+    }
+
     public void removeIncoming(N node) {
         incoming.remove(node);
     }

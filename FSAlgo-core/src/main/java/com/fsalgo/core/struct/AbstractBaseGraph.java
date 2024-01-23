@@ -36,7 +36,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     protected int edgeSize = 0;
 
     /**
-     * 有向图中维护一个集合，记录那些没有被其它节点指向的节点，类似 GC root
+     * 有向图中维护一个集合，记录那些没有被其它节点指向的节点
      * 无向图虽然是双向的有向图，但是也会存在那种即没有指向其它节点，也没有被其它节点指向的 “孤儿节点” 存在
      * 默认所有节点都是不可达的，之后逐一将其移除
      */
@@ -177,7 +177,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<N> nodes() {
-        return new LinkedHashSet<>(graphMap.keySet());
+        return new HashSet<>(graphMap.keySet());
     }
 
     /**
@@ -187,7 +187,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<Edge<N>> edges() {
-        Set<Edge<N>> allEdge = new LinkedHashSet<>();
+        Set<Edge<N>> allEdge = new HashSet<>();
         for (N node : graphMap.keySet()) {
             allEdge.addAll(outgoingEdges(node));
         }
@@ -234,7 +234,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     @Override
     public Set<N> adjacentNodes(N node) {
         if (!containsNode(node)) {
-            return new LinkedHashSet<>();
+            return new HashSet<>();
         }
         return graphMap.get(node).getAdjacent().keySet();
     }
@@ -248,7 +248,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     @Override
     public Set<N> incomingNodes(N node) {
         if (!containsNode(node)) {
-            return new LinkedHashSet<>();
+            return new HashSet<>();
         }
         return graphMap.get(node).getIncoming().keySet();
     }
@@ -262,7 +262,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
     @Override
     public Set<N> outgoingNodes(N node) {
         if (!containsNode(node)) {
-            return new LinkedHashSet<>();
+            return new HashSet<>();
         }
         return graphMap.get(node).getOutgoing().keySet();
     }
@@ -339,7 +339,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<Edge<N>> adjacentEdges(N node) {
-        Set<Edge<N>> allAdjacentEdges = new LinkedHashSet<>();
+        Set<Edge<N>> allAdjacentEdges = new HashSet<>();
         for (Set<Edge<N>> edgeSet : graphMap.get(node).getAdjacent().values()) {
             allAdjacentEdges.addAll(edgeSet);
         }
@@ -354,7 +354,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<Edge<N>> incomingEdges(N node) {
-        Set<Edge<N>> allIncomingEdges = new LinkedHashSet<>();
+        Set<Edge<N>> allIncomingEdges = new HashSet<>();
         for (Set<Edge<N>> edgeSet : graphMap.get(node).getIncoming().values()) {
             allIncomingEdges.addAll(edgeSet);
         }
@@ -369,7 +369,7 @@ public abstract class AbstractBaseGraph<N> extends AbstractGraph<N> implements G
      */
     @Override
     public Set<Edge<N>> outgoingEdges(N node) {
-        Set<Edge<N>> allOutgoingEdges = new LinkedHashSet<>();
+        Set<Edge<N>> allOutgoingEdges = new HashSet<>();
         for (Set<Edge<N>> edgeSet : graphMap.get(node).getOutgoing().values()) {
             allOutgoingEdges.addAll(edgeSet);
         }

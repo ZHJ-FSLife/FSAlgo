@@ -70,16 +70,12 @@ public class DirectedGraph<N> extends AbstractBaseGraph<N> implements Serializab
 
         if (sourceEdgeContainer.getOutgoing().containsKey(target)) {
             connectEdgeSize += sourceEdgeContainer.getOutgoing().get(target).size();
-            sourceEdgeContainer.removeAdjacent(target);
-            sourceEdgeContainer.removeIncoming(target);
-            sourceEdgeContainer.removeOutgoing(target);
+            sourceEdgeContainer.removeAdjacentAll(target);
         }
 
         if (targetEdgeContainer.getIncoming().containsKey(source)) {
             connectEdgeSize += targetEdgeContainer.getIncoming().get(source).size();
-            targetEdgeContainer.removeAdjacent(source);
-            targetEdgeContainer.removeIncoming(source);
-            targetEdgeContainer.removeOutgoing(source);
+            targetEdgeContainer.removeAdjacentAll(source);
         }
 
         addUnattainableNode(source);
