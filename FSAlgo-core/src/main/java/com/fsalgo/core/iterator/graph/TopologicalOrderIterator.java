@@ -20,6 +20,8 @@
 
 package com.fsalgo.core.iterator.graph;
 
+import com.fsalgo.core.enums.GraphTypeEnum;
+import com.fsalgo.core.enums.exception.GraphBaseErrorEnum;
 import com.fsalgo.core.iterator.AbstractNodeIterator;
 import com.fsalgo.core.struct.Graph;
 
@@ -32,8 +34,11 @@ public class TopologicalOrderIterator<N> extends AbstractNodeIterator<N> {
 
     private final Graph<N> graph;
 
-    public TopologicalOrderIterator(Graph<N> graph) {
-        super(null);
+    public TopologicalOrderIterator(Graph<N> graph, N source) {
+        super(source);
+        if (!GraphTypeEnum.DIRECTED_ACYCLIC_GRAPH.equals(graph.getGraphType())) {
+            throw new IllegalArgumentException(GraphBaseErrorEnum.NOT_DIRECTED_ACYCLIC_GRAPH.getDesc());
+        }
         this.graph = graph;
     }
 

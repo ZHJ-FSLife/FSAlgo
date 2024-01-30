@@ -35,7 +35,9 @@ public class DirectedAcyclicGraph<N> extends DirectedGraph<N> implements Seriali
 
     private static final long serialVersionUID = 1L;
 
-    // 队列记录入度为0的节点，用于增量式拓朴排序校验
+    /**
+     * 队列记录入度为0的节点，用于增量式拓朴排序校验
+     */
     private Deque<N> queue = new LinkedList<>();
 
     public DirectedAcyclicGraph() {
