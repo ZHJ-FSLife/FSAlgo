@@ -19,6 +19,8 @@
  */
 package com.fsalgo.core.graph.spanningtree;
 
+import com.fsalgo.core.enums.GraphTypeEnum;
+import com.fsalgo.core.enums.exception.GraphBaseErrorEnum;
 import com.fsalgo.core.interfaces.SpanningTreeAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
@@ -49,8 +51,12 @@ public class PrimMinimumSpanningTree<N extends Comparable<N>> implements Spannin
 
     private Map<N, Integer> indexs;
 
+    Heap<N> heap;
 
     public PrimMinimumSpanningTree(Graph<N> graph) {
+        if (!GraphTypeEnum.UNDIRECTED_GRAPH.equals(graph.getGraphType())) {
+            throw new IllegalArgumentException(GraphBaseErrorEnum.NOT_UNDIRECTED_GRAPH.getDesc());
+        }
         this.graph = graph;
         initContainer();
     }
@@ -59,6 +65,13 @@ public class PrimMinimumSpanningTree<N extends Comparable<N>> implements Spannin
         this.indexs = Graphs.getNodeToIndexMapping(graph).getNodeMap();
         this.incomingEdge = new Edge[indexs.size()];
         this.visited = new boolean[indexs.size()];
+
+        // 使用斐波那契堆进行优化，相较于PriorityQueue，添加节点的时间复杂度从 O(logN) 优化到了 O(1)
+        heap = new FibonacciHeap<>(
+                Comparator.comparingDouble(n -> incomingEdge[indexs.get(n)].getWeight())
+        );
+        // 任意一节点开始（图中可能存在孤岛，不懒的时候在去优化吧）
+        heap.add(graph.nodes().iterator().next());
     }
 
     @Override
@@ -71,12 +84,6 @@ public class PrimMinimumSpanningTree<N extends Comparable<N>> implements Spannin
         double spanningTreeWeight = 0d;
         Set<Edge<N>> minimumSpanningTreeEdgeSet = new HashSet<>();
 
-        // 使用斐波那契堆进行优化，相较于PriorityQueue，添加节点的时间复杂度从 O(logN) 优化到了 O(1)
-        Heap<N> heap = new FibonacciHeap<>(
-                Comparator.comparingDouble(n -> incomingEdge[indexs.get(n)].getWeight())
-        );
-
-        heap.add(indexs.entrySet().iterator().next().getKey());
         while (!heap.isEmpty()) {
             N current = heap.remove();
 
