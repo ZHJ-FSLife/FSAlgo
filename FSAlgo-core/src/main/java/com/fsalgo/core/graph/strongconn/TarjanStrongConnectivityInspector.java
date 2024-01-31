@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.graph.strongconn;
 
+import com.fsalgo.core.enums.exception.GraphBaseErrorEnum;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.Graphs;
@@ -57,7 +58,7 @@ public class TarjanStrongConnectivityInspector<N> {
         this.graph = graph;
         initContainer();
     }
-    
+
     private void initContainer() {
         this.indexs = Graphs.getNodeToIndexMapping(graph).getNodeMap();
         this.dfn = new int[indexs.size()];
@@ -93,20 +94,24 @@ public class TarjanStrongConnectivityInspector<N> {
         if (root == null) {
             throw new IllegalArgumentException("the access node cannot be empty!");
         }
+        if (graph.containsNode(root)) {
+            throw new IllegalArgumentException(GraphBaseErrorEnum.NODE_NOT_EXIST.getDesc());
+        }
+        searchSort = 1;
         dfs(root);
     }
 
     /**
-     * 所有节点都作为起始节点搜索一遍图
-     * 已被访问过 或 无下一节点 的节点均略过
+     * 图中可能存在孤岛（或孤儿节点），若只从一节点出发会找不到它
+     * 如果不存在孤岛，取任意一节点出发即可
+     * 注：无向图例外，无向图由双向有向图组成，即所有节点都可被其它节点访问
      */
     public void searchGraph() {
-        for (Map.Entry<N, Integer> entry : indexs.entrySet()) {
-            N node = entry.getKey();
-            if (visited[indexs.get(node)] || graph.outgoingEdges(node).isEmpty()) {
-                continue;
-            }
-            searchSort = 1;
+        if (graph.unattainableNodes().isEmpty()) {
+            searchGraph(graph.nodes().iterator().next());
+            return;
+        }
+        for (N node : graph.unattainableNodes()) {
             searchGraph(node);
         }
     }
