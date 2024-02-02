@@ -34,7 +34,7 @@ public abstract class AbstractHeap<T> implements Heap<T>, Serializable {
     protected final Comparator<? super T> comparator;
 
     protected AbstractHeap(Comparator<? super T> comparator) {
-        this.comparator = comparator;
+        this.comparator = comparator != null ? comparator : (Comparator<? super T>) Comparator.naturalOrder();
     }
 
     /**

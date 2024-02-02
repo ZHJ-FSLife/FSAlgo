@@ -39,7 +39,7 @@ import java.util.NoSuchElementException;
  * remove -> O(logN)
  * decreaseKey -> O(1)
  */
-public class FibonacciHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Serializable {
+public class FibonacciHeap<T> extends AbstractHeap<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -52,7 +52,7 @@ public class FibonacciHeap<T extends Comparable<T>> extends AbstractHeap<T> impl
     private int rootNum = 0;
 
     public FibonacciHeap() {
-        this(Comparator.naturalOrder());
+        this(null);
     }
 
     public FibonacciHeap(Comparator<? super T> comparator) {

@@ -7,6 +7,8 @@ import com.fsalgo.core.tree.heap.specific.LeftistHeap;
 import com.fsalgo.core.tree.heap.specific.SkewHeap;
 import org.junit.Test;
 
+import java.util.Comparator;
+
 /**
  * @Author: root
  * @Date: 2023/1/17 9:03
@@ -23,12 +25,7 @@ public class HeapTest {
             heap.add(num);
         }
 
-        int i = 0;
         while (!heap.isEmpty()) {
-            if (i >= 5 && i < 10) {
-                heap.add(nums[i]);
-            }
-            i++;
             System.out.print(heap.remove() + ", ");
         }
     }

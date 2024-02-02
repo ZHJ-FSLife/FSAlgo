@@ -30,7 +30,7 @@ import java.util.NoSuchElementException;
  * @Date: 2023/1/17 13:39
  * @Description: 斜堆
  */
-public class SkewHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Serializable {
+public class SkewHeap<T> extends AbstractHeap<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,7 +39,7 @@ public class SkewHeap<T extends Comparable<T>> extends AbstractHeap<T> implement
     private int size = 0;
 
     public SkewHeap() {
-        this(Comparator.naturalOrder());
+        this(null);
     }
 
     public SkewHeap(Comparator<? super T> comparator) {

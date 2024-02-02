@@ -32,7 +32,7 @@ import java.util.List;
  * @Description: 二叉堆、优先队列
  * java自带类库有现成的，java.util.PriorityQueue
  */
-public class BinaryHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Serializable {
+public class BinaryHeap<T> extends AbstractHeap<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,7 +42,7 @@ public class BinaryHeap<T extends Comparable<T>> extends AbstractHeap<T> impleme
     private final List<T> queue;
 
     public BinaryHeap() {
-        this(Comparator.naturalOrder());
+        this(null);
     }
 
     public BinaryHeap(Comparator<? super T> comparator) {

@@ -29,12 +29,12 @@ import java.util.Comparator;
  * @Date: 2023/1/17 13:38
  * @Description: 二项式堆
  */
-public class BinomialHeap<T extends Comparable<T>> extends AbstractHeap<T> implements Serializable {
+public class BinomialHeap<T> extends AbstractHeap<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     public BinomialHeap() {
-        this(Comparator.naturalOrder());
+        this(null);
     }
 
     public BinomialHeap(Comparator<? super T> comparator) {
