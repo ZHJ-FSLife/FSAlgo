@@ -2,7 +2,6 @@ package com.fsalgo;
 
 import com.fsalgo.core.tree.*;
 import com.fsalgo.utils.FileUtils;
-import com.fsalgo.utils.GraphUtil;
 import com.fsalgo.utils.TreeUtil;
 import org.junit.Test;
 
@@ -97,13 +96,41 @@ public class TreeTest {
     }
 
     @Test
+    public void HuHuffmanTreeDemo1() {
+        String content = "HuffmanTree";
+
+        List<Character> list = new ArrayList<>();
+        for (char ch : content.toCharArray()) {
+            list.add(ch);
+        }
+
+        HuffmanTree<Character> huffman = new HuffmanTree<>(list);
+
+        List<Byte> encode = huffman.encode();
+
+        List<Character> decode = huffman.decode(encode);
+
+        System.out.println("编码：" + encode);
+        System.out.println("解码：" + decode);
+
+        // 转ascii转二进制
+        System.out.println("ascii：" + Arrays.toString(content.getBytes()));
+        System.out.println("常规转二进制长度：");
+        for (int i = 0; i < content.length(); i++) {
+            System.out.print(Integer.toBinaryString(content.getBytes()[i]));
+        }
+        System.out.println();
+    }
+
+    @Test
     public void HuffmanTreeDemo() {
-        HuffmanTree<Character> huffmanTree = new HuffmanTree<>();
+
+        HuffmanTreeBak<Character> huffmanTree = new HuffmanTreeBak<>();
 
         String content = "HuffmanTree";
 
         // 创建huffman树
-        HuffmanTree.Node<Character> treeNode = huffmanTree.createHuffmanTree(content.chars().mapToObj(c -> (char) c).toArray(Character[]::new));
+        HuffmanTreeBak.Node<Character> treeNode = huffmanTree.createHuffmanTree(content.chars().mapToObj(c -> (char) c).toArray(Character[]::new));
 
         Map<Character, String> huffmanCodeMap = new HashMap<>(16);
         huffmanTree.huffmanCode(treeNode, huffmanCodeMap, "");

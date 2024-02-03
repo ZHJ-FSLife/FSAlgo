@@ -17,24 +17,155 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.fsalgo.core.tree;
 
+import com.fsalgo.core.tree.heap.Heap;
+import com.fsalgo.core.tree.heap.specific.FibonacciHeap;
+
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: root
  * @Date: 2023/1/5 9:15
  * @Description:
  */
-public class HuffmanTree<T extends Comparable<T>> implements Serializable {
+public class HuffmanTree<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final int LEFT = 0;
+    public static final Byte LEFT = 0;
 
-    private static final int RIGHT = 1;
+    public static final Byte RIGHT = 1;
 
+    private final List<T> content;
+
+    private final Node<T> root;
+
+    public HuffmanTree(List<T> content) {
+        this.content = content;
+        root = builder(content);
+    }
+
+    /**
+     * 构建 Huffman 树
+     *
+     * @param content 原文本集合，例如原字符串大文本，可以按 "词"、"字符" 进行拆解成集合的形式来构建树
+     * @return 根节点
+     */
+    private Node<T> builder(List<T> content) {
+        // 统计每个元素出现的频率
+        Map<T, Integer> map = new HashMap<>(16);
+        for (T curr : content) {
+            map.put(curr, map.containsKey(curr) ? map.get(curr) + 1 : 1);
+        }
+
+        //构建小顶堆，按出现元素频率放入
+        Heap<Node<T>> heap = new FibonacciHeap<>(Comparator.comparingInt(n -> n.count));
+        for (T key : map.keySet()) {
+            heap.add(new Node<>(key, map.get(key)));
+        }
+
+        // 每次以堆中出现频率最小的两个元素合并为一个节点，后放回堆中直至只剩一个节点
+        while (heap.size() > 1) {
+            Node<T> first = heap.remove();
+            Node<T> second = heap.remove();
+            heap.add(new Node<>(first, second));
+        }
+        return heap.remove();
+    }
+
+    /**
+     * 将原文本集合进行编码，为byte集合的形式存储
+     *
+     * @return 编码结果
+     */
+    public List<Byte> encode() {
+        // 编码映射表
+        Map<T, List<Byte>> map = new HashMap<>(16);
+        encode(root, map, new ArrayList<>());
+
+        // 原文本集合转Byte集合
+        List<Byte> code = new ArrayList<>();
+        for (T key : content) {
+            code.addAll(map.get(key));
+        }
+
+        return code;
+    }
+
+    /**
+     * 将原文本集合进行编码，为byte集合的形式存储
+     *
+     * @param node 递归的每一个树节点
+     * @param map  编码映射表
+     * @param list 每组编码结果
+     */
+    private void encode(Node<T> node, Map<T, List<Byte>> map, List<Byte> list) {
+        if (node == null) {
+            return;
+        }
+        if (node.left == null && node.right == null) {
+            map.put(node.key, new ArrayList<>(list));
+            return;
+        }
+        encode(node.left, map, new ArrayList<>(list) {{
+            add(LEFT);
+        }});
+        encode(node.right, map, new ArrayList<>(list) {{
+            add(RIGHT);
+        }});
+    }
+
+    /**
+     * 将原文本编码结果解码，还原内容
+     *
+     * @param code 编码
+     * @return 解码原集合内容
+     */
+    public List<T> decode(List<Byte> code) {
+        List<T> result = new ArrayList<>();
+        decode(root, code, 0, result);
+        return result;
+    }
+
+    /**
+     * 将原文本编码结果解码，还原内容
+     *
+     * @param node   递归的每一个树节点
+     * @param code   编码内容
+     * @param index  已处理的编码集合中索引位置
+     * @param result 解码原集合内容
+     */
+    private void decode(Node<T> node, List<Byte> code, int index, List<T> result) {
+        if (node == null) {
+            return;
+        }
+        if (node.left == null && node.right == null) {
+            result.add(node.key);
+            decode(root, code, index, result);
+        }
+        if (index >= code.size()) {
+            return;
+        }
+        if (LEFT.equals(code.get(index))) {
+            decode(node.left, code, index + 1, result);
+        }
+        if (RIGHT.equals(code.get(index))) {
+            decode(node.right, code, index + 1, result);
+        }
+    }
+
+    /**
+     * 树节点
+     *
+     * @param <T>
+     */
     public static class Node<T> {
         T key;
         int count;
@@ -49,88 +180,8 @@ public class HuffmanTree<T extends Comparable<T>> implements Serializable {
         public Node(Node<T> left, Node<T> right) {
             this.left = left;
             this.right = right;
+            // 堆中合并节点时，其当前节点的频率为合并后左右两个子节点的总频率
             this.count = (left != null ? left.count : 0) + (right != null ? right.count : 0);
-        }
-    }
-
-    /**
-     * 构建huffman数
-     *
-     * @param content 字符串文本内容
-     * @return huffman树
-     */
-    public Node<T> createHuffmanTree(T[] content) {
-        Map<T, Integer> map = new HashMap<>();
-        for (T key : content) {
-            map.put(key, map.containsKey(key) ? map.get(key) + 1 : 1);
-        }
-
-        PriorityQueue<Node<T>> priorityQueue = new PriorityQueue<>(
-                Comparator.comparingInt(o -> o.count)
-        );
-        for (T key : map.keySet()) {
-            priorityQueue.add(new Node<>(key, map.get(key)));
-        }
-
-        // 开始构建huffman编码，每两个为一组
-        int index = 0;
-        Node<T> left = null;
-        while (priorityQueue.size() > 1) {
-            index++;
-            left = index == 1 ? priorityQueue.remove() : left;
-            if (index == 2) {
-                priorityQueue.add(new Node<>(left, priorityQueue.remove()));
-                index = 0;
-                left = null;
-            }
-        }
-        priorityQueue.add(new Node<>(left, priorityQueue.remove()));
-        return priorityQueue.remove();
-    }
-
-    /**
-     * 遍历huffman tree的叶子结点全路径，向左为0，向右为1
-     *
-     * @param root huffman树
-     * @param map  huffman编码表
-     * @param path huffman叶子节点全路径
-     */
-    public void huffmanCode(Node<T> root, Map<T, String> map, String path) {
-        if (root == null) {
-            return;
-        }
-        if (root.left == null && root.right == null) {
-            map.put(root.key, path);
-        } else {
-            huffmanCode(root.left, map, path + "0");
-            huffmanCode(root.right, map, path + "1");
-        }
-    }
-
-    /**
-     * huffman编码解码，还原字符串文本
-     *
-     * @param root   huffman树
-     * @param code   huffman编码
-     * @param result huffman编码解码后文本
-     */
-    public void huffmanDecode(Node<T> tree, Node<T> root, List<Byte> code, int index, StringBuilder result) {
-        if (root == null) {
-            return;
-        }
-        if (root.left == null && root.right == null) {
-            result.append(root.key);
-            // 从根节点重新开始向下搜索
-            huffmanDecode(tree, tree, code, index, result);
-        }
-        if (index >= code.size()) {
-            return;
-        }
-        if (code.get(index) == LEFT) {
-            huffmanDecode(tree, root.left, code, index + 1, result);
-        }
-        if (code.get(index) == RIGHT) {
-            huffmanDecode(tree, root.right, code, index + 1, result);
         }
     }
 }
