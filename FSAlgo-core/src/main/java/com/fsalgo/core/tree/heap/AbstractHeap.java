@@ -21,6 +21,7 @@ package com.fsalgo.core.tree.heap;
 
 import java.io.Serializable;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * @Author: root
@@ -35,6 +36,30 @@ public abstract class AbstractHeap<T> implements Heap<T>, Serializable {
 
     protected AbstractHeap(Comparator<? super T> comparator) {
         this.comparator = comparator != null ? comparator : (Comparator<? super T>) Comparator.naturalOrder();
+    }
+
+    /**
+     * 泛型数组形式添加多元素
+     *
+     * @param keys 多元素
+     */
+    @Override
+    public void addAll(T[] keys) {
+        for (T key : keys) {
+            add(key);
+        }
+    }
+
+    /**
+     * 泛型集合形式添加多元素
+     *
+     * @param keys 多元素
+     */
+    @Override
+    public void addAll(List<T> keys) {
+        for (T key : keys) {
+            add(key);
+        }
     }
 
     /**

@@ -21,6 +21,8 @@ package com.fsalgo.core.tree.heap;
 
 import com.fsalgo.core.interfaces.NameEntity;
 
+import java.util.List;
+
 /**
  * @Author: root
  * @Date: 2023/1/17 13:06
@@ -34,6 +36,20 @@ public interface Heap<T> extends NameEntity {
      * @param t 节点元素
      */
     void add(T t);
+
+    /**
+     * 泛型数组形式添加多元素
+     *
+     * @param keys 多元素
+     */
+    void addAll(T[] keys);
+
+    /**
+     * 泛型集合形式添加多元素
+     *
+     * @param keys 多元素
+     */
+    void addAll(List<T> keys);
 
     /**
      * 获取堆顶节点元素

@@ -18,12 +18,13 @@ public class HeapTest {
 
     @Test
     public void FibonacciHeapDemo() {
-        int[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
+        Integer[] nums = {3, 1, 4, 5, 0, 2, 9, 7, 8, 6};
         Heap<Integer> heap = new FibonacciHeap<>();
 
-        for (int num : nums) {
-            heap.add(num);
-        }
+        // for (int num : nums) {
+        //     heap.add(num);
+        // }
+        heap.addAll(nums);
 
         while (!heap.isEmpty()) {
             System.out.print(heap.remove() + ", ");
