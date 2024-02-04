@@ -34,7 +34,7 @@ import java.util.List;
  * @Date: 2023/3/25 21:07
  * @Description: K-Dimensional-Tree, 用于处理多维空间中数据节点距离的问题，例如KNN、K-Means、DBSAN...等算法需要计算点与点之间的距离
  */
-public class KDTree<T extends Comparable<T>> extends AbstractNearestNeighborSearch<T> {
+public class KDTree<T> extends AbstractNearestNeighborSearch<T> {
 
     private final Node<T> root;
 
@@ -172,7 +172,7 @@ public class KDTree<T extends Comparable<T>> extends AbstractNearestNeighborSear
     }
 
 
-    public static class Node<T extends Comparable<T>> {
+    public static class Node<T> {
         SpacePoint<T> point;
         int depth;
         Node<T> left;

@@ -31,7 +31,7 @@ import java.util.*;
  * @Date: 2023/3/5 22:37
  * @Description:
  */
-public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSearch<T> {
+public class BallTree<T> extends AbstractNearestNeighborSearch<T> {
 
     private final Node<T> root;
 
@@ -220,7 +220,7 @@ public class BallTree<T extends Comparable<T>> extends AbstractNearestNeighborSe
         return "ball-tree";
     }
 
-    public static class Node<T extends Comparable<T>> {
+    public static class Node<T> {
         final SpacePoint<T> point;
         final double radius;
         Node<T> left;
