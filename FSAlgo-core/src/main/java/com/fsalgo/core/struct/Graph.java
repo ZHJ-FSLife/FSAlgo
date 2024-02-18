@@ -199,6 +199,7 @@ public interface Graph<N> extends NameEntity {
      *
      * @param source 源节点
      * @param target 目标节点
+     * @param edge   指定的边
      * @return true or false
      */
     boolean hasEdgeConnecting(N source, N target, Edge<N> edge);
@@ -228,6 +229,11 @@ public interface Graph<N> extends NameEntity {
      */
     boolean containsEdge(Edge<N> edge);
 
+    /**
+     * 获取当前图的类型
+     *
+     * @return 返回图类型
+     */
     GraphTypeEnum getGraphType();
 
 }
