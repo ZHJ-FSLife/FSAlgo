@@ -17,6 +17,7 @@
 
 ---
 - https://leetcode.cn/
+- https://oi-wiki.org/
 - https://www.cs.usfca.edu/~galles/visualization/
 - https://gephi.org/
 - https://github.com/jgrapht/jgrapht
