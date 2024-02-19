@@ -29,7 +29,7 @@ import java.util.List;
  * @Date: 2023/1/5 9:15
  * @Description: B-树
  */
-public class BTree<T extends Comparable<T>> implements Serializable {
+public class BTree<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,11 +43,12 @@ public class BTree<T extends Comparable<T>> implements Serializable {
     private Node<T> root;
 
     public BTree() {
-        this(2, Comparator.naturalOrder());
+        this(2);
     }
 
+    @SuppressWarnings("unchecked")
     public BTree(int degree) {
-        this(degree, Comparator.naturalOrder());
+        this(degree, (Comparator<? super T>) Comparator.naturalOrder());
     }
 
     public BTree(int degree, Comparator<? super T> comparator) {

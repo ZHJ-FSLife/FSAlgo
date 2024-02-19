@@ -20,6 +20,7 @@
 package com.fsalgo.core.tree;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -28,25 +29,102 @@ import java.util.List;
  * @Date: 2023/1/5 9:15
  * @Description: B+树
  */
-public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
+public class BPlusTree<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Comparator<? super K> comparator;
+    private final Comparator<? super T> comparator;
+
+    private int degree;
+
+    private Node<T> root;
 
     public BPlusTree() {
-        this(Comparator.naturalOrder());
+        this(2);
     }
 
-    public BPlusTree(Comparator<? super K> comparator) {
+    @SuppressWarnings("unchecked")
+    public BPlusTree(int degree) {
+        this(degree, (Comparator<? super T>) Comparator.naturalOrder());
+    }
+
+    public BPlusTree(int degree, Comparator<? super T> comparator) {
+        this.degree = degree;
         this.comparator = comparator;
     }
 
-    public static class Node<K> {
+    public void add(T key) {
+        if (isFull(root)) {
+
+        }
+        add(root, key);
+    }
+
+    private void add(Node<T> node, T key) {
+        int index = findInsertIndex(node, key);
+        if (node.leaf) {
+            node.keys.add(index, key);
+            return;
+        }
+        Node<T> child = node.children.get(index);
+        if (isFull(child)) {
+            splitChildren(node, index);
+            if (compareTo(key, node.keys.get(index)) > 0) {
+                index++;
+            }
+        }
+        add(node.children.get(index), key);
+    }
+
+    private void splitChildren(Node<T> parent, int index) {
+        Node<T> child = parent.children.get(index);
+        Node<T> newChild = new Node<>(child.leaf);
+
+        int midIndex = child.keys.size() / 2;
+
+        if (!child.leaf) {
+            
+        }
+    }
+
+    private boolean isFull(Node<T> node) {
+        return node.keys.size() >= 2 * degree - 1;
+    }
+
+    private int findInsertIndex(Node<T> node, T key) {
+        int index = 0;
+        List<T> keys = node.keys;
+        while (index < keys.size() && compareTo(key, keys.get(index)) > 0) {
+            index++;
+        }
+        return index;
+    }
+
+    private int findSearchIndex(Node<T> node, T key) {
+        int index = 0;
+        List<T> keys = node.keys;
+        while (index < keys.size() && compareTo(key, keys.get(index)) >= 0) {
+            index++;
+        }
+        return index - 1;
+    }
+
+    private int compareTo(T x, T y) {
+        return comparator.compare(x, y);
+    }
+
+    static class Node<T> {
         boolean leaf;
-        List<K> keys;
-        List<Node<K>> child;
-        Node<K> next;
+        List<T> keys;
+        List<Node<T>> children;
+        Node<T> next;
+
+        public Node(boolean leaf) {
+            this.leaf = leaf;
+            this.keys = new ArrayList<>();
+            this.children = new ArrayList<>();
+            this.next = null;
+        }
     }
 
 }
