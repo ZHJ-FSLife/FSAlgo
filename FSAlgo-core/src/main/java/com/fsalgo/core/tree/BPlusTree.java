@@ -35,7 +35,7 @@ public class BPlusTree<T> implements Serializable {
 
     private final Comparator<? super T> comparator;
 
-    private int degree;
+    private final int degree;
 
     private Node<T> root;
 
@@ -83,7 +83,7 @@ public class BPlusTree<T> implements Serializable {
         int midIndex = child.keys.size() / 2;
 
         if (!child.leaf) {
-            
+
         }
     }
 
