@@ -1,4 +1,4 @@
-# fucking shit algorithm
+# FSAlgo
 
 - :shit: 个人用来练手的算法库，秉持着不引入任何第三方依赖，纯手锉的库（粗稿）。
 - :sleeping: 内有部分只建了空文件一直没时间去写的（懒...）。
