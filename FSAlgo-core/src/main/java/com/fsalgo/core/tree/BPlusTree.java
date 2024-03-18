@@ -20,7 +20,6 @@
 package com.fsalgo.core.tree;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,6 +38,8 @@ public class BPlusTree<T> implements Serializable {
 
     private Node<T> root;
 
+    private LeafNode<T> firstLeafNode;
+
     public BPlusTree() {
         this(2);
     }
@@ -53,79 +54,30 @@ public class BPlusTree<T> implements Serializable {
         this.comparator = comparator;
     }
 
-    public void add(T key) {
-        if (isFull(root)) {
-
-        }
-        add(root, key);
-    }
-
-    private void add(Node<T> node, T key) {
-        int index = findInsertIndex(node, key);
-        if (node.leaf) {
-            node.keys.add(index, key);
-            return;
-        }
-        Node<T> child = node.children.get(index);
-        if (isFull(child)) {
-            splitChildren(node, index);
-            if (compareTo(key, node.keys.get(index)) > 0) {
-                index++;
-            }
-        }
-        add(node.children.get(index), key);
-    }
-
-    private void splitChildren(Node<T> parent, int index) {
-        Node<T> child = parent.children.get(index);
-        Node<T> newChild = new Node<>(child.leaf);
-
-        int midIndex = child.keys.size() / 2;
-
-        if (!child.leaf) {
-
-        }
-    }
-
-    private boolean isFull(Node<T> node) {
-        return node.keys.size() >= 2 * degree - 1;
-    }
-
-    private int findInsertIndex(Node<T> node, T key) {
-        int index = 0;
-        List<T> keys = node.keys;
-        while (index < keys.size() && compareTo(key, keys.get(index)) > 0) {
-            index++;
-        }
-        return index;
-    }
-
-    private int findSearchIndex(Node<T> node, T key) {
-        int index = 0;
-        List<T> keys = node.keys;
-        while (index < keys.size() && compareTo(key, keys.get(index)) >= 0) {
-            index++;
-        }
-        return index - 1;
-    }
-
     private int compareTo(T x, T y) {
         return comparator.compare(x, y);
     }
 
     static class Node<T> {
-        boolean leaf;
-        List<T> keys;
-        List<Node<T>> children;
-        Node<T> next;
+        NonLeafNode<T> parent;
+    }
 
-        public Node(boolean leaf) {
-            this.leaf = leaf;
-            this.keys = new ArrayList<>();
-            this.children = new ArrayList<>();
-            this.next = null;
+    static class NonLeafNode<T> extends Node<T> {
+        int degree;
+        List<T> keys;
+        List<Node<T>> child;
+    }
+
+    static class LeafNode<T> extends Node<T> {
+        T key;
+        LeafNode<T> last;
+        LeafNode<T> next;
+
+        public LeafNode(T key) {
+            this.key = key;
         }
     }
+
 
 }
 
