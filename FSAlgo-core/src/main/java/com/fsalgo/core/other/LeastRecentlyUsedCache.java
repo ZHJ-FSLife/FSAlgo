@@ -20,15 +20,19 @@
 
 package com.fsalgo.core.other;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringJoiner;
 
 /**
  * @Author: root
  * @Date: 2024/3/22 6:10
  * @Description: LRU Cache | 最近最少使用
  */
-public class LeastRecentlyUsedCache<K, V> {
+public class LeastRecentlyUsedCache<K, V> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Map<K, Node<K, V>> cache;
 

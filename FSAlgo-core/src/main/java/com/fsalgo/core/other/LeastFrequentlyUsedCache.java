@@ -20,30 +20,133 @@
 
 package com.fsalgo.core.other;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @Author: root
  * @Date: 2024/3/22 6:38
  * @Description: LFU Cache | 最近最不常使用
  */
-public class LeastFrequentlyUsedCache<K, V> {
+public class LeastFrequentlyUsedCache<K, V> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private int minFreq;
 
     private final int capacity;
 
+    private final Map<K, Node<K, V>> keyMap;
+
+    private final Map<Integer, DoublyLinkedList<K, V>> freqMap;
+
     public LeastFrequentlyUsedCache(int capacity) {
+        this.minFreq = 0;
         this.capacity = capacity;
+        this.keyMap = new HashMap<>();
+        this.freqMap = new HashMap<>();
+    }
+
+    public V get(K key) {
+        if (!keyMap.containsKey(key)) {
+            return null;
+        }
+        Node<K, V> node = keyMap.get(key);
+        V val = node.val;
+        update(key, val, node);
+        return val;
+    }
+
+    public void put(K key, V val) {
+        if (!keyMap.containsKey(key)) {
+            // 如果超出容量大小，移除访问最不频繁的freqMap中的最后一个
+            if (keyMap.size() == capacity) {
+                Node<K, V> node = freqMap.get(minFreq).getTail();
+                keyMap.remove(node.key);
+                freqMap.get(minFreq).remove(node);
+
+                if (freqMap.get(minFreq).size == 0) {
+                    freqMap.remove(minFreq);
+                }
+            }
+            DoublyLinkedList<K, V> list = freqMap.getOrDefault(1, new DoublyLinkedList<>());
+            list.addFirst(new Node<>(key, val, 1));
+            freqMap.put(1, list);
+            keyMap.put(key, freqMap.get(1).getHead());
+            minFreq = 1;
+            return;
+        }
+        Node<K, V> node = keyMap.get(key);
+        update(key, val, node);
+    }
+
+    private void update(K key, V val, Node<K, V> node) {
+        int frequency = node.frequency;
+        freqMap.get(frequency).remove(node);
+        if (freqMap.get(frequency).size == 0) {
+            freqMap.remove(frequency);
+            if (minFreq == frequency) {
+                minFreq++;
+            }
+        }
+        DoublyLinkedList<K, V> list = freqMap.getOrDefault(frequency + 1, new DoublyLinkedList<>());
+        list.addFirst(new Node<>(key, val, frequency + 1));
+        freqMap.put(frequency + 1, list);
+        keyMap.put(key, freqMap.get(frequency + 1).getHead());
     }
 
     private static class Node<K, V> {
-        int frequency;
         K key;
         V val;
+        int frequency;
         Node<K, V> prev;
         Node<K, V> next;
 
-        public Node(K key, V val) {
+        public Node() {
+            this(null, null, 1);
+        }
+
+        public Node(K key, V val, int frequency) {
             this.key = key;
             this.val = val;
-            this.frequency = 1;
+            this.frequency = frequency;
+        }
+    }
+
+    private static class DoublyLinkedList<K, V> {
+        int size;
+        Node<K, V> head;
+        Node<K, V> tail;
+
+        public DoublyLinkedList() {
+            this.size = 0;
+            this.head = new Node<>();
+            this.tail = new Node<>();
+            this.head.next = tail;
+            this.tail.prev = head;
+        }
+
+        public void addFirst(Node<K, V> node) {
+            node.next = head.next;
+            node.next.prev = node;
+            node.prev = head;
+            head.next = node;
+            size++;
+        }
+
+        public void remove(Node<K, V> node) {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+            size--;
+        }
+
+        public Node<K, V> getHead() {
+            return head.next;
+        }
+
+        public Node<K, V> getTail() {
+            return tail.prev;
         }
     }
 

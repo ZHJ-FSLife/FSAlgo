@@ -20,6 +20,7 @@
 package com.fsalgo.core.tree;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -54,18 +55,46 @@ public class BPlusTree<T> implements Serializable {
         this.comparator = comparator;
     }
 
+    public void add(T key) {
+        if (firstLeafNode == null) {
+            firstLeafNode = new LeafNode<>(key);
+            root = firstLeafNode;
+            return;
+        }
+        // NonLeafNode node = new NonLeafNode();
+    }
+
     private int compareTo(T x, T y) {
         return comparator.compare(x, y);
     }
 
     static class Node<T> {
         NonLeafNode<T> parent;
+
+        public Node(NonLeafNode<T> parent) {
+            this.parent = parent;
+        }
+
+        public boolean isFull() {
+            return false;
+        }
     }
 
     static class NonLeafNode<T> extends Node<T> {
         int degree;
         List<T> keys;
         List<Node<T>> child;
+
+        public NonLeafNode(int degree) {
+            super(null);
+            this.degree = degree;
+            this.keys = new ArrayList<>();
+            this.child = new ArrayList<>();
+        }
+
+        public boolean idFull() {
+            return keys.size() >= degree - 1;
+        }
     }
 
     static class LeafNode<T> extends Node<T> {
@@ -74,6 +103,7 @@ public class BPlusTree<T> implements Serializable {
         LeafNode<T> next;
 
         public LeafNode(T key) {
+            super(null);
             this.key = key;
         }
     }

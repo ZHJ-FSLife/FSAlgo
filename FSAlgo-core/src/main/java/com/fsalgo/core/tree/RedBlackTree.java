@@ -37,7 +37,7 @@ import java.util.Objects;
  * 4、如果一个节点是红色的，则它的两个子节点都是黑色的
  * 5、对于每个节点，从该节点到其所有后代叶子节点的简单路径上，均包含相同数量的黑色节点
  */
-public class RedBlackTree<K extends Comparable<K>> implements Serializable {
+public class RedBlackTree<K> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,10 +45,11 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
 
     private Node<K> root;
 
-    private Node<K> leaf;
+    private final Node<K> leaf;
 
+    @SuppressWarnings("unchecked")
     public RedBlackTree() {
-        this(Comparator.naturalOrder());
+        this((Comparator<? super K>) Comparator.naturalOrder());
     }
 
     public RedBlackTree(Comparator<? super K> comparator) {
@@ -187,7 +188,7 @@ public class RedBlackTree<K extends Comparable<K>> implements Serializable {
         return comparator.compare(x, y) > 0;
     }
 
-    public static class Node<K extends Comparable<K>> {
+    public static class Node<K> {
         K key;
         boolean red;
         Node<K> left;
