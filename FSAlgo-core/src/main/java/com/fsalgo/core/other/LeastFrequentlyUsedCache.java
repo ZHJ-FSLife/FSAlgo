@@ -28,6 +28,9 @@ import java.util.Map;
  * @Author: root
  * @Date: 2024/3/22 6:38
  * @Description: LFU Cache | 最近最不常使用
+ * 实现方案：双哈希表+双链表
+ * get、put 时间复杂度：O(1)
+ *
  */
 public class LeastFrequentlyUsedCache<K, V> implements Serializable {
 
