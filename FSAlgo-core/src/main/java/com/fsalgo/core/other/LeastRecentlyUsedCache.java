@@ -42,6 +42,9 @@ public class LeastRecentlyUsedCache<K, V> implements Serializable {
     private final int capacity;
 
     public LeastRecentlyUsedCache(int capacity) {
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("The capacity cannot be less than 0");
+        }
         this.capacity = capacity;
         this.cache = new HashMap<>();
         this.head = new Node<>(null, null);

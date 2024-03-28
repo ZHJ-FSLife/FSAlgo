@@ -30,7 +30,6 @@ import java.util.Map;
  * @Description: LFU Cache | 最近最不常使用
  * 实现方案：双哈希表+双链表
  * get、put 时间复杂度：O(1)
- *
  */
 public class LeastFrequentlyUsedCache<K, V> implements Serializable {
 
@@ -40,17 +39,32 @@ public class LeastFrequentlyUsedCache<K, V> implements Serializable {
 
     private final int capacity;
 
+    /**
+     * 通过key快速定位节点，只有由节点前后指针操作当前所在双链表
+     */
     private final Map<K, Node<K, V>> keyMap;
 
+    /**
+     * key为使用频率，不同频率维护一组双向链表
+     */
     private final Map<Integer, DoublyLinkedList<K, V>> freqMap;
 
     public LeastFrequentlyUsedCache(int capacity) {
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("The capacity cannot be less than 0");
+        }
         this.minFreq = 0;
         this.capacity = capacity;
         this.keyMap = new HashMap<>();
         this.freqMap = new HashMap<>();
     }
 
+    /**
+     * 通过key获取val
+     *
+     * @param key K
+     * @return V
+     */
     public V get(K key) {
         if (!keyMap.containsKey(key)) {
             return null;
@@ -61,6 +75,12 @@ public class LeastFrequentlyUsedCache<K, V> implements Serializable {
         return val;
     }
 
+    /**
+     * 添加节点
+     *
+     * @param key K
+     * @param val V
+     */
     public void put(K key, V val) {
         if (!keyMap.containsKey(key)) {
             // 如果超出容量大小，移除访问最不频繁的freqMap中的最后一个
