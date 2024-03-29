@@ -35,8 +35,14 @@ public class LeastFrequentlyUsedCache<K, V> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 当前缓存中最少使用的频率
+     */
     private int minFreq;
 
+    /**
+     * 默认缓存容量大小
+     */
     private final int capacity;
 
     /**
@@ -104,6 +110,13 @@ public class LeastFrequentlyUsedCache<K, V> implements Serializable {
         update(key, val, node);
     }
 
+    /**
+     * 调整节点在链表中的位置
+     *
+     * @param key  K
+     * @param val  V
+     * @param node 节点
+     */
     private void update(K key, V val, Node<K, V> node) {
         int frequency = node.frequency;
         freqMap.get(frequency).remove(node);
@@ -137,6 +150,12 @@ public class LeastFrequentlyUsedCache<K, V> implements Serializable {
         }
     }
 
+    /**
+     * 由Node节点组成的双链表，存于freqMap
+     *
+     * @param <K>
+     * @param <V>
+     */
     private static class DoublyLinkedList<K, V> {
         int size;
         Node<K, V> head;
@@ -150,6 +169,11 @@ public class LeastFrequentlyUsedCache<K, V> implements Serializable {
             this.tail.prev = head;
         }
 
+        /**
+         * 节点插入双链表头部
+         *
+         * @param node 节点
+         */
         public void addFirst(Node<K, V> node) {
             node.next = head.next;
             node.next.prev = node;
@@ -158,16 +182,31 @@ public class LeastFrequentlyUsedCache<K, V> implements Serializable {
             size++;
         }
 
+        /**
+         * 从双链表中移出节点
+         *
+         * @param node 节点
+         */
         public void remove(Node<K, V> node) {
             node.prev.next = node.next;
             node.next.prev = node.prev;
             size--;
         }
 
+        /**
+         * 获取双链表头节点
+         *
+         * @return node
+         */
         public Node<K, V> getHead() {
             return head.next;
         }
 
+        /**
+         * 获取双链表尾节点
+         *
+         * @return node
+         */
         public Node<K, V> getTail() {
             return tail.prev;
         }
