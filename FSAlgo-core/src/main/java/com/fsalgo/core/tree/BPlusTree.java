@@ -21,7 +21,6 @@ package com.fsalgo.core.tree;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -29,82 +28,159 @@ import java.util.List;
  * @Date: 2023/1/5 9:15
  * @Description: B+树
  */
-public class BPlusTree<T> implements Serializable {
+public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Comparator<? super T> comparator;
+    /**
+     * 根节点
+     */
+    private NonLeafNode<K, V> root;
 
+    /**
+     * 第一节节点
+     */
+    private LeafNode<K, V> firstNode;
+
+    /**
+     * 度，B+树的阶数为: 2 * degree - 1
+     */
     private final int degree;
 
-    private Node<T> root;
-
-    private LeafNode<T> firstLeafNode;
-
-    public BPlusTree() {
-        this(2);
-    }
-
-    @SuppressWarnings("unchecked")
     public BPlusTree(int degree) {
-        this(degree, (Comparator<? super T>) Comparator.naturalOrder());
-    }
-
-    public BPlusTree(int degree, Comparator<? super T> comparator) {
         this.degree = degree;
-        this.comparator = comparator;
     }
 
-    public void add(T key) {
-        if (firstLeafNode == null) {
-            firstLeafNode = new LeafNode<>(key);
-            root = firstLeafNode;
+    /**
+     * 添加节点
+     *
+     * @param key   K
+     * @param value V
+     */
+    public void add(K key, V value) {
+        if (isEmpty()) {
+            firstNode = new LeafNode<>(degree, new KeyValuePair<>(key, value));
             return;
         }
-        // NonLeafNode node = new NonLeafNode();
+
+        LeafNode<K, V> leafNode = root == null ? firstNode : findLeafNode(root, key);
+        if (leafNode.add(new KeyValuePair<>(key, value))) {
+            return;
+        }
+        // 叶子节点失败，分裂节点
     }
 
-    private int compareTo(T x, T y) {
-        return comparator.compare(x, y);
+    /**
+     * 找到合适位置的叶子节点
+     *
+     * @param node NonLeafNode
+     * @param key  K
+     * @return LeafNode
+     */
+    private LeafNode<K, V> findLeafNode(NonLeafNode<K, V> node, K key) {
+        List<K> keys = node.keys;
+        int index = 0;
+        for (; index < degree - 1; index++) {
+            if (key.compareTo(keys.get(index)) > 0) {
+                break;
+            }
+        }
+        Node<K, V> child = node.children.get(index);
+
+        if (child instanceof LeafNode) {
+            return (LeafNode<K, V>) child;
+        }
+        // 当前节点还不是叶子节点，往下递归
+        return findLeafNode((NonLeafNode<K, V>) node.children.get(index), key);
     }
 
-    static class Node<T> {
-        NonLeafNode<T> parent;
+    public boolean isEmpty() {
+        return firstNode == null;
+    }
 
-        public Node(NonLeafNode<T> parent) {
-            this.parent = parent;
+    abstract class Node<K extends Comparable<K>, V> {
+
+        final int degree;
+
+        NonLeafNode<K, V> parent;
+
+        protected Node(int degree) {
+            this.degree = degree;
         }
 
-        public boolean isFull() {
-            return false;
+        protected int maxDegree() {
+            return 2 * degree - 1;
         }
+
+        protected int minDegree() {
+            return degree;
+        }
+
+        /**
+         * 当前节点是否满了
+         *
+         * @return true or false
+         */
+        abstract protected boolean isFull();
     }
 
-    static class NonLeafNode<T> extends Node<T> {
-        int degree;
-        List<T> keys;
-        List<Node<T>> child;
+    class NonLeafNode<K extends Comparable<K>, V> extends Node<K, V> {
+
+        List<K> keys;
+
+        List<Node<K, V>> children;
 
         public NonLeafNode(int degree) {
-            super(null);
-            this.degree = degree;
-            this.keys = new ArrayList<>();
-            this.child = new ArrayList<>();
+            super(degree);
         }
 
-        public boolean idFull() {
-            return keys.size() >= degree - 1;
+        @Override
+        protected boolean isFull() {
+            return keys.size() >= maxDegree();
+        }
+
+    }
+
+    class LeafNode<K extends Comparable<K>, V> extends Node<K, V> {
+
+        int degree;
+
+        List<KeyValuePair<K, V>> keyValuePairs;
+
+        protected LeafNode(int degree, KeyValuePair<K, V> keyValuePair) {
+            super(degree);
+            this.keyValuePairs = new ArrayList<>();
+            add(keyValuePair);
+        }
+
+        public boolean add(KeyValuePair<K, V> keyValuePair) {
+            if (isFull()) {
+                return false;
+            }
+            for (int i = 0; i < keyValuePairs.size(); i++) {
+                if (keyValuePair.key.compareTo(keyValuePairs.get(i).key) < 0) {
+                    keyValuePairs.add(i, keyValuePair);
+                    return true;
+                }
+            }
+            keyValuePairs.add(keyValuePair);
+            return true;
+        }
+
+        @Override
+        protected boolean isFull() {
+            return keyValuePairs.size() >= maxDegree();
         }
     }
 
-    static class LeafNode<T> extends Node<T> {
-        T key;
-        LeafNode<T> last;
-        LeafNode<T> next;
+    static class KeyValuePair<K extends Comparable<K>, V> {
 
-        public LeafNode(T key) {
-            super(null);
+        K key;
+        V value;
+
+        public KeyValuePair(K key, V value) {
             this.key = key;
+            this.value = value;
         }
     }
 
