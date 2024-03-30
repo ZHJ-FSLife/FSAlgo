@@ -1,6 +1,7 @@
 package com.fsalgo;
 
 import com.fsalgo.core.tree.*;
+import com.fsalgo.core.tree.BPlusTree;
 import com.fsalgo.utils.FileUtils;
 import com.fsalgo.utils.TreeUtil;
 import org.junit.Test;
@@ -18,6 +19,22 @@ public class TreeTest {
     public void RadixTreeDemo() {
         RadixTree trie = new RadixTree();
 
+    }
+
+    @Test
+    public void BPlusTreeDemo() {
+        BPlusTree<Integer, String> bPlusTree = new BPlusTree<>(3);
+        bPlusTree.add(1, "张三");
+        bPlusTree.add(6, "老八");
+        bPlusTree.add(2, "李四");
+        bPlusTree.add(8, "老八");
+        bPlusTree.add(5, "张七");
+        bPlusTree.add(3, "王五");
+        bPlusTree.add(9, "老八");
+        bPlusTree.add(4, "老六");
+        bPlusTree.add(7, "老八");
+
+        System.out.println(bPlusTree);
     }
 
     @Test
