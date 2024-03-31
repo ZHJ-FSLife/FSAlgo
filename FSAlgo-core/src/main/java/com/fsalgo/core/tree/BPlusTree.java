@@ -134,29 +134,19 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
             return 2 * degree - 1;
         }
 
+        /**
+         * 处理分割后的父节点
+         *
+         * @param nextNode
+         */
         protected void handleParent(Node<K, V> nextNode) {
             if (parent == null) {
                 parent = new NonLeafNode<>(degree);
                 parent.addChild(0, this);
             }
-
-            K firstOffspringKey = nextNode.getFirstKey();
-            if (nextNode instanceof NonLeafNode) {
-                firstOffspringKey = findFirstOffspringKey((NonLeafNode<K, V>) nextNode);
-            }
-
-            int keyIndex = parent.addKey(firstOffspringKey);
+            int keyIndex = parent.addKey(nextNode.getFirstKey());
             parent.addChild(keyIndex + 1, nextNode);
-
             nextNode.parent = parent;
-        }
-
-        private K findFirstOffspringKey(NonLeafNode<K, V> node) {
-            Node<K, V> child = node.children.get(0);
-            if (child instanceof LeafNode) {
-                return child.getFirstKey();
-            }
-            return findFirstOffspringKey((NonLeafNode<K, V>) child);
         }
 
         /**
@@ -213,27 +203,41 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
             children.add(index, child);
         }
 
+        /**
+         * 分割非叶子节点
+         *
+         * @return 当前非叶子节点分割两半之后，返回共同的一个父节点
+         */
         public NonLeafNode<K, V> split() {
             if (!isFull()) {
-                 return this;
+                return this;
             }
+            // 如果不存在父节点就创建一个
+            if (parent == null) {
+                parent = new NonLeafNode<>(degree);
+                parent.addChild(0, this);
+            }
+            // 初始化一个分割后的next节点
             NonLeafNode<K, V> nextNonLeafNode = new NonLeafNode<>(degree);
+            nextNonLeafNode.parent = parent;
 
-            // 分配孩子节点到nextNonLeafNode中
-            int mid = (int) Math.ceil(children.size() / 2.0);
-            for (int i = children.size() - 1; i >= mid; i--) {
-                Node<K, V> child = children.remove(i);
+            int keyMid = (int) Math.ceil(keys.size() / 2.0) - 1;
+            int childMid = (int) Math.ceil(children.size() / 2.0);
+            int keyIndex = keys.size() - 1;
+            // 分割keys
+            for (; keyIndex > keyMid; keyIndex--) {
+                nextNonLeafNode.addKey(keys.remove(keyIndex));
+            }
+            // 分割children
+            for (int childIndex = children.size() - 1; childIndex >= childMid; childIndex--) {
+                Node<K, V> child = children.remove(childIndex);
                 child.parent = nextNonLeafNode;
                 nextNonLeafNode.addChild(0, child);
-                keys.remove(keys.size() - 1);
             }
+            // 分割后中间剩余的key，作为分割后父节点的key（对应右节点最左边的第一个后代kv节点的key值）
+            int nextKeyIndex = parent.addKey(keys.remove(keyIndex));
+            parent.addChild(nextKeyIndex + 1, nextNonLeafNode);
 
-            // 取孩子节点的K，从索引1开始
-            for (int i = 1; i < nextNonLeafNode.children.size(); i++) {
-                nextNonLeafNode.keys.add(nextNonLeafNode.children.get(i).getFirstKey());
-            }
-
-            handleParent(nextNonLeafNode);
             return parent;
         }
 
@@ -255,10 +259,19 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
 
     static class LeafNode<K extends Comparable<K>, V> extends Node<K, V> {
 
+        /**
+         * 指向上一个叶子节点
+         */
         LeafNode<K, V> prev;
 
+        /**
+         * 指向下一个叶子节点
+         */
         LeafNode<K, V> next;
 
+        /**
+         * 存储叶子节点上的详细键值对
+         */
         List<KeyValuePair<K, V>> keyValuePairs;
 
         public LeafNode(int degree) {
