@@ -81,6 +81,14 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
         }
     }
 
+    public void remove(K key) {
+
+    }
+
+    public V search(K key) {
+        return null;
+    }
+
     /**
      * 找到合适位置的叶子节点
      *
@@ -92,7 +100,7 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
         List<K> keys = node.keys;
         int index = 0;
         for (; index < keys.size(); index++) {
-            if (key.compareTo(keys.get(index)) <= 0) {
+            if (key.compareTo(keys.get(index)) < 0) {
                 break;
             }
         }
@@ -330,6 +338,5 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
             return key + ":" + value;
         }
     }
-
 
 }
