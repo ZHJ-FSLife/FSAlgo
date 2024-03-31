@@ -302,7 +302,7 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
         /**
          * 中间分裂当前叶子节点，左半部分kv节点保留在当前叶子节点中，将右半部分kv节点分裂到新的叶子节点中去
          *
-         * @return next new Leaf Node
+         * @return 分割后的父节点
          */
         public NonLeafNode<K, V> split() {
             LeafNode<K, V> nextLeafNode = new LeafNode<>(degree);
