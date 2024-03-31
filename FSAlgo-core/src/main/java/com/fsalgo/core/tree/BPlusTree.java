@@ -48,6 +48,9 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
     private final int degree;
 
     public BPlusTree(int degree) {
+        if (degree <= 1) {
+            throw new IllegalArgumentException("The degree cannot be less than 2");
+        }
         this.degree = degree;
     }
 
@@ -131,20 +134,6 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
             return 2 * degree - 1;
         }
 
-        /**
-         * 获取kv集合中第一kv节点的K值，其父节点记录的K索引为子节点的第一个K值
-         *
-         * @return first key
-         */
-        abstract public K getFirstKey();
-
-        /**
-         * 当前节点是否满了
-         *
-         * @return true or false
-         */
-        abstract public boolean isFull();
-
         protected void handleParent(Node<K, V> nextNode) {
             if (parent == null) {
                 parent = new NonLeafNode<>(degree);
@@ -169,6 +158,20 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
             }
             return findFirstOffspringKey((NonLeafNode<K, V>) child);
         }
+
+        /**
+         * 获取kv集合中第一kv节点的K值，其父节点记录的K索引为子节点的第一个K值
+         *
+         * @return first key
+         */
+        abstract public K getFirstKey();
+
+        /**
+         * 当前节点是否满了
+         *
+         * @return true or false
+         */
+        abstract public boolean isFull();
     }
 
     static class NonLeafNode<K extends Comparable<K>, V> extends Node<K, V> {
@@ -320,7 +323,6 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
         public String toString() {
             return keyValuePairs.toString();
         }
-
     }
 
     static class KeyValuePair<K extends Comparable<K>, V> {
