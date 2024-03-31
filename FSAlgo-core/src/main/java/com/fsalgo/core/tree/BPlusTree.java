@@ -62,33 +62,24 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
             firstNode = new LeafNode<>(degree, new KeyValuePair<>(key, value));
             return;
         }
-
+        // 找当适合当前kv元素的叶子节点位置，添加进去
         LeafNode<K, V> leafNode = root == null ? firstNode : findLeafNode(root, key);
         KeyValuePair<K, V> kv = new KeyValuePair<>(key, value);
         leafNode.add(kv);
+
         if (!leafNode.isFull()) {
             return;
         }
-
-        // 先往当前叶子节点添加新kv节点，添加完了之后如果满了，在考虑开始分裂
-        LeafNode<K, V> nextLeafNode = leafNode.split();
-        // 开始处理父节点
-        // 如果当前叶子节点没有父节点，也就是说还没有开始分裂并构建出root节点来，初始化一个
-        if (leafNode.parent == null) {
-            root = new NonLeafNode<>(degree);
-            leafNode.parent = root;
-            nextLeafNode.parent = root;
+        // 当前叶子节点已满，分裂，并向上检查、分裂其父节点，返回最后一次分裂的父节点
+        NonLeafNode<K, V> parent = leafNode.split();
+        while (parent.isFull()) {
+            parent = parent.split();
         }
 
-        int keyIndex = leafNode.parent.addKey(nextLeafNode.getFirstKey());
-        // 如果当前父节点是新构建的还不存在其它key，那么子节点list里面没有leafNode
-        if (leafNode.parent.keys.size() == 1) {
-            leafNode.parent.addChild(keyIndex, leafNode);
+        if (root == null || parent.parent == null) {
+            root = parent;
         }
-        leafNode.parent.addChild(keyIndex + 1, nextLeafNode);
-
-        // 开始处理父节点分裂
-
+        System.out.println(root);
     }
 
     /**
@@ -119,7 +110,7 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
         return firstNode == null;
     }
 
-    abstract class Node<K extends Comparable<K>, V> {
+    static abstract class Node<K extends Comparable<K>, V> {
 
         final int degree;
 
@@ -134,14 +125,31 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
         }
 
         /**
+         * 获取kv集合中第一kv节点的K值，其父节点记录的K索引为子节点的第一个K值
+         *
+         * @return first key
+         */
+        abstract public K getFirstKey();
+
+        /**
          * 当前节点是否满了
          *
          * @return true or false
          */
-        abstract protected boolean isFull();
+        abstract public boolean isFull();
+
+        protected void handleParent(Node<K, V> nextNode) {
+            if (parent == null) {
+                parent = new NonLeafNode<>(degree);
+                parent.addChild(0, this);
+            }
+            int keyIndex = parent.addKey(nextNode.getFirstKey());
+            parent.addChild(keyIndex + 1, nextNode);
+            nextNode.parent = parent;
+        }
     }
 
-    class NonLeafNode<K extends Comparable<K>, V> extends Node<K, V> {
+    static class NonLeafNode<K extends Comparable<K>, V> extends Node<K, V> {
 
         List<K> keys;
 
@@ -180,14 +188,47 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
             children.add(index, child);
         }
 
+        public NonLeafNode<K, V> split() {
+            if (!isFull()) {
+                 return this;
+            }
+            NonLeafNode<K, V> nextNonLeafNode = new NonLeafNode<>(degree);
+
+            // 分配孩子节点到nextNonLeafNode中
+            int mid = (int) Math.ceil(children.size() / 2.0);
+            for (int i = children.size() - 1; i >= mid; i--) {
+                Node<K, V> child = children.remove(i);
+                child.parent = nextNonLeafNode;
+                nextNonLeafNode.addChild(0, child);
+                keys.remove(keys.size() - 1);
+            }
+
+            // 取孩子节点的K，从索引1开始
+            for (int i = 1; i < nextNonLeafNode.children.size(); i++) {
+                nextNonLeafNode.keys.add(nextNonLeafNode.children.get(i).getFirstKey());
+            }
+
+            handleParent(nextNonLeafNode);
+            return parent;
+        }
+
         @Override
-        protected boolean isFull() {
+        public K getFirstKey() {
+            return keys.get(0);
+        }
+
+        @Override
+        public boolean isFull() {
             return keys.size() >= maxDegree();
         }
 
+        @Override
+        public String toString() {
+            return keys.toString();
+        }
     }
 
-    class LeafNode<K extends Comparable<K>, V> extends Node<K, V> {
+    static class LeafNode<K extends Comparable<K>, V> extends Node<K, V> {
 
         LeafNode<K, V> prev;
 
@@ -205,6 +246,11 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
             add(keyValuePair);
         }
 
+        /**
+         * 添加kv节点到叶子节点中，插入排序的方式追加kv节点
+         *
+         * @param keyValuePair 键值对
+         */
         public void add(KeyValuePair<K, V> keyValuePair) {
             int i = 0;
             for (; i < keyValuePairs.size(); i++) {
@@ -218,12 +264,10 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
         /**
          * 中间分裂当前叶子节点，左半部分kv节点保留在当前叶子节点中，将右半部分kv节点分裂到新的叶子节点中去
          *
-         * @return
+         * @return next new Leaf Node
          */
-        public LeafNode<K, V> split() {
+        public NonLeafNode<K, V> split() {
             LeafNode<K, V> nextLeafNode = new LeafNode<>(degree);
-            //默认先共用一个父节点
-            nextLeafNode.parent = this.parent;
             // 更新当前节点与分裂后节点的前后指针
             nextLeafNode.prev = this;
             nextLeafNode.next = this.next;
@@ -235,21 +279,26 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
                 // 此处remove的是原list中的最后一个kv节点
                 nextLeafNode.add(keyValuePairs.remove(i));
             }
-            return nextLeafNode;
+
+            handleParent(nextLeafNode);
+            return parent;
         }
 
-        /**
-         * 获取kv集合中第一kv节点的K值，其父节点记录的K索引为子节点的第一个K值
-         * @return
-         */
+        @Override
         public K getFirstKey() {
             return keyValuePairs.get(0).key;
         }
 
         @Override
-        protected boolean isFull() {
+        public boolean isFull() {
             return keyValuePairs.size() >= maxDegree();
         }
+
+        @Override
+        public String toString() {
+            return keyValuePairs.toString();
+        }
+
     }
 
     static class KeyValuePair<K extends Comparable<K>, V> {
