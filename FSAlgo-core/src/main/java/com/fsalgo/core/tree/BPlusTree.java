@@ -79,7 +79,6 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
         if (root == null || parent.parent == null) {
             root = parent;
         }
-        System.out.println(root);
     }
 
     /**
@@ -143,9 +142,24 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
                 parent = new NonLeafNode<>(degree);
                 parent.addChild(0, this);
             }
-            int keyIndex = parent.addKey(nextNode.getFirstKey());
+
+            K firstOffspringKey = nextNode.getFirstKey();
+            if (nextNode instanceof NonLeafNode) {
+                firstOffspringKey = findFirstOffspringKey((NonLeafNode<K, V>) nextNode);
+            }
+
+            int keyIndex = parent.addKey(firstOffspringKey);
             parent.addChild(keyIndex + 1, nextNode);
+
             nextNode.parent = parent;
+        }
+
+        private K findFirstOffspringKey(NonLeafNode<K, V> node) {
+            Node<K, V> child = node.children.get(0);
+            if (child instanceof LeafNode) {
+                return child.getFirstKey();
+            }
+            return findFirstOffspringKey((NonLeafNode<K, V>) child);
         }
     }
 

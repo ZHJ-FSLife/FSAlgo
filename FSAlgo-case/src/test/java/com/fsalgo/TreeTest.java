@@ -23,12 +23,12 @@ public class TreeTest {
 
     @Test
     public void BPlusTreeDemo() {
-        BPlusTree<Integer, String> bPlusTree = new BPlusTree<>(3);
-        bPlusTree.add(1, "张三");
+        BPlusTree<Integer, String> bPlusTree = new BPlusTree<>(2);
         bPlusTree.add(20, "老八");
         bPlusTree.add(6, "老八");
         bPlusTree.add(24, "老八");
         bPlusTree.add(2, "李四");
+        bPlusTree.add(1, "张三");
         bPlusTree.add(13, "老八");
         bPlusTree.add(17, "老八");
         bPlusTree.add(8, "老八");
