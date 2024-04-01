@@ -117,10 +117,6 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
      * @return 叶子节点
      */
     private LeafNode<K, V> search(NonLeafNode<K, V> node, K key) {
-        Node<K, V> child = node.children.get(0);
-        if (child instanceof LeafNode) {
-            return (LeafNode<K, V>) child;
-        }
         int i = 0;
         for (; i < node.keys.size(); i++) {
             K nextKey = node.keys.get(i);
@@ -128,7 +124,11 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
                 break;
             }
         }
-        return search((NonLeafNode<K, V>) node.children.get(i), key);
+        Node<K, V> child = node.children.get(i);
+        if (child instanceof LeafNode) {
+            return (LeafNode<K, V>) child;
+        }
+        return search((NonLeafNode<K, V>) child, key);
     }
 
     /**

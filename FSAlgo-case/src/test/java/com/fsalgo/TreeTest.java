@@ -23,7 +23,7 @@ public class TreeTest {
 
     @Test
     public void BPlusTreeDemo() {
-        BPlusTree<Integer, String> bPlusTree = new BPlusTree<>(2);
+        BPlusTree<Integer, String> bPlusTree = new BPlusTree<>(3);
         bPlusTree.add(18, "老六_18");
         bPlusTree.add(19, "王五_19");
         bPlusTree.add(5, "张七_5");
@@ -50,12 +50,12 @@ public class TreeTest {
         bPlusTree.add(7, "老八_7");
         bPlusTree.add(25, "老六_25");
 
-        System.out.println(bPlusTree.search(1));
-        System.out.println(bPlusTree.search(21));
-        System.out.println(bPlusTree.search(23));
-        System.out.println(bPlusTree.search(100));
+        System.out.println("指定key搜索：" + bPlusTree.search(1));
+        System.out.println("指定key搜索：" + bPlusTree.search(21));
+        System.out.println("指定key搜索：" + bPlusTree.search(23));
+        System.out.println("指定key搜索：" + bPlusTree.search(100));
 
-        System.out.println(bPlusTree.range(10, 20));
+        System.out.println("指定区间搜索：" + bPlusTree.range(10, 20));
 
         System.out.println(bPlusTree);
     }
