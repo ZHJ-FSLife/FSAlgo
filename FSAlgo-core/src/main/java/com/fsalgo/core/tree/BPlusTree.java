@@ -88,8 +88,76 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
 
     }
 
+    /**
+     * 搜索指定key对应的value
+     *
+     * @param key K
+     * @return V
+     */
     public V search(K key) {
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+        KeyValuePair<K, V> keyValuePair;
+        // 如果root为空，表示当前只有一个叶子节点还没开始分裂，直接从firstNode开始找
+        if (root == null) {
+            keyValuePair = firstNode.findKeyValuePair(key);
+            return keyValuePair == null ? null : keyValuePair.value;
+        }
+        // 从root开始递归下去找到对应的叶子节点
+        keyValuePair = search(root, key).findKeyValuePair(key);
+        return keyValuePair == null ? null : keyValuePair.value;
+    }
+
+    /**
+     * 递归下去找到该key所在的叶子节点
+     *
+     * @param node 非叶子节点
+     * @param key  K
+     * @return 叶子节点
+     */
+    private LeafNode<K, V> search(NonLeafNode<K, V> node, K key) {
+        Node<K, V> child = node.children.get(0);
+        if (child instanceof LeafNode) {
+            return (LeafNode<K, V>) child;
+        }
+        int i = 0;
+        for (; i < node.keys.size(); i++) {
+            K nextKey = node.keys.get(i);
+            if (nextKey.compareTo(key) > 0) {
+                break;
+            }
+        }
+        return search((NonLeafNode<K, V>) node.children.get(i), key);
+    }
+
+    /**
+     * 区间搜索，start >= x < end
+     *
+     * @param start 起始key
+     * @param end   结束key
+     * @return List<V>
+     */
+    public List<V> range(K start, K end) {
+        List<V> result = new ArrayList<>();
+        if (isEmpty() || start.compareTo(end) > 0) {
+            return result;
+        }
+        // 找到>=start所在的叶子节点，从该叶子节点的next指针开始往下找，直到end为止
+        LeafNode<K, V> startLeafNode = search(root, start);
+        while (startLeafNode.next != null) {
+            for (KeyValuePair<K, V> kv : startLeafNode.keyValuePairs) {
+                K key = kv.key;
+                if (key.compareTo(end) >= 0) {
+                    return result;
+                }
+                if (key.compareTo(start) >= 0) {
+                    result.add(kv.value);
+                }
+            }
+            startLeafNode = startLeafNode.next;
+        }
+        return result;
     }
 
     /**
@@ -320,6 +388,22 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
 
             handleParent(nextLeafNode);
             return parent;
+        }
+
+        /**
+         * 遍历当前叶子节点，找到与之key对应的kv元素
+         * degree不是很大的话，List<KeyValuePair>不会很大，没必要再二分查找了，
+         *
+         * @param key K
+         * @return V
+         */
+        public KeyValuePair<K, V> findKeyValuePair(K key) {
+            for (KeyValuePair<K, V> kv : keyValuePairs) {
+                if (kv.key.compareTo(key) == 0) {
+                    return kv;
+                }
+            }
+            return null;
         }
 
         @Override

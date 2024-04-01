@@ -24,31 +24,38 @@ public class TreeTest {
     @Test
     public void BPlusTreeDemo() {
         BPlusTree<Integer, String> bPlusTree = new BPlusTree<>(2);
-        bPlusTree.add(18, "老六");
-        bPlusTree.add(19, "王五");
-        bPlusTree.add(5, "张七");
-        bPlusTree.add(17, "老八");
-        bPlusTree.add(14, "王五");
-        bPlusTree.add(15, "老八");
-        bPlusTree.add(1, "张三");
-        bPlusTree.add(9, "老八");
-        bPlusTree.add(10, "王五");
-        bPlusTree.add(11, "老八");
-        bPlusTree.add(12, "老六");
-        bPlusTree.add(13, "老八");
-        bPlusTree.add(8, "老八");
-        bPlusTree.add(24, "老八");
-        bPlusTree.add(16, "老六");
-        bPlusTree.add(2, "李四");
-        bPlusTree.add(3, "王五");
-        bPlusTree.add(4, "老六");
-        bPlusTree.add(22, "老六");
-        bPlusTree.add(23, "王五");
-        bPlusTree.add(20, "老八");
-        bPlusTree.add(21, "老六");
-        bPlusTree.add(6, "老八");
-        bPlusTree.add(7, "老八");
-        bPlusTree.add(25, "老六");
+        bPlusTree.add(18, "老六_18");
+        bPlusTree.add(19, "王五_19");
+        bPlusTree.add(5, "张七_5");
+        bPlusTree.add(17, "老八_17");
+        bPlusTree.add(14, "王五_14");
+        bPlusTree.add(15, "老八_15");
+        bPlusTree.add(1, "张三_1");
+        bPlusTree.add(9, "老八_9");
+        bPlusTree.add(10, "王五_10");
+        bPlusTree.add(11, "王五_11");
+        bPlusTree.add(12, "老六_12");
+        bPlusTree.add(13, "王五_13");
+        bPlusTree.add(8, "老八_8");
+        bPlusTree.add(24, "老八_24");
+        bPlusTree.add(16, "张三_16");
+        bPlusTree.add(2, "李四_2");
+        bPlusTree.add(3, "王五_3");
+        bPlusTree.add(4, "老六_4");
+        bPlusTree.add(22, "老六_22");
+        bPlusTree.add(23, "王五_23");
+        bPlusTree.add(20, "张七_20");
+        bPlusTree.add(21, "老六_21");
+        bPlusTree.add(6, "老八_6");
+        bPlusTree.add(7, "老八_7");
+        bPlusTree.add(25, "老六_25");
+
+        System.out.println(bPlusTree.search(1));
+        System.out.println(bPlusTree.search(21));
+        System.out.println(bPlusTree.search(23));
+        System.out.println(bPlusTree.search(100));
+
+        System.out.println(bPlusTree.range(10, 20));
 
         System.out.println(bPlusTree);
     }
