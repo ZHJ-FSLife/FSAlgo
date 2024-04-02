@@ -117,14 +117,14 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
      * @return 叶子节点
      */
     private LeafNode<K, V> search(NonLeafNode<K, V> node, K key) {
-        int i = 0;
-        for (; i < node.keys.size(); i++) {
-            K nextKey = node.keys.get(i);
+        int index = 0;
+        for (; index < node.keys.size(); index++) {
+            K nextKey = node.keys.get(index);
             if (nextKey.compareTo(key) > 0) {
                 break;
             }
         }
-        Node<K, V> child = node.children.get(i);
+        Node<K, V> child = node.children.get(index);
         if (child instanceof LeafNode) {
             return (LeafNode<K, V>) child;
         }
@@ -132,26 +132,26 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
     }
 
     /**
-     * 区间搜索，start >= x < end
+     * 区间搜索，min >= x < max
      *
-     * @param start 起始key
-     * @param end   结束key
+     * @param min 最小key
+     * @param max 最大key
      * @return List<V>
      */
-    public List<V> range(K start, K end) {
+    public List<V> range(K min, K max) {
         List<V> result = new ArrayList<>();
-        if (isEmpty() || start.compareTo(end) > 0) {
+        if (isEmpty() || min.compareTo(max) > 0) {
             return result;
         }
         // 找到>=start所在的叶子节点，从该叶子节点的next指针开始往下找，直到end为止
-        LeafNode<K, V> startLeafNode = search(root, start);
+        LeafNode<K, V> startLeafNode = search(root, min);
         while (startLeafNode.next != null) {
             for (KeyValuePair<K, V> kv : startLeafNode.keyValuePairs) {
                 K key = kv.key;
-                if (key.compareTo(end) >= 0) {
+                if (key.compareTo(max) >= 0) {
                     return result;
                 }
-                if (key.compareTo(start) >= 0) {
+                if (key.compareTo(min) >= 0) {
                     result.add(kv.value);
                 }
             }
