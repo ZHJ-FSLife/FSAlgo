@@ -88,26 +88,26 @@ public class LeastFrequentlyUsedCache<K, V> implements Serializable {
      * @param val V
      */
     public void put(K key, V val) {
-        if (!keyMap.containsKey(key)) {
-            // 如果超出容量大小，移除访问最不频繁的freqMap中的最后一个
-            if (keyMap.size() == capacity) {
-                Node<K, V> node = freqMap.get(minFreq).getTail();
-                keyMap.remove(node.key);
-                freqMap.get(minFreq).remove(node);
-
-                if (freqMap.get(minFreq).size == 0) {
-                    freqMap.remove(minFreq);
-                }
-            }
-            DoublyLinkedList<K, V> list = freqMap.getOrDefault(1, new DoublyLinkedList<>());
-            list.addFirst(new Node<>(key, val, 1));
-            freqMap.put(1, list);
-            keyMap.put(key, freqMap.get(1).getHead());
-            minFreq = 1;
+        if (keyMap.containsKey(key)) {
+            Node<K, V> node = keyMap.get(key);
+            update(key, val, node);
             return;
         }
-        Node<K, V> node = keyMap.get(key);
-        update(key, val, node);
+        // 如果超出容量大小，移除访问最不频繁的freqMap中的最后一个
+        if (keyMap.size() == capacity) {
+            Node<K, V> node = freqMap.get(minFreq).getTail();
+            keyMap.remove(node.key);
+            freqMap.get(minFreq).remove(node);
+
+            if (freqMap.get(minFreq).size == 0) {
+                freqMap.remove(minFreq);
+            }
+        }
+        DoublyLinkedList<K, V> list = freqMap.getOrDefault(1, new DoublyLinkedList<>());
+        list.addFirst(new Node<>(key, val, 1));
+        freqMap.put(1, list);
+        keyMap.put(key, freqMap.get(1).getHead());
+        minFreq = 1;
     }
 
     /**
