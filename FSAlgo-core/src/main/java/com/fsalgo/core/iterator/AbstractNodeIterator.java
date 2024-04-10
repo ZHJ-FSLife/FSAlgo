@@ -39,16 +39,32 @@ public abstract class AbstractNodeIterator<N> implements NodeTraverseIterator<N>
         this.source = source;
     }
 
+    /**
+     * 获取下一个节点
+     *
+     * @return 下一个节点
+     */
     protected abstract N getNextNode();
 
+    /**
+     * 移除下一个节点
+     *
+     * @return 下一个节点
+     */
     protected abstract N removeNextNode();
 
+    /**
+     * 添加子节点
+     *
+     * @param node 子节点
+     */
     protected abstract void addChildNode(N node);
 
     @Override
     public void remove() {
         removeNextNode();
     }
+
     @Override
     public boolean hasNext() {
         while (visited.contains(getNextNode())) {

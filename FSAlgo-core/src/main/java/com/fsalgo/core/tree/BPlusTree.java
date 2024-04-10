@@ -143,7 +143,7 @@ public class BPlusTree<K extends Comparable<K>, V> implements Serializable {
         if (isEmpty() || min.compareTo(max) > 0) {
             return result;
         }
-        // 找到>=start所在的叶子节点，从该叶子节点的next指针开始往下找，直到end为止
+        // 找到>=min所在的叶子节点，从该叶子节点的next指针开始往下找，直到max为止
         LeafNode<K, V> startLeafNode = search(root, min);
         while (startLeafNode.next != null) {
             for (KeyValuePair<K, V> kv : startLeafNode.keyValuePairs) {

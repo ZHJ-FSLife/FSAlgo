@@ -59,8 +59,19 @@ public interface ShortestPathAlgorithm<N> extends NameEntity {
     }
 
     interface GraphPath<N> {
+
+        /**
+         * 获取节点集合
+         *
+         * @return nodes
+         */
         List<N> getNodes();
 
+        /**
+         * 获取边集合
+         *
+         * @return edges
+         */
         List<Edge<N>> getEdges();
     }
 
@@ -68,8 +79,8 @@ public interface ShortestPathAlgorithm<N> extends NameEntity {
 
         private static final long serialVersionUID = 1L;
 
-        private List<N> nodes;
-        private List<Edge<N>> edges;
+        private final List<N> nodes;
+        private final List<Edge<N>> edges;
 
         public GraphPathImpl(List<N> nodes, List<Edge<N>> edges) {
             this.nodes = nodes;

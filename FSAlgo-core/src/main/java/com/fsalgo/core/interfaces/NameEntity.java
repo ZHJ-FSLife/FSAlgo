@@ -25,5 +25,10 @@ package com.fsalgo.core.interfaces;
  * @Description:
  */
 public interface NameEntity {
+
+    /**
+     * get name
+     * @return name
+     */
     String getName();
 }
