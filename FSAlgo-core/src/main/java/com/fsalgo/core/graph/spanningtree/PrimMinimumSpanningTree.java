@@ -19,8 +19,8 @@
  */
 package com.fsalgo.core.graph.spanningtree;
 
-import com.fsalgo.core.enums.GraphTypeEnum;
-import com.fsalgo.core.enums.exception.GraphBaseErrorEnum;
+import com.fsalgo.core.other.enums.GraphTypeEnum;
+import com.fsalgo.core.other.enums.exception.GraphBaseErrorEnum;
 import com.fsalgo.core.interfaces.SpanningTreeAlgorithm;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;

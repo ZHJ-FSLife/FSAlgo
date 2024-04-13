@@ -20,8 +20,8 @@
 
 package com.fsalgo.core.iterator.graph;
 
-import com.fsalgo.core.enums.GraphTypeEnum;
-import com.fsalgo.core.enums.exception.GraphBaseErrorEnum;
+import com.fsalgo.core.other.enums.GraphTypeEnum;
+import com.fsalgo.core.other.enums.exception.GraphBaseErrorEnum;
 import com.fsalgo.core.iterator.AbstractNodeIterator;
 import com.fsalgo.core.struct.Graph;
 

@@ -19,7 +19,6 @@
  */
 package com.fsalgo.core.interfaces;
 
-import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.struct.Edge;
 
 import java.io.Serializable;

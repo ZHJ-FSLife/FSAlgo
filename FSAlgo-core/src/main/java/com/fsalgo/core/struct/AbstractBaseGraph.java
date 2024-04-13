@@ -19,10 +19,9 @@
  */
 package com.fsalgo.core.struct;
 
-import com.fsalgo.core.constant.BaseConstant;
-import com.fsalgo.core.enums.exception.GraphBaseErrorEnum;
+import com.fsalgo.core.other.enums.exception.GraphBaseErrorEnum;
 import com.fsalgo.core.struct.specific.EdgeContainer;
-import com.fsalgo.core.util.TypeUtil;
+import com.fsalgo.core.other.util.TypeUtil;
 
 import java.util.*;
 

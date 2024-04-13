@@ -20,7 +20,7 @@
 package com.fsalgo.core.tree.vectorspace;
 
 import com.fsalgo.core.math.geometrical.DistanceMetric;
-import com.fsalgo.core.util.VectorUtil;
+import com.fsalgo.core.other.util.VectorUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;

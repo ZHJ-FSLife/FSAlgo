@@ -17,40 +17,37 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.fsalgo.core.enums;
+package com.fsalgo.core.other.enums.exception;
 
 /**
  * @Author: root
- * @Date: 2023/8/17 20:31
- * @Description: 图结构类型
+ * @Date: 2023/6/30 12:40
+ * @Description:
  */
-public enum GraphTypeEnum implements BaseEnum {
+public enum GraphBaseErrorEnum implements BaseErrorEnum {
 
-      DIRECTED_GRAPH("有向图")
-    , UNDIRECTED_GRAPH("无向图")
-    , DIRECTED_ACYCLIC_GRAPH("有向无环图")
-    , DIRECTED_MULTIGRAPH("有向重图")
-    , DIRECTED_PSEUDOGRAPH("有向伪图")
+      NODE_NOT_EXIST("The node not exist！")
+    , EDGE_NOT_EXIST("The edge not exist！")
+    , NODES_ARE_NOT_DIRECTLY_ADJACENT("The source node is not directly adjacent to the target node！")
+    , SOURCE_AND_TARGET_MUST_EXIST("source node and target node must exist!")
+    , NOT_DIRECTED_GRAPH("The graph is not a directed graph")
+    , NOT_UNDIRECTED_GRAPH("The graph id not undirected graph")
+    , NOT_DIRECTED_ACYCLIC_GRAPH("The graph is not a directed acyclic graph")
     ;
 
     private final String desc;
 
-    GraphTypeEnum(String desc) {
+    GraphBaseErrorEnum(String desc) {
         this.desc = desc;
     }
 
     @Override
-    public String getCode() {
+    public Object getCode() {
         return this.name();
     }
 
     @Override
     public String getDesc() {
         return desc;
-    }
-
-    @Override
-    public String toString() {
-        return getCode() + "::" + getDesc();
     }
 }

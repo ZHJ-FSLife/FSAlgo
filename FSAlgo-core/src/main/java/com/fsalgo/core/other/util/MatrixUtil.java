@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.fsalgo.core.util;
+package com.fsalgo.core.other.util;
 
 import com.fsalgo.core.math.linear.AnyMatrix;
 import com.fsalgo.core.math.linear.RealMatrix;

@@ -19,7 +19,7 @@
  */
 package com.fsalgo.core.graph.strongconn;
 
-import com.fsalgo.core.enums.exception.GraphBaseErrorEnum;
+import com.fsalgo.core.other.enums.exception.GraphBaseErrorEnum;
 import com.fsalgo.core.struct.Edge;
 import com.fsalgo.core.struct.Graph;
 import com.fsalgo.core.struct.Graphs;

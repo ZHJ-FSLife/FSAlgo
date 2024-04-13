@@ -17,12 +17,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.fsalgo.core.util.sort;
+package com.fsalgo.core.other.constant;
 
 /**
  * @Author: root
- * @Date: 2023/3/6 0:12
- * @Description: 希尔排序
+ * @Date: 2023/6/30 12:30
+ * @Description: 基本常数
  */
-public class ShellSort {
+public class BaseConstant {
+
+    private BaseConstant() { }
+
 }

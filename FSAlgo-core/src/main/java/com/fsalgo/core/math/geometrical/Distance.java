@@ -19,7 +19,7 @@
  */
 package com.fsalgo.core.math.geometrical;
 
-import com.fsalgo.core.util.VectorUtil;
+import com.fsalgo.core.other.util.VectorUtil;
 
 /**
  * @Author: root

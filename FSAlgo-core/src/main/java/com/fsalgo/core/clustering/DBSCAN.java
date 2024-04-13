@@ -19,7 +19,6 @@
  */
 package com.fsalgo.core.clustering;
 
-import com.fsalgo.core.constant.BaseConstant;
 import com.fsalgo.core.interfaces.ClusteringAlgorithm;
 import com.fsalgo.core.tree.vectorspace.NearestNeighborSearch;
 import com.fsalgo.core.tree.vectorspace.specific.KDTree;

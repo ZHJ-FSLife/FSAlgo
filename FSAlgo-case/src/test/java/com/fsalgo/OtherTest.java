@@ -2,7 +2,7 @@ package com.fsalgo;
 
 import com.fsalgo.core.other.LeastFrequentlyUsedCache;
 import com.fsalgo.core.other.LeastRecentlyUsedCache;
-import com.fsalgo.core.util.BitUtil;
+import com.fsalgo.core.other.util.BitUtil;
 import org.junit.Test;
 
 /**

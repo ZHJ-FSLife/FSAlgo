@@ -17,16 +17,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.fsalgo.core.enums;
+package com.fsalgo.core.other.enums.exception;
+
+import com.fsalgo.core.other.enums.BaseEnum;
 
 /**
  * @Author: root
- * @Date: 2023/6/30 12:37
+ * @Date: 2023/6/30 12:39
  * @Description:
  */
-public interface BaseEnum<T> {
-
-    T getCode();
-
-    String getDesc();
+public interface BaseErrorEnum<T> extends BaseEnum<T> {
 }

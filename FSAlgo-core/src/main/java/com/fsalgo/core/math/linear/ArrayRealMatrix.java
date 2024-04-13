@@ -19,8 +19,7 @@
  */
 package com.fsalgo.core.math.linear;
 
-import com.fsalgo.core.constant.BaseConstant;
-import com.fsalgo.core.util.MatrixUtil;
+import com.fsalgo.core.other.util.MatrixUtil;
 
 import java.io.Serializable;
 

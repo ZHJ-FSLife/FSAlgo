@@ -17,14 +17,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.fsalgo.core.enums.exception;
-
-import com.fsalgo.core.enums.BaseEnum;
+package com.fsalgo.core.other.util;
 
 /**
  * @Author: root
- * @Date: 2023/6/30 12:39
- * @Description:
+ * @Date: 2023/6/25 15:49
+ * @Description: TypeUtil isolates type-unsafety so that code which uses it for legitimate reasons can stay warning-free.
  */
-public interface BaseErrorEnum<T> extends BaseEnum<T> {
+public class TypeUtil {
+
+    private TypeUtil() {}
+
+    /**
+     * Casts an object to a type.
+     *
+     * @param o   object to be cast
+     * @param <T> the type of the result
+     * @return the result of the cast
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T uncheckedCase(Object o) {
+        return (T) o;
+    }
 }

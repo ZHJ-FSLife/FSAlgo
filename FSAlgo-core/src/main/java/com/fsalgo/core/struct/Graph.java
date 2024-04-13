@@ -19,7 +19,7 @@
  */
 package com.fsalgo.core.struct;
 
-import com.fsalgo.core.enums.GraphTypeEnum;
+import com.fsalgo.core.other.enums.GraphTypeEnum;
 import com.fsalgo.core.interfaces.NameEntity;
 
 import java.util.Set;

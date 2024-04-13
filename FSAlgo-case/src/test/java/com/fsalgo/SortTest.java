@@ -1,7 +1,7 @@
 package com.fsalgo;
 
-import com.fsalgo.core.util.sort.MergeSort;
-import com.fsalgo.core.util.sort.QuickSort;
+import com.fsalgo.core.other.sort.MergeSort;
+import com.fsalgo.core.other.sort.QuickSort;
 import org.junit.Test;
 
 import java.util.Arrays;

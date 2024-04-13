@@ -19,10 +19,6 @@
  */
 package com.fsalgo.core.interfaces;
 
-import com.fsalgo.core.constant.BaseConstant;
-import com.fsalgo.core.interfaces.NameEntity;
-import com.fsalgo.core.tree.vectorspace.SpacePoint;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;

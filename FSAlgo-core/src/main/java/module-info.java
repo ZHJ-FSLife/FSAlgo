@@ -19,9 +19,9 @@ module com.fsalgo.core {
     exports com.fsalgo.core.tree.heap.specific;
     exports com.fsalgo.core.tree.vectorspace;
     exports com.fsalgo.core.tree.vectorspace.specific;
-    exports com.fsalgo.core.util;
-    exports com.fsalgo.core.util.sort;
-    exports com.fsalgo.core.enums;
+    exports com.fsalgo.core.other.util;
+    exports com.fsalgo.core.other.sort;
+    exports com.fsalgo.core.other.enums;
     exports com.fsalgo.core.tree.vectorspace.boundingvolume;
 
 }

@@ -24,7 +24,7 @@ import com.fsalgo.core.math.geometrical.Distance;
 import com.fsalgo.core.math.geometrical.DistanceMetric;
 import com.fsalgo.core.tree.vectorspace.AbstractQuadOcTree;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
-import com.fsalgo.core.util.VectorUtil;
+import com.fsalgo.core.other.util.VectorUtil;
 
 import java.util.List;
 
