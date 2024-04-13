@@ -23,6 +23,9 @@ package com.fsalgo.core.clustering;
  * @Author: root
  * @Date: 2023/3/6 9:20
  * @Description: KNN 算法 / 最邻近规则分类
+ * 将给定的样本，划分到已分类好的簇中去
+ * 但是目前写了的KDTree、BallTree都是静态数据结构，构建完毕后都没法动态自平衡
+ * 后期研究一下 R-Tree、M-Tree 后在来写 KNN（虽然也可以不用动态添加进簇中，直接结合目前的DBSCAN、KMeans也能实现）
  */
 public class KNearestNeighbors {
 }
