@@ -87,7 +87,8 @@ public class TreeTest {
         ac.add("毒品");
         ac.buildFailureLinks();
 
-        List<String> result = ac.search("小明常常因为买彩票、赌博，输掉了很多钱，有天在嫖娼吸完大麻类的毒品后，将其女性杀害！");
+        Map<String, Integer> result = ac.search("彩票，小明常常因为买彩票、赌博，输掉了很多钱，" +
+                "有天在嫖娼吸完大麻类的毒品后，将其女性杀害！彩票、赌博、毒品");
         System.out.println(result);
     }
 

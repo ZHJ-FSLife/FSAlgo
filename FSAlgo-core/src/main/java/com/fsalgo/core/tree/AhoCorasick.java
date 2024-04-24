@@ -74,14 +74,14 @@ public class AhoCorasick implements NameEntity, Serializable {
     }
 
     /**
-     * 搜索包含关键字
+     * 搜索包含关键字，并统计其出现频率
      *
      * @param word 字符串
      * @return 关键字集
      */
-    public List<String> search(String word) {
+    public Map<String, Integer> search(String word) {
         Node curr = root;
-        List<String> result = new ArrayList<>();
+        Map<String, Integer> result = new HashMap<>();
         for (char ch : word.toCharArray()) {
             while (!curr.child.containsKey(ch) && curr != root) {
                 curr = curr.failureLink;
@@ -94,7 +94,7 @@ public class AhoCorasick implements NameEntity, Serializable {
             Node node = curr;
             while (node != root) {
                 if (node.end) {
-                    result.add(getWord(node));
+                    result.compute(getWord(node), (k, v) -> v == null ? 1 : v + 1);
                 }
                 node = node.failureLink;
             }
