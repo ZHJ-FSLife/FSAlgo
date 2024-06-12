@@ -24,15 +24,16 @@ package com.fsalgo.core.other.enums.exception;
  * @Date: 2023/6/30 12:40
  * @Description:
  */
-public enum GraphBaseErrorEnum implements BaseErrorEnum {
+public enum GraphBaseErrorEnum implements BaseErrorEnum<String> {
 
-      NODE_NOT_EXIST("The node not exist！")
-    , EDGE_NOT_EXIST("The edge not exist！")
-    , NODES_ARE_NOT_DIRECTLY_ADJACENT("The source node is not directly adjacent to the target node！")
+    // 图结构常见异常枚举信息
+      NODE_NOT_EXIST("The node not exist!")
+    , EDGE_NOT_EXIST("The edge not exist!")
+    , NODES_ARE_NOT_DIRECTLY_ADJACENT("The source node is not directly adjacent to the target node!")
     , SOURCE_AND_TARGET_MUST_EXIST("source node and target node must exist!")
-    , NOT_DIRECTED_GRAPH("The graph is not a directed graph")
-    , NOT_UNDIRECTED_GRAPH("The graph id not undirected graph")
-    , NOT_DIRECTED_ACYCLIC_GRAPH("The graph is not a directed acyclic graph")
+    , NOT_DIRECTED_GRAPH("The graph is not a directed graph!")
+    , NOT_UNDIRECTED_GRAPH("The graph id not undirected graph!")
+    , NOT_DIRECTED_ACYCLIC_GRAPH("The graph is not a directed acyclic graph!")
     ;
 
     private final String desc;
@@ -42,7 +43,7 @@ public enum GraphBaseErrorEnum implements BaseErrorEnum {
     }
 
     @Override
-    public Object getCode() {
+    public String getCode() {
         return this.name();
     }
 
