@@ -17,51 +17,44 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.fsalgo.core.iterator.tree;
 
-package com.fsalgo.core.iterator.graph;
-
-import com.fsalgo.core.iterator.AbstractNodeIterator;
-import com.fsalgo.core.struct.Graph;
+import com.fsalgo.core.iterator.AbstractTreeIterator;
+import com.fsalgo.core.tree.Tree;
 
 import java.util.Deque;
 import java.util.LinkedList;
 
 /**
  * @Author: root
- * @Date: 2024/1/4 15:51
- * @Description: 深度优先迭代器
+ * @Date: 2024/6/24 14:24
+ * @Description:
  */
-public class DepthFirstIterator<N> extends AbstractNodeIterator<N> {
+public class DepthFirstIterator<N> extends AbstractTreeIterator<N> {
 
-    private Deque<N> stack = new LinkedList<>();
+    private final Deque<Tree<N>> stack = new LinkedList<>();
 
-    private final Graph<N> graph;
-
-    public DepthFirstIterator(Graph<N> graph) {
-        this(graph, null);
-    }
-
-    public DepthFirstIterator(Graph<N> graph, N source) {
-        super(source);
-        this.graph = graph;
-        stack.addFirst(source);
+    public DepthFirstIterator(Tree<N> root) {
+        super(root);
+        stack.addFirst(root);
     }
 
     @Override
-    protected N getNextNode() {
+    protected Tree<N> getNext() {
         return stack.peekFirst();
     }
 
     @Override
-    protected N removeNextNode() {
-        source = stack.removeFirst();
-        return source;
+    protected Tree<N> removeNext() {
+        root = stack.removeFirst();
+        return root;
     }
 
     @Override
-    protected void addChildNode(N node) {
-        for (N child : graph.outgoingNodes(node)) {
+    protected void addChild(Tree<N> tree) {
+        for (Tree<N> child : tree.getChild()) {
             stack.addFirst(child);
         }
     }
+
 }
