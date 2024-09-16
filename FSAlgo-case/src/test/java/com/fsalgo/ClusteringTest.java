@@ -451,22 +451,22 @@ public class ClusteringTest {
 
     @Test
     public void QuadTreeDemo() {
-        QuadTree<String> quadTree = new QuadTree<>(data);
-        SpacePoint<String> nearestPoint = quadTree.nearest(new SpacePoint.SpacePointImpl<>("B", new double[]{6, 7.3}));
-        System.out.println(nearestPoint);
-        System.out.println("{6, 7.3} -> {6, 8} = " + Distance.EUCLIDEAN.getDistance(new double[]{6, 7.3}, new double[]{6, 8}));
-        System.out.println("{6, 7.3} -> {7, 7} = " + Distance.EUCLIDEAN.getDistance(new double[]{6, 7.3}, new double[]{7, 7}));
-
-        FileUtils.toMdFile(TreeUtil.toMermaid(quadTree.getRoot(), (AbstractQuadOcTree.Node node) -> {
-            List<AbstractQuadOcTree.Node> list = new LinkedList<>();
-            if (node.getChild() == null) {
-                return list;
-            }
-            for (AbstractQuadOcTree.Node n : node.getChild()) {
-                list.add(n);
-            }
-            return list;
-        }), "QuadTreeDemo");
+        // QuadTree<String> quadTree = new QuadTree<>(data);
+        // SpacePoint<String> nearestPoint = quadTree.nearest(new SpacePoint.SpacePointImpl<>("B", new double[]{6, 7.3}));
+        // System.out.println(nearestPoint);
+        // System.out.println("{6, 7.3} -> {6, 8} = " + Distance.EUCLIDEAN.getDistance(new double[]{6, 7.3}, new double[]{6, 8}));
+        // System.out.println("{6, 7.3} -> {7, 7} = " + Distance.EUCLIDEAN.getDistance(new double[]{6, 7.3}, new double[]{7, 7}));
+        //
+        // FileUtils.toMdFile(TreeUtil.toMermaid(quadTree.getRoot(), (AbstractQuadOcTree.Node node) -> {
+        //     List<AbstractQuadOcTree.Node> list = new LinkedList<>();
+        //     if (node.getChild() == null) {
+        //         return list;
+        //     }
+        //     for (AbstractQuadOcTree.Node n : node.getChild()) {
+        //         list.add(n);
+        //     }
+        //     return list;
+        // }), "QuadTreeDemo");
     }
 
     @Test

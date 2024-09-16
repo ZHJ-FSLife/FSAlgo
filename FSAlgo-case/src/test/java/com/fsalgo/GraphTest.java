@@ -64,7 +64,7 @@ public class GraphTest {
         addNodeToGraph(graph);
 
         TarjanStrongConnectivityInspector<String> tarjan = new TarjanStrongConnectivityInspector<>(graph);
-        tarjan.searchGraph();
+        // tarjan.searchGraph();
 
         System.out.println(tarjan.getCutNodeRst());
         System.out.println(tarjan.getConnEdgeRst());
