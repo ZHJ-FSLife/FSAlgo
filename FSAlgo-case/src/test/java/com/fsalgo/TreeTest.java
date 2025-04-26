@@ -1,7 +1,6 @@
 package com.fsalgo;
 
 import com.fsalgo.core.tree.*;
-import com.fsalgo.core.tree.BPlusTree;
 import com.fsalgo.utils.FileUtils;
 import com.fsalgo.utils.TreeUtil;
 import org.junit.Test;
@@ -148,11 +147,11 @@ public class TreeTest {
 
         HuffmanTree<Character> huffman = new HuffmanTree<>(list);
 
-        List<Byte> encode = huffman.encode();
+        Byte[] encode = huffman.encode();
 
         List<Character> decode = huffman.decode(encode);
 
-        System.out.println("编码：" + encode);
+        System.out.println("编码：" + Arrays.toString(encode));
         System.out.println("解码：" + decode);
 
         // 转ascii转二进制

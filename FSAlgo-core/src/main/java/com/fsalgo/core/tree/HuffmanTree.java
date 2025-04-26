@@ -24,11 +24,7 @@ import com.fsalgo.core.tree.heap.Heap;
 import com.fsalgo.core.tree.heap.specific.FibonacciHeap;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: root
@@ -85,7 +81,7 @@ public class HuffmanTree<T> implements Serializable {
      *
      * @return 编码结果
      */
-    public List<Byte> encode() {
+    public Byte[] encode() {
         // 编码映射表
         Map<T, List<Byte>> map = new HashMap<>(16);
         encode(root, map, new ArrayList<>());
@@ -95,8 +91,7 @@ public class HuffmanTree<T> implements Serializable {
         for (T key : content) {
             code.addAll(map.get(key));
         }
-
-        return code;
+        return code.toArray(new Byte[code.size()]);
     }
 
     /**
@@ -120,6 +115,16 @@ public class HuffmanTree<T> implements Serializable {
         encode(node.right, map, new ArrayList<>(list) {{
             add(RIGHT);
         }});
+    }
+
+    /**
+     * 将原文本编码结果解码，还原内容
+     *
+     * @param code 编码
+     * @return 解码原集合内容
+     */
+    public List<T> decode(Byte[] code) {
+        return decode(Arrays.asList(code));
     }
 
     /**
