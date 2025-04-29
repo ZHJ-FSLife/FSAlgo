@@ -185,7 +185,7 @@ public class RedBlackTree<K> implements Serializable {
     }
 
     public boolean compareTo(K x, K y) {
-        return comparator.compare(x, y) > 0;
+        return comparator.compare(x, y) < 0;
     }
 
     public static class Node<K> {

@@ -20,6 +20,8 @@
 
 package com.fsalgo.core.tree.vectorspace.boundingvolume;
 
+import com.fsalgo.core.other.util.VectorUtil;
+
 /**
  * @Author: root
  * @Date: 2023/12/29 13:26
@@ -31,6 +33,7 @@ public class BoundingBox {
     private double[] max;
 
     public BoundingBox(double[] min, double[] max) {
+        VectorUtil.checkDims(min, max);
         this.min = min;
         this.max = max;
     }

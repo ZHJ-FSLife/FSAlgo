@@ -23,7 +23,7 @@ package com.fsalgo.core.tree.vectorspace.specific;
 /**
  * @Author: root
  * @Date: 2024/4/13 20:59
- * @Description:
+ * @Description: Rectangle Tree
  */
 public class RTree {
 }

@@ -66,7 +66,6 @@ public class DBSCAN<T extends Comparable<T>> implements ClusteringAlgorithm<T>, 
     /**
      * 借坐标集中的所有节点按密度与半径进行划分簇
      *
-     * @param data 节点坐标集
      * @return list<cluster>
      */
     @Override
