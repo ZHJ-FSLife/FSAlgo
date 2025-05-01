@@ -18,7 +18,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.fsalgo.core.tree.vectorspace.boundingvolume;
+package com.fsalgo.core.tree.vectorspace;
 
 import com.fsalgo.core.other.util.VectorUtil;
 

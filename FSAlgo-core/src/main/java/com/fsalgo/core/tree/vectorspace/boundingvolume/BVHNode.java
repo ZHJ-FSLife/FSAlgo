@@ -20,6 +20,8 @@
 
 package com.fsalgo.core.tree.vectorspace.boundingvolume;
 
+import com.fsalgo.core.tree.vectorspace.BoundingBox;
+
 /**
  * @Author: root
  * @Date: 2023/12/29 13:34
