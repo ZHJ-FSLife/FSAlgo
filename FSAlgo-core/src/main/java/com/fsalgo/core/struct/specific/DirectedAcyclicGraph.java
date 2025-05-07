@@ -19,6 +19,7 @@
  */
 package com.fsalgo.core.struct.specific;
 
+import com.fsalgo.core.iterator.graph.DepthFirstIterator;
 import com.fsalgo.core.other.enums.GraphTypeEnum;
 import com.fsalgo.core.struct.Edge;
 
@@ -34,11 +35,6 @@ public class DirectedAcyclicGraph<N> extends DirectedGraph<N> implements Seriali
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 队列记录入度为0的节点，用于增量式拓朴排序校验
-     */
-    private Deque<N> queue = new LinkedList<>();
-
     public DirectedAcyclicGraph() {
         super();
     }
@@ -46,48 +42,40 @@ public class DirectedAcyclicGraph<N> extends DirectedGraph<N> implements Seriali
     @Override
     public void addNode(N node) {
         super.addNode(node);
-        // 如果该节点入度为0，加入队列
-        if (incomingNodes(node).isEmpty()) {
-            queue.add(node);
-        }
-
     }
 
     @Override
     public void addEdge(Edge<N> edge) {
+        boolean hasSource = containsNode(edge.getSource());
+        boolean hasTarget = containsNode(edge.getTarget());
         super.addEdge(edge);
-        N target = edge.getTarget();
-
-        if (hasCycle()) {
+        if (hasCycle(edge)) {
+            removeEdge(edge);
+            if (!hasSource) {
+                removeNode(edge.getSource());
+            }
+            if (!hasTarget) {
+                removeNode(edge.getTarget());
+            }
             throw new IllegalArgumentException("There are loops in the figure！");
         }
     }
 
     /**
-     * 增量式拓扑排序的方式检验是否满足有向无环图
      *
+     * 深度搜索的方式检验是否满足有向无环图
+     *
+     * @param edge 新增的edge
      * @return true or false
      */
-    private boolean hasCycle() {
-        Set<N> visited = new HashSet<>();
-        Map<N, Integer> inDegreeCount = new HashMap<>();
-
-        while (!queue.isEmpty()) {
-            N node = queue.poll();
-            // 队列中节点可能随着新edge加入而度不为0
-            if (!incomingNodes(node).isEmpty()) {
-                continue;
+    private boolean hasCycle(Edge<N> edge) {
+        Iterator<N> dfsIterator = new DepthFirstIterator<>(this, edge.getTarget());
+        while(dfsIterator.hasNext()) {
+            if (Objects.equals(dfsIterator.next(), edge.getSource())) {
+                return true;
             }
-            visited.add(node);
-            for (N next : outgoingNodes(node)) {
-                if (inDegreeCount.containsKey(next)) {
-
-                }
-            }
-
         }
-
-        return visited.size() != nodeSize();
+        return false;
     }
 
     @Override

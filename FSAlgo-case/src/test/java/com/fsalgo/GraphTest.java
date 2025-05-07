@@ -88,6 +88,22 @@ public class GraphTest {
     }
 
     @Test
+    public void DirectedAcyclicGraph() {
+        Graph<String> graph = GraphBuilder.<String>directed().allowsCycles(false).build();
+
+        graph.addEdge(new Edge<>(n1, n2));
+        graph.addEdge(new Edge<>(n1, n6));
+        graph.addEdge(new Edge<>(n2, n3));
+        graph.addEdge(new Edge<>(n3, n4));
+        graph.addEdge(new Edge<>(n3, n5));
+        graph.addEdge(new Edge<>(n4, n5));
+        // graph.addEdge(new Edge<>(n5, n2));
+
+        System.out.println(graph.getGraphType());
+        FileUtils.toMdFile(GraphUtil.toMermaid(graph), "DirectedAcyclicGraphDemo", false);
+    }
+
+    @Test
     public void DirectedGraphDemo() {
 
         Graph<String> graph = GraphBuilder.<String>directed().build();

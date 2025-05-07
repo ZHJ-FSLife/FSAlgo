@@ -81,7 +81,7 @@ public final class GraphBuilder<N> {
         if (!directed) {
             return new UndirectedGraph<>();
         }
-        if (allowingSelfLoops) {
+        if (!allowsCycles) {
             return new DirectedAcyclicGraph<>();
         }
         return new DirectedGraph<>();
