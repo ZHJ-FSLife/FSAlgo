@@ -25,6 +25,7 @@ import com.fsalgo.core.tree.vectorspace.AbstractNearestNeighborSearch;
 import com.fsalgo.core.tree.vectorspace.BoundingBox;
 import com.fsalgo.core.tree.vectorspace.SpacePoint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -88,33 +89,71 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
 
         protected NonLeafNode(int degree) {
             super(degree);
+            boundingBoxes = new ArrayList<>();
+            children = new ArrayList<>();
         }
 
         @Override
         public boolean isFull() {
-            return false;
+            return children.size() >= maxDegree();
         }
 
         public NonLeafNode<T> split() {
-            return null;
+            LeafNode<T> nextLeafNode = new LeafNode<T>(degree);
+            return parent;
+        }
+
+        public void addChild(Node<T> child) {
+            addChild(0, child);
+        }
+
+        public void addChild(int index, Node<T> child) {
+            children.add(index, child);
         }
     }
 
     static class LeafNode<T> extends Node<T> {
 
-        List<SpacePoint<T>> point;
+        BoundingBox boundingBox;
+
+        List<SpacePoint<T>> points;
 
         protected LeafNode(int degree) {
             super(degree);
+            points = new ArrayList<>();
         }
 
         @Override
         public boolean isFull() {
-            return false;
+            return points.size() >= maxDegree();
         }
 
         public NonLeafNode<T> split() {
-            return null;
+            LeafNode<T> nextLeafNode = new LeafNode<T>(degree);
+            if (parent == null) {
+                parent = new NonLeafNode<T>(degree);
+                parent.addChild(this);
+            }
+            parent.addChild(nextLeafNode);
+
+            int dimension = boundingBox.largestGapDimension();
+            double mid = mid(dimension);
+            for (int i = points.size() - 1; i >= 0; i--) {
+                if (points.get(i).getCoord()[dimension] > mid) {
+                    nextLeafNode.points.add(points.remove(i));
+                }
+            }
+            return parent;
+        }
+
+        private double mid(int dimension) {
+            double min = points.get(0).getCoord()[dimension];
+            double max = points.get(0).getCoord()[dimension];
+            for (SpacePoint<T> point : points) {
+                min = Math.min(min, point.getCoord()[dimension]);
+                max = Math.max(max, point.getCoord()[dimension]);
+            }
+            return (max + min) / 2;
         }
     }
 }

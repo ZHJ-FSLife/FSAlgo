@@ -25,7 +25,7 @@ import com.fsalgo.core.other.util.VectorUtil;
 /**
  * @Author: root
  * @Date: 2023/12/29 13:26
- * @Description:
+ * @Description: Minimum Bounding Rectangle - MBR - 最小边界矩阵
  */
 public class BoundingBox {
 
@@ -56,5 +56,23 @@ public class BoundingBox {
 
     public void updateVal(int dimension, double val, double[] target) {
         target[dimension] = val;
+    }
+
+    /**
+     * 最大差值的维度
+     *
+     * @return 维度
+     */
+    public int largestGapDimension() {
+        double largestGap = 0;
+        int dimension = 0;
+        for (int i = 0; i < this.min.length; i++) {
+            double gap = Math.abs(this.max[i] - this.min[i]);
+            if (gap > largestGap) {
+                largestGap = gap;
+                dimension = i;
+            }
+        }
+        return dimension;
     }
 }
