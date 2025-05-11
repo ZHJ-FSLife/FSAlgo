@@ -70,6 +70,8 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
 
         NonLeafNode<T> parent;
 
+        BoundingBox boundingBox;
+
         protected Node(int degree) {
             this.degree = degree;
         }
@@ -83,13 +85,10 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
 
     static class NonLeafNode<T> extends Node<T> {
 
-        List<BoundingBox> boundingBoxes;
-
         List<Node<T>> children;
 
         protected NonLeafNode(int degree) {
             super(degree);
-            boundingBoxes = new ArrayList<>();
             children = new ArrayList<>();
         }
 
@@ -100,6 +99,7 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
 
         public NonLeafNode<T> split() {
             LeafNode<T> nextLeafNode = new LeafNode<T>(degree);
+            int dimension = boundingBox.largestGapDimension();
             return parent;
         }
 
@@ -113,8 +113,6 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
     }
 
     static class LeafNode<T> extends Node<T> {
-
-        BoundingBox boundingBox;
 
         List<SpacePoint<T>> points;
 
