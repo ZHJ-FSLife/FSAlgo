@@ -23,6 +23,8 @@ public class OtherTest {
         lfu.get("wangwu");
         lfu.put("laoliu", 11);
         System.out.println(lfu);
+        lfu.get();
+        System.out.println(lfu);
     }
 
     @Test

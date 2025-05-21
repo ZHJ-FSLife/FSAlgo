@@ -66,6 +66,16 @@ public class LeastFrequentlyUsedCache<K, V> implements Serializable {
     }
 
     /**
+     * 获取使用频率最小的节点
+     *
+     * @return V
+     */
+    public V get() {
+        Node<K, V> node = freqMap.get(minFreq).getTail();
+        return get(node.key);
+    }
+
+    /**
      * 通过key获取val
      *
      * @param key K
