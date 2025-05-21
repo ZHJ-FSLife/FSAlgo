@@ -100,6 +100,10 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
             this.boundingBox = boundingBox;
         }
 
+        public boolean isLeadNode() {
+            return false;
+        }
+
         abstract public boolean isFull();
 
         abstract public void addPoint(SpacePoint<T> point);
@@ -233,6 +237,11 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
                 }
             }
             return new BoundingBox(min, max);
+        }
+
+        @Override
+        public boolean isLeadNode() {
+            return true;
         }
     }
 }
