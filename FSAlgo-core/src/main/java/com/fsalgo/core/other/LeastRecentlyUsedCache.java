@@ -58,7 +58,7 @@ public class LeastRecentlyUsedCache<K, V> implements Serializable {
     }
 
     /**
-     * 获取使用频率最小的节点
+     * 获取最近最少使用的节点
      *
      * @return V
      */
