@@ -53,6 +53,20 @@ public class LeastRecentlyUsedCache<K, V> implements Serializable {
         this.tail.prev = this.head;
     }
 
+    public boolean containsKey(K key) {
+        return cache.containsKey(key);
+    }
+
+    /**
+     * 获取使用频率最小的节点
+     *
+     * @return V
+     */
+    public V get() {
+        Node<K, V> temp = tail.prev;
+        return get(temp.key);
+    }
+
     /**
      * 通过key获取val
      *
