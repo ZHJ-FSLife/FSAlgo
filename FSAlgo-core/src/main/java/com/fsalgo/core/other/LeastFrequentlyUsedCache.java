@@ -65,6 +65,10 @@ public class LeastFrequentlyUsedCache<K, V> implements Serializable {
         this.freqMap = new HashMap<>();
     }
 
+    public boolean containsKey(K key) {
+        return keyMap.containsKey(key);
+    }
+
     /**
      * 获取使用频率最小的节点
      *
