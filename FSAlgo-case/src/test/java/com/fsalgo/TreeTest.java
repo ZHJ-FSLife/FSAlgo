@@ -21,6 +21,26 @@ public class TreeTest {
     }
 
     @Test
+    public void buildTreeDemo() {
+        List<Map<String, String>> list = new ArrayList<>() {{
+            add(new HashMap<>() {{
+                put("id", "a");
+                put("pid", "b");
+            }});
+            add(new HashMap<>() {{
+                put("id", "b");
+                put("pid", "a");
+            }});
+        }};
+        Tree<Map<String, String>> tree = com.fsalgo.core.other.util.TreeUtil.buildTree(list
+                , m -> m.get("id")
+                , m -> m.get("pid")
+        );
+        System.out.println(tree);
+
+    }
+
+    @Test
     public void BPlusTreeDemo() {
         BPlusTree<Integer, String> bPlusTree = new BPlusTree<>(3);
         bPlusTree.add(18, "老六_18");

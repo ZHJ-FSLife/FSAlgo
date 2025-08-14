@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class RTree<T> extends AbstractNearestNeighborSearch<T> {
 
-    private Node<T> root;
+    private NonLeafNode<T> root;
 
     /**
      * 度，2 * degree - 1
@@ -52,14 +52,20 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
 
     public void add(SpacePoint<T> point) {
         if (root == null) {
-            root = new LeafNode<>(degree);
+            LeafNode<T> leafNode = new LeafNode<>(degree);
+            leafNode.setBoundingBox(new BoundingBox(point.getCoord()));
+            leafNode.addPoint(point);
+
+            root = new NonLeafNode<>(degree);
+            root.addChild(leafNode);
             root.setBoundingBox(new BoundingBox(point.getCoord()));
-            root.addPoint(point);
             return;
         }
+        LeafNode<T> leafNode = findLeafNode(root, point);
     }
 
-    private LeafNode<T> findLeafNode(SpacePoint<T> point) {
+    private LeafNode<T> findLeafNode(NonLeafNode<T> node, SpacePoint<T> point) {
+
         return null;
     }
 
@@ -82,6 +88,9 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
 
         final int degree;
 
+        /**
+         * 当前节点哪个维度分割子节点
+         */
         int currDimension;
 
         NonLeafNode<T> parent;
@@ -106,8 +115,6 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
 
         abstract public boolean isFull();
 
-        abstract public void addPoint(SpacePoint<T> point);
-
         abstract public BoundingBox findBounding(Node<T> node);
 
         abstract public BoundingBox findBounding();
@@ -125,11 +132,6 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
         @Override
         public boolean isFull() {
             return children.size() >= maxDegree();
-        }
-
-        @Override
-        public void addPoint(SpacePoint<T> point) {
-
         }
 
         @Override
@@ -156,6 +158,7 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
                     nextNonLeafNode.addChild(children.remove(i));
                 }
             }
+            parent.currDimension = dimension;
             return parent;
         }
 
@@ -182,10 +185,9 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
             return points.size() >= maxDegree();
         }
 
-        @Override
         public void addPoint(SpacePoint<T> point) {
             points.add(point);
-            for (int i = 0; i < points.size(); i++) {
+            for (int i = 0; i < point.getCoord().length; i++) {
                 boundingBox.updateMin(i, Math.min(boundingBox.getMin()[i], point.getCoord()[i]));
                 boundingBox.updateMax(i, Math.max(boundingBox.getMax()[i], point.getCoord()[i]));
             }
@@ -198,7 +200,6 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
                 parent.addChild(this);
             }
             parent.addChild(nextLeafNode);
-
             int dimension = boundingBox.largestGapDimension();
             double mid = mid(dimension);
             for (int i = points.size() - 1; i >= 0; i--) {
@@ -206,6 +207,7 @@ public class RTree<T> extends AbstractNearestNeighborSearch<T> {
                     nextLeafNode.points.add(points.remove(i));
                 }
             }
+            parent.currDimension = dimension;
             nextLeafNode.boundingBox = findBounding(nextLeafNode);
             return parent;
         }
