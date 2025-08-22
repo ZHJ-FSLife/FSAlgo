@@ -63,15 +63,15 @@ public class TreeUtil {
      * @param <T>         Tree 或其子类类型
      * @return 树结构构建后的根节点
      */
-    public static <K, N, T extends Tree<N>> Tree<N> buildTree(Function<N, T> constructor, List<N> nodes, NodeMapper<K, N> self, NodeMapper<K, N> parent) {
+    public static <K, N, T extends Tree<N>> T buildTree(Function<N, T> constructor, List<N> nodes, NodeMapper<K, N> self, NodeMapper<K, N> parent) {
         Map<K, N> nodeMap = new HashMap<>();
-        Map<N, Tree<N>> treeMap = new HashMap<>();
+        Map<N, T> treeMap = new HashMap<>();
         for (N node : nodes) {
             nodeMap.put(self.getKey(node), node);
             treeMap.put(node, constructor.apply(node));
         }
 
-        Tree<N> root = constructor.apply(null);
+        T root = constructor.apply(null);
 
         for (N node : nodes) {
             N parentNode = nodeMap.get(parent.getKey(node));
@@ -79,7 +79,7 @@ public class TreeUtil {
                 root.addChild(treeMap.get(node));
                 continue;
             }
-            Tree<N> parentTreeNode = treeMap.get(parentNode);
+            T parentTreeNode = treeMap.get(parentNode);
             parentTreeNode.addChild(treeMap.get(node));
         }
         return root;
